@@ -6,7 +6,7 @@ const config = {
 };
 
 const startServer = port => {
-  const app = initApp();
+  const app = initApp(config);
   app.listen(port, () => console.log(`Listening on the Port : ${port}`));
 };
 
