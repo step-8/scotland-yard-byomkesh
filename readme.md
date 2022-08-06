@@ -6,6 +6,8 @@ written in javascript.
 
 It is a game for 3-6 players.
 
+Read more about the Game - https://github.com/step-8/scotland-yard-byomkesh/wiki
+
 ## __Setup project__
 
 ### Clone project into local machine
@@ -17,7 +19,7 @@ It is a game for 3-6 players.
 ### Run setup
 
 ```
-  npm setup.sh
+  npm run setup
 ```
 
 ### Install all dependencies
