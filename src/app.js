@@ -5,7 +5,7 @@ const { serveUsername } = require('./handlers/serveUsername.js');
 
 const authLib = require('./handlers/authUsers.js');
 const { credentialCheck, signupHandler, protectedAuth } = authLib;
-const { validateInput, loginHandler } = authLib;
+const { validateInput, loginHandler, logoutHandler } = authLib;
 
 const { validateAnchor } = require('./middlewares/validateAnchor.js');
 
@@ -32,6 +32,7 @@ const initApp = (config, users, session) => {
 
   app.get('/login', protectedAuth, serveLoginPage(views));
   app.post('/login', protectedAuth, validateInput, loginHandler(users));
+  app.get('/logout', logoutHandler);
   app.use(express.static('./public'));
   return app;
 };

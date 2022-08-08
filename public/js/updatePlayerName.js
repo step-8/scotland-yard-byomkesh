@@ -1,6 +1,6 @@
 const logout = () => {
   const logoutButton = createEl('a');
-  logoutButton.href = '#';
+  logoutButton.href = '/logout';
   const span = createEl('span');
   span.innerText = 'Logout';
   logoutButton.appendChild(span);
