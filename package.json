@@ -6,7 +6,8 @@
     "start": "node index.js",
     "test": "mocha --recursive",
     "test-w": "mocha -w --recursive",
-    "setup": "bash setup.sh"
+    "setup": "bash setup.sh",
+    "start-w": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -21,14 +22,14 @@
   "homepage": "https://github.com/step-8/scotland-yard-byomkesh#readme",
   "devDependencies": {
     "mocha": "^10.0.0",
+    "nodemon": "^2.0.19",
     "supertest": "^6.2.4"
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.19"
+    "morgan": "^1.10.0"
   },
   "directories": {
     "test": "test"
