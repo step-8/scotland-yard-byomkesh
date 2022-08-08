@@ -1,14 +1,17 @@
 const request = require('supertest');
+const expressSession = require('express-session');
 const { initApp } = require('./../../src/app.js');
 const { Users } = require('../../src/models/users.js');
-const { it } = require('mocha');
 
 describe('Login', () => {
   let app, config;
   beforeEach(() => {
     config = { mode: 'test', views: './views' };
     const users = new Users();
-    app = request(initApp(config, users));
+    const session = expressSession({
+      secret: 'test', resave: false, saveUninitialized: false
+    });
+    app = request(initApp(config, users, session));
   });
 
   it('should serve the login page', (done) => {
