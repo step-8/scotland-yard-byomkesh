@@ -12,6 +12,11 @@ body {
   font-weight: 100;
 }
 
+input[type=submit],
+button {
+  cursor: pointer;
+}
+
 a {
   text-decoration: none;
 }
@@ -96,6 +101,7 @@ main {
   margin: 0 auto;
   width: 40%;
   padding: 0.5em 0;
+  cursor: pointer;
 }
 
 #msg-for-signup {

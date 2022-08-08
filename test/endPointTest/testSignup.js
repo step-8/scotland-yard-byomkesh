@@ -68,6 +68,7 @@ describe('signupHandler', () => {
     app.post('/signup')
       .send(body)
       .expect(302)
+      .expect('set-cookie', /Please.*enter.*all.*credentials/)
       .expect('location', /signup/, done);
   });
 
