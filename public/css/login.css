@@ -102,9 +102,14 @@ main {
   font-size: 0.9em;
 }
 
-#error-message {
-  margin: 0;
+.error {
+  position: relative;
+  width: 100%;
+}
+
+#error-msg {
+  width: 100%;
   color: red;
+  position: absolute;
   text-align: center;
-  font-size: 0.9em;
 }
