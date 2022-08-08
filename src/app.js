@@ -1,24 +1,25 @@
 const express = require('express');
 const morgan = require('morgan');
-const { credentialCheck, signupHandler } = require('./handlers/authUsers.js');
-const { serveLandingPage } = require('./handlers/servePages.js');
 
-const initApp = (config, users) => {
+const authLib = require('./handlers/authUsers.js');
+const { credentialCheck, signupHandler, protectedAuth } = authLib;
+
+const pagesLib = require('./handlers/servePages.js');
+const { serveLandingPage, serveSignupPage } = pagesLib;
+
+const initApp = (config, users, session) => {
   const app = express();
   const { mode, views } = config;
 
   if (mode === 'dev') {
     app.use(morgan('tiny'));
   }
-
+  app.use(session);
   app.use(express.urlencoded({ extended: true }));
   app.get('/', serveLandingPage(views));
 
-  app.get('/signup', (req, res) => {
-    res.sendFile('signup.html', { root: views });
-  });
-
-  app.post('/signup', credentialCheck, signupHandler(users));
+  app.get('/signup', protectedAuth, serveSignupPage(views));
+  app.post('/signup', protectedAuth, credentialCheck, signupHandler(users));
 
   app.use(express.static('./public'));
   return app;

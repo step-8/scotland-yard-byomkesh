@@ -3,4 +3,8 @@ const serveLandingPage = (views) => (req, res) => {
   res.sendFile(filename, { root: views });
 };
 
-module.exports = { serveLandingPage };
+const serveSignupPage = (views) => (req, res) => {
+  res.sendFile('signup.html', { root: views });
+};
+
+module.exports = { serveLandingPage, serveSignupPage };

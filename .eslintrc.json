@@ -104,6 +104,14 @@
                 "no-magic-numbers": "off",
                 "max-statements": "off"
             }
+        },
+        {
+            "files": [
+                "app.js"
+            ],
+            "rules": {
+                "max-statements": "off"
+            }
         }
     ]
 }
