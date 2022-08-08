@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "mocha --recursive",
-    "test-w": "mocha -w",
+    "test-w": "mocha -w --recursive",
     "setup": "bash setup.sh"
   },
   "repository": {
