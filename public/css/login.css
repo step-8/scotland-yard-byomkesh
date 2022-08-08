@@ -88,7 +88,8 @@ main {
   padding: 0.4em 0.5em;
 }
 
-#login-btn {
+#login-btn,
+#signup-btn {
   color: white;
   border: 1px solid white;
   background-color: var(--primary_color);
@@ -112,4 +113,5 @@ main {
   color: red;
   position: absolute;
   text-align: center;
+  top: -1em;
 }

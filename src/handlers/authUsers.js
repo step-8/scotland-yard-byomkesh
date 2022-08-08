@@ -1,5 +1,8 @@
 const credentialCheck = (req, res, next) => {
-  const { username, password } = req.body;
+  // const { username, password } = req.body;
+  const username = req.body.username.trim();
+  const password = req.body.password.trim();
+
   if (!(username && password)) {
     return res
       .cookie('signuperror', 'Invalid credentials.')
@@ -25,7 +28,8 @@ const signupHandler = (users) => (req, res) => {
       .redirect('/signup');
   }
   req.session.username = username;
-  res.redirect('/');
+  const pathToRedirect = req.session.redirectTo || '/';
+  res.redirect(pathToRedirect);
 };
 
 const validateInput = (req, res, next) => {

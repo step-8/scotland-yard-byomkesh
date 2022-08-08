@@ -27,7 +27,7 @@ describe('signupHandler', () => {
       .expect('location', '/', done);
   });
 
-  it('Should respond with 400 when user already exists', (done) => {
+  it('Should respond with 302 when user already exists', (done) => {
     const username = 'root';
     const password = 'root';
     const body = `username=${username}&password=${password}`;
@@ -38,7 +38,7 @@ describe('signupHandler', () => {
       .expect('location', /signup/, done);
   });
 
-  it('Should respond with 400 when password not provided', (done) => {
+  it('Should respond with 302 when password not provided', (done) => {
     const username = 'user';
     const password = '';
     const body = `username=${username}&password=${password}`;
@@ -49,9 +49,20 @@ describe('signupHandler', () => {
       .expect('location', /signup/, done);
   });
 
-  it('Should respond with 400 when username not provided', (done) => {
+  it('Should respond with 302 when username not provided', (done) => {
     const username = '';
     const password = 'user';
+    const body = `username=${username}&password=${password}`;
+
+    app.post('/signup')
+      .send(body)
+      .expect(302)
+      .expect('location', /signup/, done);
+  });
+
+  it('Should respond with 302 when username & password are spaces.', (done) => {
+    const username = '    ';
+    const password = '    ';
     const body = `username=${username}&password=${password}`;
 
     app.post('/signup')
@@ -66,4 +77,21 @@ describe('signupHandler', () => {
       .expect('content-type', /html/, done);
   });
 
+  it('Should redirect to landing page if user logged in.', (done) => {
+    const username = 'user1';
+    const password = 'pword';
+    const body = `username=${username}&password=${password}`;
+
+    app.post('/signup')
+      .send(body)
+      .expect(302)
+      .expect('location', '/')
+      .end((err, res) => {
+        const cookie = res.headers['set-cookie'];
+        app.get('/signup')
+          .set('cookie', cookie)
+          .expect(302)
+          .expect('location', '/', done)
+      });
+  });
 });
