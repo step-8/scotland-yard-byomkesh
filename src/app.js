@@ -5,14 +5,19 @@ const { serveLandingPage } = require('./handlers/servePages.js');
 
 const initApp = (config, users) => {
   const app = express();
-  const { mode } = config;
+  const { mode, views } = config;
 
-  if (mode === 'production') {
+  if (mode === 'dev') {
     app.use(morgan('tiny'));
   }
 
   app.use(express.urlencoded({ extended: true }));
-  app.get('/', serveLandingPage);
+  app.get('/', serveLandingPage(views));
+
+  app.get('/signup', (req, res) => {
+    res.sendFile('signup.html', { root: views });
+  });
+
   app.post('/signup', credentialCheck, signupHandler(users));
 
   app.use(express.static('./public'));
