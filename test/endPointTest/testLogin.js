@@ -2,7 +2,6 @@ const request = require('supertest');
 const expressSession = require('express-session');
 const { initApp } = require('./../../src/app.js');
 const { Users } = require('../../src/models/users.js');
-const { it } = require('mocha');
 
 describe('Login', () => {
   let app, config;
