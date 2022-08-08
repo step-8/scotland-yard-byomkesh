@@ -3,6 +3,7 @@ const morgan = require('morgan');
 
 const authLib = require('./handlers/authUsers.js');
 const { credentialCheck, signupHandler, protectedAuth } = authLib;
+const { validateInput, loginHandler } = authLib;
 
 const pagesLib = require('./handlers/servePages.js');
 const { serveLandingPage, serveSignupPage, serveLobby } = pagesLib;
@@ -23,6 +24,10 @@ const initApp = (config, users, session) => {
 
   app.get('/host', serveLobby(views));
 
+  app.get('/login', (req, res) => {
+    res.sendFile('login.html', { root: views });
+  });
+  app.post('/login', validateInput, loginHandler(users));
   app.use(express.static('./public'));
   return app;
 };
