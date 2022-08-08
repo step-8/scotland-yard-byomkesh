@@ -101,7 +101,7 @@ describe('signupHandler', () => {
     const password = 'pword1';
     const body = `username=${username}&password=${password}`;
 
-    app.post('/host')
+    app.get('/host')
       .expect(302)
       .expect('location', '/login')
       .end((err, res) => {
