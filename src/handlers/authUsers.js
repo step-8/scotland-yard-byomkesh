@@ -1,9 +1,9 @@
-const { BAD_REQUEST } = require('../utils/responseCodes.js');
-
 const credentialCheck = (req, res, next) => {
   const { username, password } = req.body;
   if (!(username && password)) {
-    return res.status(BAD_REQUEST).end();
+    return res
+      .cookie('signuperror', 'Invalid credentials.')
+      .redirect(req.url);
   }
   next();
 };
