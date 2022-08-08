@@ -53,4 +53,10 @@ const loginHandler = (users) => (req, res) => {
   res.redirect(req.url);
 };
 
-module.exports = { signupHandler, credentialCheck, protectedAuth, validateInput, loginHandler };
+const logoutHandler = (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/');
+  })
+};
+
+module.exports = { signupHandler, credentialCheck, protectedAuth, validateInput, loginHandler, logoutHandler };

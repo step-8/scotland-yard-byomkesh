@@ -1,48 +1,48 @@
 <html>
 
-<head>
-  <title>Login</title>
+  <head>
+    <title>Login</title>
 
-  <link rel="stylesheet" href="css/login.css">
-  <script src="js/login.js"></script>
-</head>
+    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="css/header.css">
+    <script src="js/login.js"></script>
+  </head>
 
-<body>
-  <div class="main-container">
-    <header id="main-heading">
-      <h1 id="game-name">Scotland Yard</h1>
-      <nav></nav>
-    </header>
+  <body>
+    <div class="main-container">
+      <header>
+        <h1 id="game-name">Scotland Yard</h1>
+      </header>
 
-    <main>
-      <section class="login">
-        <header>
-          <h2>Login</h2>
-        </header>
-
-        <form action="/login" method="post">
-          <div class="input-group">
-            <label for="username">Enter Username :</label>
-            <input type="text" name="username" id="username">
+      <main>
+        <section class="login">
+          <div class="form-header">
+            <h2>Login</h2>
           </div>
-          <div class="input-group">
-            <label for="password">Enter Password :</label>
-            <input type="password" name="password" id="password">
-          </div>
-          <div class="error">
-            <div id="error-msg"></div>
-          </div>
-          <div class="input-group">
-            <input type="submit" id="login-btn" value="Login">
-          </div>
-        </form>
 
-        <div id="msg-for-signup">
-          <p>Don't you have account? <a href="/signup">Signup</a></p>
-        </div>
-      </section>
-    </main>
-  </div>
-</body>
+          <form action="/login" method="post">
+            <div class="input-group">
+              <label for="username">Enter Username :</label>
+              <input type="text" name="username" id="username">
+            </div>
+            <div class="input-group">
+              <label for="password">Enter Password :</label>
+              <input type="password" name="password" id="password">
+            </div>
+            <div class="error">
+              <div id="error-msg"></div>
+            </div>
+            <div class="input-group">
+              <input type="submit" id="login-btn" value="Login">
+            </div>
+          </form>
+
+          <div id="msg-for-signup">
+            <p>Don't you have account? <a href="/signup">Signup</a></p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
 
 </html>
