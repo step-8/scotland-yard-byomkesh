@@ -3,7 +3,8 @@
 <head>
   <title>Login</title>
 
-  <link rel="stylesheet" href="../public/css/login.css">
+  <link rel="stylesheet" href="css/login.css">
+  <script src="js/login.js"></script>
 </head>
 
 <body>
@@ -26,10 +27,13 @@
           </div>
           <div class="input-group">
             <label for="password">Enter Password :</label>
-            <input type="text" name="password" id="password">
+            <input type="password" name="password" id="password">
+          </div>
+          <div class="error">
+            <div id="error-msg"></div>
           </div>
           <div class="input-group">
-            <input type="submit" id="login-btn" value="Login" disabled>
+            <input type="submit" id="login-btn" value="Login">
           </div>
         </form>
 
