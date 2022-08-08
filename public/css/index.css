@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: white;
+  font-weight: 200;
+}
+
+body {
+  font-family: sans-serif;
+  background-image: url('../images/scotland_map.jpeg');
+  background-size: 110% 125%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+main {
+  height: 84%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  align-items: center;
+  background: rgba(40, 40, 40, 0.75);
+}
+
+main>div {
+  width: 40%;
+}
+
+#heading {
+  padding: 2.4em 0;
+  font-size: 4em;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+#play-game {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+#play-game>a {
+  border: 1px solid white;
+  padding: 0.6em 2em;
+  font-size: 1.8em;
+  background-color: #2b5494;
+  box-shadow: 1px 2px 5px #3f1c1c;
+}

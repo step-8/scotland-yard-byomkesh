@@ -1,0 +1,35 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: white;
+  font-weight: 200;
+}
+
+header {
+  padding: 0 2em;
+  height: 16%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2b5494;
+  box-shadow: 1px 2px 5px #3f1c1c;
+}
+
+#game-name {
+  font-size: 4em;
+}
+
+#auth {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  column-gap: 2em;
+}
+
+#auth>a {
+  border: 1px solid white;
+  padding: 0.4em 1em;
+  font-size: 1.5em;
+}
