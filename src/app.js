@@ -11,6 +11,7 @@ const { validateAnchor } = require('./middlewares/validateAnchor.js');
 
 const pagesLib = require('./handlers/servePages.js');
 const { serveLandingPage, serveSignupPage, serveLobby } = pagesLib;
+const { serveLoginPage } = pagesLib;
 
 const initApp = (config, users, session) => {
   const app = express();
@@ -29,10 +30,8 @@ const initApp = (config, users, session) => {
 
   app.get('/host', validateAnchor, serveLobby(views));
 
-  app.get('/login', (req, res) => {
-    res.sendFile('login.html', { root: views });
-  });
-  app.post('/login', validateInput, loginHandler(users));
+  app.get('/login', protectedAuth, serveLoginPage(views));
+  app.post('/login', protectedAuth, validateInput, loginHandler(users));
   app.use(express.static('./public'));
   return app;
 };

@@ -45,7 +45,8 @@ describe('signupHandler', () => {
 
     app.post('/signup')
       .send(body)
-      .expect(400, done);
+      .expect(302)
+      .expect('location', /signup/, done);
   });
 
   it('Should respond with 400 when username not provided', (done) => {
@@ -55,7 +56,8 @@ describe('signupHandler', () => {
 
     app.post('/signup')
       .send(body)
-      .expect(400, done);
+      .expect(302)
+      .expect('location', /signup/, done);
   });
 
   it('Should return signup page', (done) => {

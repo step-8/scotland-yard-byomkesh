@@ -1,60 +1,60 @@
 <html>
 
-<head>
-  <title>Login</title>
+  <head>
+    <title>Signup</title>
 
-  <link rel="stylesheet" href="/css/login.css">
-  <script src="/js/functionAliases.js"></script>
-  <script>
-    const main = () => {
-      const cookie = new URLSearchParams(document.cookie);
-      const error = cookie.get('signuperror');
-      if (error) {
-        byId('error-msg').innerText = error;
-        document.cookie = `signuperror=;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+    <link rel="stylesheet" href="/css/login.css">
+    <script src="/js/functionAliases.js"></script>
+    <script>
+      const main = () => {
+        const cookie = new URLSearchParams(document.cookie);
+        const error = cookie.get('signuperror');
+        if (error) {
+          byId('error-msg').innerText = error;
+          document.cookie = `signuperror=;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
+        }
       }
-    }
 
-    window.onload = main;
-  </script>
-</head>
+      window.onload = main;
+    </script>
+  </head>
 
-<body>
-  <div class="main-container">
-    <header id="main-heading">
-      <h1 id="game-name">Scotland Yard</h1>
-      <nav></nav>
-    </header>
+  <body>
+    <div class="main-container">
+      <header id="main-heading">
+        <h1 id="game-name">Scotland Yard</h1>
+        <nav></nav>
+      </header>
 
-    <main>
-      <section class="login">
-        <header>
-          <h2>Signup</h2>
-        </header>
+      <main>
+        <section class="login">
+          <header>
+            <h2>Signup</h2>
+          </header>
 
-        <form action="/signup" method="post">
-          <div class="input-group">
-            <label for="username">Enter Username :</label>
-            <input type="text" name="username" id="username">
+          <form action="/signup" method="post">
+            <div class="input-group">
+              <label for="username">Enter Username :</label>
+              <input type="text" name="username" id="username">
+            </div>
+            <div class="input-group">
+              <label for="password">Enter Password :</label>
+              <input type="password" name="password" id="password">
+            </div>
+            <div class="error">
+              <div id="error-msg"></div>
+            </div>
+            <div class="input-group">
+              <input type="submit" id="signup-btn" value="Signup">
+            </div>
+          </form>
+
+          <div id="msg-for-signup">
+            <p>Already have account? <a href="">Login</a></p>
           </div>
-          <div class="input-group">
-            <label for="password">Enter Password :</label>
-            <input type="password" name="password" id="password">
-          </div>
-          <div class="error">
-            <div id="error-msg"></div>
-          </div>
-          <div class="input-group">
-            <input type="submit" id="signup-btn" value="Signup">
-          </div>
-        </form>
-
-        <div id="msg-for-signup">
-          <p>Already have account? <a href="">Login</a></p>
-        </div>
-      </section>
-    </main>
-  </div>
-</body>
+        </section>
+      </main>
+    </div>
+  </body>
 
 </html>

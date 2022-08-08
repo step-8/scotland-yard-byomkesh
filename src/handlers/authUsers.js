@@ -1,9 +1,9 @@
-const { BAD_REQUEST } = require('../utils/responseCodes.js');
-
 const credentialCheck = (req, res, next) => {
   const { username, password } = req.body;
   if (!(username && password)) {
-    return res.status(BAD_REQUEST).end();
+    return res
+      .cookie('signuperror', 'Invalid credentials.')
+      .redirect(req.url);
   }
   next();
 };
@@ -41,7 +41,9 @@ const validateInput = (req, res, next) => {
 const loginHandler = (users) => (req, res) => {
   const { username, password } = req.body;
   if (users.authUser(username, password)) {
-    res.redirect('/');
+    req.session.username = username;
+    const pathToRedirect = req.session.redirectTo || '/';
+    res.redirect(pathToRedirect);
     return;
   }
   res.cookie('loginError', 'Invalid credentials', { path: '/login' });

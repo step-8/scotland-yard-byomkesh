@@ -112,4 +112,5 @@ main {
   color: red;
   position: absolute;
   text-align: center;
+  top: -1em;
 }
