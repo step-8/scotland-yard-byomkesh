@@ -1,12 +1,15 @@
 const { initApp } = require('./src/app.js');
 const { parsed } = require('dotenv').config();
+const { Users } = require('../models/users.js');
 
 const config = {
   mode: parsed.NODE_ENV
 };
 
 const startServer = port => {
-  const app = initApp(config);
+  const users = new Users();
+  const app = initApp(config, users);
+
   app.listen(port, () => console.log(`Listening on the Port : ${port}`));
 };
 
