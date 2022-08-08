@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node index.js",
     "test": "mocha",
-    "test-w": "mocha -w"
+    "test-w": "mocha -w",
+    "setup": "bash setup.sh"
   },
   "repository": {
     "type": "git",
