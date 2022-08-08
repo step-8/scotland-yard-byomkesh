@@ -54,4 +54,19 @@ describe('Login', () => {
       .expect('location', '/')
       .expect(302, done);
   });
+
+  it('should redirect to landing page if user is already logged in', (done) => {
+    const body = 'username=root&password=root';
+    let sessionId;
+    app.post('/login')
+      .send(body)
+      .end((err, res) => {
+        sessionId = res.headers['set-cookie'];
+
+        app.get('/login')
+          .set('Cookie', sessionId)
+          .expect('location', '/')
+          .expect(302, done);
+      });
+  });
 });

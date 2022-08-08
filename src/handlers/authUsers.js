@@ -41,7 +41,9 @@ const validateInput = (req, res, next) => {
 const loginHandler = (users) => (req, res) => {
   const { username, password } = req.body;
   if (users.authUser(username, password)) {
-    res.redirect('/');
+    req.session.username = username;
+    const pathToRedirect = req.session.redirectTo || '/';
+    res.redirect(pathToRedirect);
     return;
   }
   res.cookie('loginError', 'Invalid credentials', { path: '/login' });
