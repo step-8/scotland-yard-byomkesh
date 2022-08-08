@@ -34,7 +34,7 @@ describe('servePages', () => {
         .expect(302)
         .end((err, res) => {
           const cookies = res.header['set-cookie'];
-          app.get('/host')
+          app.post('/host')
             .set('cookie', cookies)
             .expect('content-type', /html/)
             .expect(200, done);
@@ -49,7 +49,7 @@ describe('servePages', () => {
         secret: 'test', resave: false, saveUninitialized: false
       });
       const app = request(initApp(config, users, session));
-      app.get('/host')
+      app.post('/host')
         .expect(302, done);
     });
   });

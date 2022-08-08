@@ -28,7 +28,7 @@ const initApp = (config, users, session) => {
   app.get('/signup', protectedAuth, serveSignupPage(views));
   app.post('/signup', protectedAuth, credentialCheck, signupHandler(users));
 
-  app.get('/host', validateAnchor, serveLobby(views));
+  app.post('/host', validateAnchor, serveLobby(views));
 
   app.get('/login', protectedAuth, serveLoginPage(views));
   app.post('/login', protectedAuth, validateInput, loginHandler(users));

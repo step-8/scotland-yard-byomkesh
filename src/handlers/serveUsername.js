@@ -1,5 +1,4 @@
 const serveUsername = (req, res) => {
-  console.log(req.session);
   const { username } = req.session;
   if (username) {
     res.json({ username });

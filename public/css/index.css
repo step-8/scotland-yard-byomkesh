@@ -40,7 +40,8 @@ main>div {
   justify-content: space-between;
 }
 
-#play-game>a {
+#play-game>a,
+#host-btn {
   border: 1px solid white;
   padding: 0.6em 2em;
   font-size: 1.8em;
