@@ -2,7 +2,7 @@ name: test
 on: [push]
 jobs:
   run-npm-test:
-    runs-on: [ubuntu-latest, macos-12]
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
