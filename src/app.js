@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const { credentialCheck, signupHandler } = require('./handlers/authUsers.js');
-const { serveLandingPage } = require('./handlers/servePages.js');
+const { serveLandingPage, serveLobby } = require('./handlers/servePages.js');
 
 const initApp = (config, users) => {
   const app = express();
@@ -19,6 +19,8 @@ const initApp = (config, users) => {
   });
 
   app.post('/signup', credentialCheck, signupHandler(users));
+
+  app.get('/host', serveLobby(views));
 
   app.use(express.static('./public'));
   return app;
