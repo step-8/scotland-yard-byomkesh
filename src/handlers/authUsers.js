@@ -8,13 +8,24 @@ const credentialCheck = (req, res, next) => {
   next();
 };
 
+const protectedAuth = (req, res, next) => {
+  const { username } = req.session;
+  if (username) {
+    return res.redirect('/');
+  }
+  next();
+};
+
 const signupHandler = (users) => (req, res) => {
   const { username, password } = req.body;
   const isAdded = users.addUser(username, password);
   if (!isAdded) {
-    return res.status(BAD_REQUEST).end();
+    return res
+      .cookie('signuperror', 'User already exist.')
+      .redirect('/signup');
   }
-  res.end();
+  req.session.username = username;
+  res.redirect('/');
 };
 
-module.exports = { signupHandler, credentialCheck };
+module.exports = { signupHandler, credentialCheck, protectedAuth };

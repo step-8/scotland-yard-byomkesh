@@ -101,3 +101,15 @@ main {
   text-align: center;
   font-size: 0.9em;
 }
+
+.error {
+  position: relative;
+  width: 100%;
+}
+
+#error-msg {
+  width: 100%;
+  color: red;
+  position: absolute;
+  text-align: center;
+}

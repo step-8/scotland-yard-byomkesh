@@ -1,3 +1,4 @@
 db
 requestLogs.txt
 node_modules
+.env
