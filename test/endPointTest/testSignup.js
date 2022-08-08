@@ -94,4 +94,24 @@ describe('signupHandler', () => {
           .expect('location', '/', done)
       });
   });
+
+  it('Should redirect to /host if new user goes to /host.', (done) => {
+    const username = 'user1';
+    const password = 'pword1';
+    const body = `username=${username}&password=${password}`;
+
+    app.get('/host')
+      .expect(302)
+      .expect('location', '/login')
+      .end((err, res) => {
+        const cookie = res.header['set-cookie'];
+
+        app
+          .post('/signup')
+          .set('cookie', cookie)
+          .send(body)
+          .expect(302)
+          .expect('location', '/host', done)
+      })
+  });
 });
