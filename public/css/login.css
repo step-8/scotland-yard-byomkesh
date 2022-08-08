@@ -1,0 +1,103 @@
+:root {
+  --primary_color: #2b5495;
+  --secondary_color: #95a9c9;
+  --font_color: #2b5495;
+}
+
+body {
+  margin: 0;
+  font-size: 16px;
+  font-family: sans-serif;
+  color: var(--font_color);
+  font-weight: 100;
+}
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 300;
+}
+
+.main-container {
+  height: 100%;
+  width: 100%;
+}
+
+#main-heading {
+  height: 15%;
+  background-color: var(--primary_color);
+  display: flex;
+  align-items: center;
+  padding: 0 2em;
+  color: white;
+}
+
+#game-name {
+  font-size: 3em;
+}
+
+main {
+  background-color: var(--secondary_color);
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login {
+  background-color: #8aa1c4;
+  height: 50%;
+  width: 30%;
+}
+
+.login>header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 20%;
+  font-size: 1.5em;
+}
+
+.login form {
+  height: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+  margin: 0;
+}
+
+.login .input-group {
+  width: 40%;
+  /* margin: 0 auto; */
+}
+
+.input-group input {
+  display: block;
+  border: 0;
+  width: 100%;
+  margin: 1em 0;
+  padding: 0.4em 0.5em;
+}
+
+#login-btn {
+  color: white;
+  border: 1px solid white;
+  background-color: var(--primary_color);
+  margin: 0 auto;
+  width: 40%;
+  padding: 0.5em 0;
+}
+
+#msg-for-signup {
+  text-align: center;
+  font-size: 0.9em;
+}

@@ -1,0 +1,44 @@
+<html>
+
+<head>
+  <title>Login</title>
+
+  <link rel="stylesheet" href="../public/css/login.css">
+</head>
+
+<body>
+  <div class="main-container">
+    <header id="main-heading">
+      <h1 id="game-name">Scotland Yard</h1>
+      <nav></nav>
+    </header>
+
+    <main>
+      <section class="login">
+        <header>
+          <h2>Login</h2>
+        </header>
+
+        <form action="/login" method="post">
+          <div class="input-group">
+            <label for="username">Enter Username :</label>
+            <input type="text" name="username" id="username">
+          </div>
+          <div class="input-group">
+            <label for="password">Enter Password :</label>
+            <input type="text" name="password" id="password">
+          </div>
+          <div class="input-group">
+            <input type="submit" id="login-btn" value="Login" disabled>
+          </div>
+        </form>
+
+        <div id="msg-for-signup">
+          <p>Don't you have account? <a href="">Signup</a></p>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+
+</html>
