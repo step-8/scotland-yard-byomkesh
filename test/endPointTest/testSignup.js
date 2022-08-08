@@ -6,7 +6,7 @@ const { Users } = require('../../src/models/users.js');
 describe('signupHandler', () => {
   let app, config;
   beforeEach(() => {
-    config = { mode: 'test' };
+    config = { mode: 'test', views: './views' };
     const users = new Users();
     app = request(initApp(config, users));
   });
@@ -50,4 +50,11 @@ describe('signupHandler', () => {
       .send(body)
       .expect(400, done);
   });
+
+  it('Should return signup page', (done) => {
+    app.get('/signup')
+      .expect(200)
+      .expect('content-type', /html/, done);
+  });
+
 });

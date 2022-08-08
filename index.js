@@ -1,9 +1,10 @@
 const { initApp } = require('./src/app.js');
 const { parsed } = require('dotenv').config();
-const { Users } = require('../models/users.js');
+const { Users } = require('./src/models/users.js');
 
 const config = {
-  mode: parsed.NODE_ENV
+  mode: parsed.NODE_ENV,
+  views: parsed.VIEWS
 };
 
 const startServer = port => {
