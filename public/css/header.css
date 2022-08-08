@@ -25,6 +25,7 @@ header {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
+  align-items: center;
   column-gap: 2em;
 }
 
@@ -32,4 +33,8 @@ header {
   border: 1px solid white;
   padding: 0.4em 1em;
   font-size: 1.5em;
+}
+
+.user-name {
+  font-size: 2em;
 }
