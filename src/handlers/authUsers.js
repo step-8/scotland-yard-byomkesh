@@ -17,4 +17,24 @@ const signupHandler = (users) => (req, res) => {
   res.end();
 };
 
-module.exports = { signupHandler, credentialCheck };
+const validateInput = (req, res, next) => {
+  const { username, password } = req.body;
+  if (!(username && password)) {
+    res.cookie('loginError', 'Please enter all credentials', { path: '/login' });
+    res.redirect(req.url);
+    return;
+  }
+  next();
+};
+
+const loginHandler = (users) => (req, res) => {
+  const { username, password } = req.body;
+  if (users.authUser(username, password)) {
+    res.redirect('/');
+    return;
+  }
+  res.cookie('loginError', 'Invalid credentials', { path: '/login' });
+  res.redirect(req.url);
+};
+
+module.exports = { signupHandler, credentialCheck, validateInput, loginHandler };

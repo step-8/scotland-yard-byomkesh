@@ -101,3 +101,10 @@ main {
   text-align: center;
   font-size: 0.9em;
 }
+
+#error-message {
+  margin: 0;
+  color: red;
+  text-align: center;
+  font-size: 0.9em;
+}

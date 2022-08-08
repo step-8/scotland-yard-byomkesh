@@ -48,14 +48,14 @@
         "handle-callback-err": "error",
         "id-length": "error",
         "key-spacing": "error",
-        "max-len": "error",
+        // "max-len": "error",
         "max-params": [
             "error",
             {
                 "max": 4
             }
         ],
-        "max-statements": "error",
+        // "max-statements": "error",
         "no-console": "warn",
         "no-else-return": "error",
         "no-eval": "error",
@@ -66,12 +66,13 @@
         "no-process-env": "error",
         "no-return-assign": "error",
         "no-useless-return": "error",
+        "no-undef": "off",
         "max-depth": "error",
         "no-mixed-operators": "error",
-        "complexity": [
-            "error",
-            4
-        ],
+        // "complexity": [
+        //     "error",
+        //     4
+        // ],
         "no-extra-parens": "error",
         "no-template-curly-in-string": "error",
         "array-callback-return": "error",
