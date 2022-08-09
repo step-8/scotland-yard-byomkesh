@@ -4,14 +4,17 @@ const morgan = require('morgan');
 const { serveUsername } = require('./handlers/serveUsername.js');
 
 const authLib = require('./handlers/authUsers.js');
-const { credentialCheck, signupHandler, protectedAuth } = authLib;
-const { validateInput, loginHandler, logoutHandler } = authLib;
+const { signupHandler, protectedAuth } = authLib;
+const { loginHandler, logoutHandler } = authLib;
 
 const { validateAnchor } = require('./middlewares/validateAnchor.js');
 
 const pagesLib = require('./handlers/servePages.js');
 const { serveLandingPage, serveSignupPage, serveLobby } = pagesLib;
 const { serveLoginPage } = pagesLib;
+
+const authValidators = require('./middlewares/authValidations.js');
+const { credentialCheck, validateInput } = authValidators;
 
 const initApp = (config, users, session) => {
   const app = express();

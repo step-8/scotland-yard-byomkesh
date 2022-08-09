@@ -69,4 +69,19 @@ describe('Login', () => {
           .expect(302, done);
       });
   });
+
+  it('should redirect to the path where user came from', (done) => {
+    const body = 'username=root&password=root';
+    app.get('/host')
+      .expect('location', '/login')
+      .expect(302)
+      .end((err, res) => {
+        sessionId = res.headers['set-cookie'];
+        app.post('/login')
+          .set('cookie', sessionId)
+          .send(body)
+          .expect('location', '/host')
+          .expect(302, done);
+      });
+  });
 });
