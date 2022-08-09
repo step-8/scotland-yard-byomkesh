@@ -3,6 +3,7 @@ const expressSession = require('express-session');
 
 const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
+const { Games } = require('../../src/models/games.js');
 
 describe('signupHandler', () => {
   let app, config;
@@ -10,10 +11,11 @@ describe('signupHandler', () => {
 
     config = { mode: 'test', views: './views' };
     const users = new Users();
+    const games = new Games();
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, session));
+    app = request(initApp(config, users, games, session));
   });
 
   it('Should respond with 302 when user is added ', (done) => {

@@ -8,6 +8,7 @@ const { signupHandler, protectedAuth } = authLib;
 const { loginHandler, logoutHandler } = authLib;
 
 const { validateAnchor } = require('./middlewares/validateAnchor.js');
+const { hostGame } = require('./handlers/hostGame.js');
 const { protectedLobby } = require('./middlewares/protectedLobby.js');
 
 const pagesLib = require('./handlers/servePages.js');
@@ -16,7 +17,9 @@ const { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage } = pagesL
 const authValidators = require('./middlewares/authValidations.js');
 const { credentialCheck, validateInput } = authValidators;
 
-const initApp = (config, users, session) => {
+// app starts here --
+
+const initApp = (config, users, games, session) => {
   const app = express();
   const { mode, views } = config;
 
@@ -31,7 +34,7 @@ const initApp = (config, users, session) => {
   app.get('/signup', protectedAuth, serveSignupPage(views));
   app.post('/signup', protectedAuth, credentialCheck, signupHandler(users));
 
-  app.get('/host', validateAnchor);
+  app.get('/host', validateAnchor, hostGame(games));
   app.get('/lobby/:gameId', protectedLobby, serveLobby(views))
 
   app.get('/login', protectedAuth, serveLoginPage(views));

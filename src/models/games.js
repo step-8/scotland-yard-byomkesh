@@ -1,3 +1,5 @@
+const { Game } = require("./game.js");
+
 class Games {
   constructor() {
     this.index = 1;
@@ -5,7 +7,8 @@ class Games {
   }
 
   createGame() {
-    const game = {};
+    const game = new Game(this.index, {});
+    this.games.push(game);
     this.index++;
     return game;
   }

@@ -2,6 +2,7 @@ const request = require('supertest');
 const expressSession = require('express-session');
 
 const { Users } = require('../../src/models/users.js');
+const { Games } = require('../../src/models/games.js');
 const { initApp } = require('../../src/app.js');
 
 describe('Logout', () => {
@@ -10,10 +11,11 @@ describe('Logout', () => {
 
     config = { mode: 'test', views: './views' };
     const users = new Users();
+    const games = new Games();
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, session));
+    app = request(initApp(config, users, games, session));
   });
 
   it('Should redirect to / if user is logged in', (done) => {
