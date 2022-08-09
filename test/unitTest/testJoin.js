@@ -78,7 +78,7 @@ describe('Join', () => {
         app.get(`/join?gameId=${gameId}`)
           .set('cookie', cookie)
           .expect('location', `/`)
-          .expect('set-cookie', /Game%20is%20full/)
+          .expect('set-cookie', /Room%20is%20already%20full/)
           .expect(302, done);
       });
   });
@@ -98,6 +98,27 @@ describe('Join', () => {
           .set('cookie', cookie)
           .expect('location', `/`)
           .expect('set-cookie', /Invalid.*room.*id/)
+          .expect(302, done);
+      });
+  });
+
+  it('should set error cookie if game tries to join game which is started', (done) => {
+    const game = games.createGame();
+    const gameId = game.gameId;
+
+    app.post('/login')
+      .send('username=root&password=root')
+      .expect('location', '/')
+      .expect(302)
+      .end((err, res) => {
+        const cookie = res.header['set-cookie'];
+
+        game.changeGameStatus();
+
+        app.get(`/join?gameId=${gameId}`)
+          .set('cookie', cookie)
+          .expect('location', `/`)
+          .expect('set-cookie', /Room.*is.*not.*available.*anymore/)
           .expect(302, done);
       });
   });

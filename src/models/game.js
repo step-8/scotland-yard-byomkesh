@@ -39,6 +39,10 @@ class Game {
     return this.#gameId;
   }
 
+  get isStarted() {
+    return this.#isGameStarted;
+  }
+
   getStatus() {
     const players = [];
     const isGameStarted = this.#isGameStarted;

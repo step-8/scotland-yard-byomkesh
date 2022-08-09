@@ -10,7 +10,13 @@ const authJoinRequest = games => (req, res, next) => {
 
   if (game.isGameFull()) {
     return res
-      .cookie('joinError', 'Game is full')
+      .cookie('joinError', 'Room is already full')
+      .redirect('/');
+  }
+
+  if (game.isStarted) {
+    return res
+      .cookie('joinError', 'Room is not available anymore')
       .redirect('/');
   }
 
