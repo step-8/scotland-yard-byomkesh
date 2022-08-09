@@ -18,7 +18,7 @@ const createRoomLink = (gameId) => {
   return roomLink;
 };
 
-const showHost = (status, res) => {
+const showGameId = (status, res) => {
   if (status !== 200) {
     return;
   }
@@ -27,8 +27,8 @@ const showHost = (status, res) => {
   const roomId = createRoomId(gameId);
   const roomLink = createRoomLink(gameId);
 
-  const nav = byId('players-container');
-  nav.appendChild(hostName);
+  // const nav = byId('players-container');
+  // nav.appendChild(hostName);
 
   const roomIdEle = byId('room-id');
   roomIdEle.appendChild(roomId);
@@ -38,14 +38,42 @@ const showHost = (status, res) => {
   return;
 };
 
-const updateHost = () => {
+const generatePlayersHtml = players => {
+  const html = [];
+  players.forEach(({ username, isHost }) => {
+    const div = createEl('div');
+    div.innerText = isHost ? username + ' (host)' : username;
+    html.push(div);
+  });
+  return html;
+};
+
+const showPlayers = (status, res) => {
+  if (status !== 200) {
+    return;
+  }
+  const { players } = JSON.parse(res);
+  const playersEle = generatePlayersHtml(players);
+
+  const playersContainer = byId('players-container');
+  playersContainer.replaceChildren(...playersEle);
+  return;
+};
+
+const updateGameId = () => {
   const req = { method: 'GET', url: '/user-name' };
-  sendRequest(req, showHost);
+  sendRequest(req, showGameId);
+};
+
+const updatePage = () => {
+  const req = { method: 'GET', url: '/api/lobby-stats' };
+  sendRequest(req, showPlayers);
 };
 
 const main = () => {
   updateProfile();
-  updateHost();
+  updateGameId();
+  updatePage();
 };
 
 window.onload = main;

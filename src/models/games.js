@@ -14,7 +14,7 @@ class Games {
   }
 
   findGame(gameId) {
-    return this.games[gameId];
+    return this.games[gameId - 1];
   }
 
   deleteGame(gameId) {

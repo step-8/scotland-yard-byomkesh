@@ -12,7 +12,7 @@ describe('Player entity', () => {
     let role, currentPosition;
 
     const actual = player.info;
-    const expected = { username, role, currentPosition };
+    const expected = { username, role, currentPosition, isHost: false };
     assert.deepStrictEqual(actual, expected);
   });
 
@@ -22,7 +22,7 @@ describe('Player entity', () => {
 
     player.assignRole(role);
     const actual = player.info;
-    const expected = { username, role, currentPosition };
+    const expected = { username, role, currentPosition, isHost: false };
     assert.deepStrictEqual(actual, expected);
   });
 
@@ -33,7 +33,7 @@ describe('Player entity', () => {
     player.assignRole(role);
     player.assignRole('xyz');
     const actual = player.info;
-    const expected = { username, role, currentPosition };
+    const expected = { username, role, currentPosition, isHost: false };
     assert.deepStrictEqual(actual, expected);
   });
 
@@ -43,7 +43,7 @@ describe('Player entity', () => {
 
     player.updatePosition(20);
     const actual = player.info;
-    const expected = { username, role, currentPosition };
+    const expected = { username, role, currentPosition, isHost: false };
     assert.deepStrictEqual(actual, expected);
   });
 

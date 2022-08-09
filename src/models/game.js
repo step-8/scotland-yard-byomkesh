@@ -19,12 +19,13 @@ class Game {
     this.#players.push(player);
     if (!this.#host) {
       this.#host = player;
+      player.setHost();
     }
   }
 
-  getPlayers() {
-    return this.#players;
-  }
+  // getPlayers() {
+  //   return this.#players;
+  // }
 
   changeGameStatus() {
     this.#isGameStarted = true;
@@ -41,6 +42,14 @@ class Game {
   get gameId() {
     return this.#gameId;
   }
-}
+
+  getPlayers() {
+    const players = [];
+    this.#players.forEach(player => {
+      players.push(player.info);
+    });
+    return { players };
+  }
+};
 
 module.exports = { Game };

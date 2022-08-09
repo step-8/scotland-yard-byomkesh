@@ -10,9 +10,12 @@ const { loginHandler, logoutHandler } = authLib;
 const { validateAnchor } = require('./middlewares/validateAnchor.js');
 const { hostGame } = require('./handlers/hostGame.js');
 const { protectedLobby } = require('./middlewares/protectedLobby.js');
+const { injectGame } = require('./middlewares/injectGame.js');
 
 const pagesLib = require('./handlers/servePages.js');
 const { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage } = pagesLib;
+
+const { serveLobbyStats } = require('./handlers/serveLobbyStats.js');
 
 const authValidators = require('./middlewares/authValidations.js');
 const { credentialCheck, validateInput } = authValidators;
@@ -34,11 +37,14 @@ const initApp = (config, users, games, session) => {
   app.get('/signup', protectedAuth, serveSignupPage(views));
   app.post('/signup', protectedAuth, credentialCheck, signupHandler(users));
 
-  app.get('/host', validateAnchor, hostGame(games));
-  app.get('/lobby/:gameId', protectedLobby, serveLobby(views))
-
   app.get('/login', protectedAuth, serveLoginPage(views));
   app.post('/login', protectedAuth, validateInput, loginHandler(users));
+
+  app.get('/host', validateAnchor, hostGame(games));
+  app.get('/lobby/:gameId', protectedLobby, serveLobby(views));
+
+  app.get('/api/lobby-stats', injectGame(games), serveLobbyStats);
+
   app.get('/logout', logoutHandler);
   app.use(express.static('./public'));
   return app;
