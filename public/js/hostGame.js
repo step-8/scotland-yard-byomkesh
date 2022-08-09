@@ -14,7 +14,7 @@ const createRoomId = (gameId) => {
 const createRoomLink = (gameId) => {
   const roomLink = createEl('span');
   roomLink.id = 'link-text';
-  roomLink.innerText = 'http://localhost:8000/join/' + gameId;
+  roomLink.innerText = 'http://localhost:8000/join?gameId=' + gameId;
   return roomLink;
 };
 

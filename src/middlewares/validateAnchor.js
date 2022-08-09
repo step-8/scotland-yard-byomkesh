@@ -1,7 +1,7 @@
 const validateAnchor = (req, res, next) => {
   const { username } = req.session;
   if (!username) {
-    req.session.redirectTo = '/host';
+    req.session.redirectTo = req.url;
     res.redirect('/login');
     return;
   }

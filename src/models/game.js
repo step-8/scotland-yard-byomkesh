@@ -36,7 +36,7 @@ class Game {
   }
 
   isGameFull() {
-    return this.#players.length >= this.#limit.max;
+    return this.#players.length > this.#limit.max;
   }
 
   get gameId() {

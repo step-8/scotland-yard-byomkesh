@@ -6,12 +6,15 @@ const createPopup = () => {
   const backdrop = new Element('div')
     .addClass('popup-backdrop');
 
-  const popup = new Element('div')
+  const popup = new Element('form')
+    .add('action', '/join')
+    .add('method', 'get')
     .addClass('popup');
 
   const closePopup = new Element('button')
     .addClass('close-popup')
     .add('innerText', 'X')
+    .addEvent('click', (e) => { e.preventDefault() })
     .addEvent('click', handleClosePopup);
 
   const h1 = new Element('h1')
@@ -19,6 +22,7 @@ const createPopup = () => {
 
   const roomId = new Element('input')
     .add('type', 'text')
+    .add('name', 'gameId')
     .add('placeholder', 'Rood id');
 
   const popupError = new Element('div')
@@ -26,6 +30,7 @@ const createPopup = () => {
 
   const joinButton = new Element('button')
     .addClass('join-btn')
+    .add('type', 'submit')
     .add('innerText', 'Join');
 
   popup.append(closePopup.html);

@@ -2,7 +2,7 @@ const assert = require('assert');
 const { Game } = require('../../src/models/game.js');
 const { Player } = require('../../src/models/player.js');
 
-describe('Games', () => {
+describe('Game', () => {
   let game;
   beforeEach(() => {
     const gameId = 1;
@@ -44,18 +44,13 @@ describe('Games', () => {
   });
 
   it('Should return true if game is full', () => {
-    const host = new Player('host');
-    const player1 = new Player('player1');
-    const player2 = new Player('player2');
-    const player3 = new Player('player3');
-    const player4 = new Player('player4');
-    const player5 = new Player('player5');
-    game.addPlayer(host);
-    game.addPlayer(player1);
-    game.addPlayer(player2);
-    game.addPlayer(player3);
-    game.addPlayer(player4);
-    game.addPlayer(player5);
+    game.addPlayer(new Player('host'));
+    game.addPlayer(new Player('player1'));
+    game.addPlayer(new Player('player2'));
+    game.addPlayer(new Player('player3'));
+    game.addPlayer(new Player('player4'));
+    game.addPlayer(new Player('player5'));
+    game.addPlayer(new Player('player6'));
 
     assert.strictEqual(game.isGameFull(), true);
   });

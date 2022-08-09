@@ -1,4 +1,4 @@
-const { Player } = require("../models/player.js");
+const { Player } = require('../models/player.js');
 
 const hostGame = (games) => (req, res) => {
   const { username } = req.session;
@@ -14,4 +14,17 @@ const hostGame = (games) => (req, res) => {
   return;
 };
 
-module.exports = { hostGame };
+const joinGame = (games) => (req, res) => {
+  const { username } = req.session;
+  const { gameId } = req.query;
+  req.session.gameId = gameId;
+
+  const game = games.findGame(gameId);
+  const player = new Player(username);
+
+  game.addPlayer(player);
+
+  res.redirect(`/lobby/${gameId}`);
+};
+
+module.exports = { hostGame, joinGame };
