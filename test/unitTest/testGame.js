@@ -14,9 +14,9 @@ describe('Game', () => {
   it('Should add player.', () => {
     const player = new Player('host')
     game.addPlayer(player);
-    const expected = { players: [{ currentPosition: undefined, isHost: true, role: undefined, username: 'host' }] };
+    const expected = { players: [{ currentPosition: undefined, isHost: true, role: undefined, username: 'host' }], isGameStarted: false };
 
-    assert.deepStrictEqual(game.getPlayers(), expected);
+    assert.deepStrictEqual(game.getStatus(), expected);
   });
 
   it('Should return false if game cannot started', () => {

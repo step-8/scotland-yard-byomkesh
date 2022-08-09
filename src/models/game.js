@@ -23,10 +23,6 @@ class Game {
     }
   }
 
-  // getPlayers() {
-  //   return this.#players;
-  // }
-
   changeGameStatus() {
     this.#isGameStarted = true;
   }
@@ -43,12 +39,14 @@ class Game {
     return this.#gameId;
   }
 
-  getPlayers() {
+  getStatus() {
     const players = [];
+    const isGameStarted = this.#isGameStarted;
+
     this.#players.forEach(player => {
       players.push(player.info);
     });
-    return { players };
+    return { players, isGameStarted };
   }
 };
 

@@ -48,11 +48,25 @@ const generatePlayersHtml = players => {
   return html;
 };
 
-const showPlayers = (status, res) => {
+const activatePlayBtn = () => {
+  const btn = byId('play');
+  btn.className = 'activate';
+  btn.disabled = false;
+  return;
+};
+
+const showPlayers = (intervalId) => (status, res) => {
   if (status !== 200) {
     return;
   }
-  const { players } = JSON.parse(res);
+  const { players, isGameStarted } = JSON.parse(res);
+  if (players.length > 2) {
+    activatePlayBtn();
+  }
+  if (isGameStarted) {
+    clearInterval(intervalId);
+    return;
+  }
   const playersEle = generatePlayersHtml(players);
 
   const playersContainer = byId('players-container');
@@ -65,15 +79,16 @@ const updateGameId = () => {
   sendRequest(req, showGameId);
 };
 
-const updatePage = () => {
+const updatePage = (intervalId) => {
   const req = { method: 'GET', url: '/api/lobby-stats' };
-  sendRequest(req, showPlayers);
+  sendRequest(req, showPlayers(intervalId));
 };
 
 const main = () => {
   updateProfile();
   updateGameId();
   updatePage();
+  const intervalId = setInterval(() => updatePage(intervalId), 2000);
 };
 
 window.onload = main;

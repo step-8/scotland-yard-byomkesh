@@ -1,7 +1,7 @@
 const serveLobbyStats = (req, res) => {
   const { game } = req.session;
-  const players = game.getPlayers();
-  res.json(players);
+  const { players, isGameStarted } = game.getStatus();
+  res.json({ players, isGameStarted });
   return;
 };
 
