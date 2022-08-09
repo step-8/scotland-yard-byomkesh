@@ -26,9 +26,16 @@ const updateName = (status, res) => {
   return;
 };
 
+const showPopup = (event) => {
+  query('body').prepend(createPopup());
+};
+
 const main = () => {
   const req = { method: 'GET', url: '/user-name' };
   sendRequest(req, updateName);
+
+  const joinButton = byId('join-game');
+  joinButton.addEventListener('click', showPopup);
 };
 
 window.onload = main;
