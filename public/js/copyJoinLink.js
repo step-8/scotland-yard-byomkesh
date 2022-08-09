@@ -1,4 +1,4 @@
 const copyToClipboard = () => {
-  const copyText = document.getElementById("link-text").innerText;
+  const copyText = document.getElementById('link-text').innerText;
   navigator.clipboard.writeText(copyText);
 };

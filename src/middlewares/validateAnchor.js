@@ -5,7 +5,9 @@ const validateAnchor = (req, res, next) => {
     res.redirect('/login');
     return;
   }
-  next();
+  const gameId = 1;
+  req.session.gameId = gameId;
+  res.redirect(`/lobby/${gameId}`);
 };
 
 module.exports = { validateAnchor };
