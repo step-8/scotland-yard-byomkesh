@@ -107,3 +107,16 @@ main>div {
   border: none;
   color: #2b5494;
 }
+
+.connection-error {
+  width: 100%;
+  height: 10%;
+  top: 50%;
+  position: absolute;
+  background-color: white;
+  color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+}

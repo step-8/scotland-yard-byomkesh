@@ -21,6 +21,7 @@ const main = () => {
   joinButton.addEventListener('click', showPopup);
 
   displayJoinError();
+  serveConnectionError();
 };
 
 window.onload = main;

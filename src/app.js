@@ -47,9 +47,6 @@ const initApp = (config, users, games, session, writeFile) => {
   app.get('/login', protectedAuth, serveLoginPage(views));
   app.post('/login', protectedAuth, validateInput, loginHandler(users));
 
-  app.get('/host', validateAnchor, hostGame(games));
-  app.get('/lobby/:gameId', protectedLobby, serveLobby(views));
-
   app.get('/api/lobby-stats', injectGame(games), serveLobbyStats);
 
   app.get('/logout', logoutHandler);
