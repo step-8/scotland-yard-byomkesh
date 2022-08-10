@@ -1,9 +1,13 @@
+const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
+const MR_X_TICKETS = { taxi: 0, bus: 0, subway: 0, black: 5, twoX: 2 };
+
 class Player {
   #username;
   #role;
   #currentPosition;
   #isHost;
   #color;
+  #tickets;
 
   constructor(username) {
     this.#username = username;
@@ -14,6 +18,7 @@ class Player {
     if (!this.#role) {
       this.#role = role;
       this.#color = getColor(role);
+      this.#tickets = role === 'Mr. X' ? MR_X_TICKETS : DETECTIVE_TICKETS;
     }
   }
 
@@ -25,13 +30,17 @@ class Player {
     this.#isHost = true;
   }
 
+  get tickets() {
+    return this.#tickets;
+  }
+
   get info() {
     return {
       username: this.#username,
       role: this.#role,
       currentPosition: this.#currentPosition,
       isHost: this.#isHost,
-      color: this.#color  
+      color: this.#color,
     }
   }
 }

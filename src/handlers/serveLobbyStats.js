@@ -1,5 +1,8 @@
 const serveLobbyStats = (req, res) => {
   const { game } = req.session;
+  if (!game) {
+    res.status(401).end();
+  }
   const { players, isGameStarted } = game.getStatus();
   const currentPlayer = players.find(player => player.username === req.session.username);
   const mrX = players.find(player => player.role === 'Mr. X');

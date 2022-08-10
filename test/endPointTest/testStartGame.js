@@ -43,8 +43,7 @@ describe('Start Game', () => {
 
   it('should not start game if session is not present', (done) => {
     app.post('/api/start')
-      .expect(200)
-      .expect('content-type', /json/, done);
+      .expect(401, done);
   });
 
   it('should not start if players are less than 3', (done) => {

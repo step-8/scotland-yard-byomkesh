@@ -22,6 +22,7 @@ const authValidators = require('./middlewares/authValidations.js');
 const { credentialCheck, validateInput } = authValidators;
 
 const { startGameHandler } = require('./handlers/startGameHandler.js');
+const { authApi } = require('./middlewares/authAPIs.js');
 
 // app starts here --
 
@@ -33,9 +34,10 @@ const initApp = (config, users, games, session, writeFile) => {
     app.use(morgan('tiny'));
   }
   app.use(session);
+  app.use(injectGame(games));
   app.use(express.urlencoded({ extended: true }));
   app.get('/', serveLandingPage(views));
-  app.get('/user-name', serveUsername);
+  app.get('/user-name', authApi, serveUsername);
 
   app.get('/signup', protectedAuth, serveSignupPage(views));
   app.post('/signup', protectedAuth, credentialCheck, signupHandler(users, userDb, writeFile));
@@ -46,12 +48,11 @@ const initApp = (config, users, games, session, writeFile) => {
 
   app.get('/login', protectedAuth, serveLoginPage(views));
   app.post('/login', protectedAuth, validateInput, loginHandler(users));
-
-  app.get('/api/lobby-stats', injectGame(games), serveLobbyStats);
-
   app.get('/logout', logoutHandler);
 
-  app.post('/api/start', startGameHandler(games));
+  app.get('/api/lobby-stats', authApi, serveLobbyStats);
+
+  app.post('/api/start', authApi, startGameHandler);
   app.use(express.static('./public'));
 
   app.use(serveNotFoundPage(views));

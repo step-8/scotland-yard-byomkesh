@@ -13,8 +13,8 @@ const shuffle = (list) => {
   return list;
 };
 
-const startGameHandler = (games) => (req, res) => {
-  const game = games.findGame(req.session.gameId);
+const startGameHandler = (req, res) => {
+  const game = req.session.game;
   if (!game || !game.canGameStart()) {
     res.json({ isStarted: false });
     return;
