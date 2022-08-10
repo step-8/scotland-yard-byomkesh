@@ -7,7 +7,7 @@ const showError = error => {
 
   setTimeout(() => {
     errorEle.html.remove();
-  }, 2000);
+  }, 5000);
   return;
 };
 

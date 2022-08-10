@@ -13,7 +13,7 @@ const isPlayerInGame = (games, username) => {
 };
 
 const sendConnectionError = (req, res) => {
-  const message = 'Connection error : You are already in a Game';
+  const message = 'You are already in a Game';
   res.cookie('connError', message, { maxAge: 1000 });
   res.redirect(302, '/');
   return;
