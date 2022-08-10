@@ -3,6 +3,7 @@ class Player {
   #role;
   #currentPosition;
   #isHost;
+  #color;
 
   constructor(username) {
     this.#username = username;
@@ -12,6 +13,7 @@ class Player {
   assignRole(role) {
     if (!this.#role) {
       this.#role = role;
+      this.#color = getColor(role);
     }
   }
 
@@ -28,9 +30,22 @@ class Player {
       username: this.#username,
       role: this.#role,
       currentPosition: this.#currentPosition,
-      isHost: this.#isHost
+      isHost: this.#isHost,
+      color: this.#color  
     }
   }
+}
+
+const getColor = (role) => {
+  const rolesColor = {
+    'Mr. X': 'black',
+    'Det. red': 'red',
+    'Det. green': 'green',
+    'Det. blue': 'blue',
+    'Det. yellow': 'yellow',
+    'Det. purple': 'purple'
+  };
+  return rolesColor[role];
 }
 
 module.exports = { Player };

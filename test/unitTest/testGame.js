@@ -12,9 +12,15 @@ describe('Game', () => {
   });
 
   it('Should add player.', () => {
+    let currentPosition, role, color;
     const player = new Player('host')
     game.addPlayer(player);
-    const expected = { players: [{ currentPosition: undefined, isHost: true, role: undefined, username: 'host' }], isGameStarted: false };
+    const expected = {
+      players: [
+        { currentPosition, isHost: true, role, username: 'host', color }
+      ],
+      isGameStarted: false
+    };
 
     assert.deepStrictEqual(game.getStatus(), expected);
   });
@@ -61,11 +67,11 @@ describe('Game', () => {
     game.addPlayer(new Player('player2'));
 
     const roles = ['a', 'b', 'c', 'd'];
-    let currentPosition;
+    let currentPosition, color;
     const expected = [
-      { username: 'host', role: 'a', currentPosition, isHost: true },
-      { username: 'player1', role: 'b', currentPosition, isHost: false },
-      { username: 'player2', role: 'c', currentPosition, isHost: false }
+      { username: 'host', role: 'a', currentPosition, isHost: true, color },
+      { username: 'player1', role: 'b', currentPosition, isHost: false, color },
+      { username: 'player2', role: 'c', currentPosition, isHost: false, color }
     ];
     game.assignRoles(roles);
     assert.deepStrictEqual(game.getPlayers(), expected);
@@ -77,11 +83,11 @@ describe('Game', () => {
     game.addPlayer(new Player('player2'));
 
     const positions = [1, 2, 3];
-    let role;
+    let role, color;
     const expected = [
-      { username: 'host', role, currentPosition: 1, isHost: true },
-      { username: 'player1', role, currentPosition: 2, isHost: false },
-      { username: 'player2', role, currentPosition: 3, isHost: false }
+      { username: 'host', role, currentPosition: 1, isHost: true, color },
+      { username: 'player1', role, currentPosition: 2, isHost: false, color },
+      { username: 'player2', role, currentPosition: 3, isHost: false, color }
     ];
     game.assignInitialPositions(positions);
     assert.deepStrictEqual(game.getPlayers(), expected);
