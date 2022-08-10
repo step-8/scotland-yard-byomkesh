@@ -39,6 +39,11 @@ const hostGame = (games) => (req, res) => {
 
 const joinGame = (games) => (req, res) => {
   const { username } = req.session;
+  if (isPlayerInGame(games, username)) {
+    sendConnectionError(req, res);
+    return;
+  }
+
   const { gameId } = req.query;
   req.session.gameId = gameId;
 

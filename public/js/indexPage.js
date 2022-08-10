@@ -20,8 +20,8 @@ const main = () => {
   const joinButton = byId('join-game');
   joinButton.addEventListener('click', showPopup);
 
-  displayJoinError();
   serveConnectionError();
+  displayJoinError();
 };
 
 window.onload = main;

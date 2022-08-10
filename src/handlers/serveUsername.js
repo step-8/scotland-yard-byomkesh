@@ -4,7 +4,7 @@ const serveUsername = (req, res) => {
     res.json({ username, gameId });
     return;
   }
-  res.status(401).json({});
+  res.status(200).json({});
   return;
 };
 
