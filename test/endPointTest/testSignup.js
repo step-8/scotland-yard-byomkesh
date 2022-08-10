@@ -15,14 +15,14 @@ const mockWfs = (expectedFilename, expectedData, expectedEncoding) => {
 };
 
 describe('signupHandler', () => {
-  let app, config, usersJson, users, games, session;
+  let app, config, usersObj, users, games, session;
   beforeEach(() => {
 
     config = {
       mode: 'test', views: './views', userDb: './db/users.json'
     };
-    usersJson = { root: { username: 'root', password: 'root' } };
-    users = new Users(usersJson);
+    usersObj = { root: { username: 'root', password: 'root' } };
+    users = new Users(usersObj);
     games = new Games();
     session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
@@ -33,7 +33,7 @@ describe('signupHandler', () => {
 
   it('Should respond with 302 when user is added ', (done) => {
     const updatedUsers = {
-      ...usersJson,
+      ...usersObj,
       user: {
         username: 'user',
         password: 'user'
@@ -124,7 +124,7 @@ describe('signupHandler', () => {
 
   it('Should redirect to /host if new user goes to /host.', (done) => {
     const updatedUsers = {
-      ...usersJson,
+      ...usersObj,
       user1: {
         username: 'user1',
         password: 'pword1'

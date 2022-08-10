@@ -24,15 +24,19 @@ describe('servePages', () => {
   describe('validateAnchor', () => {
     it('Should redirect to lobby page on /host', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users({});
+      const usersObj = { root: { username: 'root', password: 'root' } };
+      const users = new Users(usersObj);
       const games = new Games();
       const session = expressSession({
-        secret: 'test', resave: false, saveUninitialized: false
+        secret: 'test',
+        resave: false,
+        saveUninitialized: false,
+        userDb: './db/users.json'
       });
-      const app = request(initApp(config, users, games, session));
-      const body = 'username=user1&password=user1';
+      const app = request(initApp(config, users, games, session, () => { }));
+      const body = 'username=root&password=root';
 
-      app.post('/signup')
+      app.post('/login')
         .send(body)
         .expect('location', '/')
         .expect(302)
@@ -70,7 +74,7 @@ describe('servePages', () => {
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
       });
-      const app = request(initApp(config, users, games, session));
+      const app = request(initApp(config, users, games, session, () => { }));
 
       app.get('/lobby/1')
         .expect('location', '/')
@@ -79,15 +83,16 @@ describe('servePages', () => {
 
     it('Should serve lobby page on /lobby/1', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users({});
+      const usersObj = { root: { username: 'root', password: 'root' } };
+      const users = new Users(usersObj);
       const games = new Games();
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
       });
-      const app = request(initApp(config, users, games, session));
-      const body = 'username=user1&password=user1';
+      const app = request(initApp(config, users, games, session, () => { }));
+      const body = 'username=root&password=root';
 
-      app.post('/signup')
+      app.post('/login')
         .send(body)
         .expect('location', '/')
         .expect(302)
@@ -103,10 +108,10 @@ describe('servePages', () => {
   describe('serveErrorPage', () => {
     it('Should serve error page on invalid request', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users();
+      const users = new Users({});
       const games = new Games();
       const session = expressSession({
-        secret: 'test', resave: false, saveUninitialized: false
+        secret: 'test', resave: false, saveUninitialized: false, userDb: './db/users.json'
       });
       const app = request(initApp(config, users, games, session));
       app.get('/abc')
