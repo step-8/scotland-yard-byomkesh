@@ -13,12 +13,11 @@ const profile = (playerName) => {
   profileName.innerText = 'Hi ' + playerName;
   return profileName;
 };
-
 const updateNav = (status, res) => {
-  if (status !== 200) {
+  const playerName = JSON.parse(res).username;
+  if (!playerName) {
     return;
   }
-  const playerName = JSON.parse(res).username;
   const profileName = profile(playerName);
   const logoutButton = logout();
   const nav = byId('auth');
