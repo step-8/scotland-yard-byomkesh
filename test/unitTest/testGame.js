@@ -54,4 +54,37 @@ describe('Game', () => {
 
     assert.strictEqual(game.isGameFull(), true);
   });
+
+  it('Should return players with roles', () => {
+    game.addPlayer(new Player('host'));
+    game.addPlayer(new Player('player1'));
+    game.addPlayer(new Player('player2'));
+
+    const roles = ['a', 'b', 'c', 'd'];
+    let currentPosition;
+    const expected = [
+      { username: 'host', role: 'a', currentPosition, isHost: true },
+      { username: 'player1', role: 'b', currentPosition, isHost: false },
+      { username: 'player2', role: 'c', currentPosition, isHost: false }
+    ];
+    game.assignRoles(roles);
+    assert.deepStrictEqual(game.getPlayers(), expected);
+  });
+
+  it('Should return players with initial positions', () => {
+    game.addPlayer(new Player('host'));
+    game.addPlayer(new Player('player1'));
+    game.addPlayer(new Player('player2'));
+
+    const positions = [1, 2, 3];
+    let role;
+    const expected = [
+      { username: 'host', role, currentPosition: 1, isHost: true },
+      { username: 'player1', role, currentPosition: 2, isHost: false },
+      { username: 'player2', role, currentPosition: 3, isHost: false }
+    ];
+    game.assignInitialPositions(positions);
+    assert.deepStrictEqual(game.getPlayers(), expected);
+
+  });
 });

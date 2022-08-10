@@ -8,8 +8,11 @@
     <script src="/js/request.js"></script>
 
     <script src="/js/showNameInLobby.js"></script>
-    <script src="/js/hostGame.js"></script>
-    <script src="/js/copyJoinLink.js"></script>
+    <script src="/js/lobby/initiateLobby.js"></script>
+    <script src="/js/lobby/copyJoinLink.js"></script>
+    <script src="/js/lobby/showPlayerData.js"></script>
+    <script src="/js/lobby/startGame.js"></script>
+    <script src="/js/lobby/lobbyMain.js"></script>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -36,8 +39,9 @@
         <span onclick="copyToClipboard()"><i class="material-icons">content_copy</i></span>
       </div>
       <div id="play-button">
-        <button type="submit" id="play" class="disable" onclick="console.log('hello')" disabled>Play</button>
+        <button type="submit" id="play" class="disable" onclick="sendStartRequest()" disabled>Play</button>
       </div>
+      <div id="count-down"></div>
     </main>
   </body>
 

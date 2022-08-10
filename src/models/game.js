@@ -6,7 +6,7 @@ class Game {
   #stops;
   #limit;
 
-  constructor(gameId, stops) {
+  constructor(gameId, stops = {}) {
     this.#gameId = gameId;
     this.#host = null;
     this.#isGameStarted = false;
@@ -21,6 +21,10 @@ class Game {
       this.#host = player;
       player.setHost();
     }
+  }
+
+  getPlayers() {
+    return this.#players.map(player => player.info);
   }
 
   changeGameStatus() {
@@ -41,6 +45,19 @@ class Game {
 
   get isStarted() {
     return this.#isGameStarted;
+  }
+  assignRoles(roles, shuffler = (x) => x) {
+    this.#players = shuffler(this.#players);
+
+    this.#players.forEach((player, index) => {
+      player.assignRole(roles[index]);
+    });
+  }
+
+  assignInitialPositions(initalPositions) {
+    this.#players.forEach((player, index) => {
+      player.updatePosition(initalPositions[index]);
+    });
   }
 
   getStatus() {

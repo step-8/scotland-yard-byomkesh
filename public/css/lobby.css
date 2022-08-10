@@ -29,11 +29,11 @@ main {
 }
 
 #players-container {
-  width: 25%;
+  width: 30%;
   height: 50%;
   margin-bottom: 2em;
   display: flex;
-  flex-flow: column wrap;
+    flex-direction: column;
   row-gap: 1em;
 }
 
@@ -88,4 +88,47 @@ i {
   background-color: #2b5494;
   cursor: pointer;
   color: white;
+}
+.inline {
+  display: inline-block;
+  width: fit-content;
+}
+
+.name {
+  width: 30%;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.is {
+  width: 10%
+}
+
+.role {
+  width: 25%
+}
+
+.at {
+  width: 20%
+}
+
+.position {
+  width: 5%;
+}
+
+.small {
+  font-size: 0.8em;
+}
+
+.player-card {
+  display: flex;
+  align-items: center;
+}
+
+.black {
+  background-color: black !important;
+}
+
+.black div {
+  color: white !important;
 }

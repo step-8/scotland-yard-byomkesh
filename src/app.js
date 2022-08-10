@@ -21,6 +21,8 @@ const { serveLobbyStats } = require('./handlers/serveLobbyStats.js');
 const authValidators = require('./middlewares/authValidations.js');
 const { credentialCheck, validateInput } = authValidators;
 
+const { startGameHandler } = require('./handlers/startGameHandler.js');
+
 // app starts here --
 
 const initApp = (config, users, games, session) => {
@@ -51,6 +53,8 @@ const initApp = (config, users, games, session) => {
   app.get('/api/lobby-stats', injectGame(games), serveLobbyStats);
 
   app.get('/logout', logoutHandler);
+
+  app.post('/api/start', startGameHandler(games));
   app.use(express.static('./public'));
 
   app.use(serveNotFoundPage(views));
