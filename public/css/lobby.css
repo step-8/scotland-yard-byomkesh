@@ -33,7 +33,7 @@ main {
   height: 50%;
   margin-bottom: 2em;
   display: flex;
-    flex-direction: column;
+  flex-direction: column;
   row-gap: 1em;
 }
 
@@ -123,6 +123,9 @@ i {
 .player-card {
   display: flex;
   align-items: center;
+}
+.player-card>* {
+  color: #2b5494;
 }
 
 .black {
