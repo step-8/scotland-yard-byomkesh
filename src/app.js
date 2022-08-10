@@ -14,7 +14,7 @@ const { protectedLobby } = require('./middlewares/protectedLobby.js');
 const { injectGame } = require('./middlewares/injectGame.js');
 
 const pagesLib = require('./handlers/servePages.js');
-const { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage } = pagesLib;
+const { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage, serveNotFoundPage } = pagesLib;
 
 const { serveLobbyStats } = require('./handlers/serveLobbyStats.js');
 
@@ -52,6 +52,8 @@ const initApp = (config, users, games, session) => {
 
   app.get('/logout', logoutHandler);
   app.use(express.static('./public'));
+
+  app.use(serveNotFoundPage(views));
   return app;
 };
 

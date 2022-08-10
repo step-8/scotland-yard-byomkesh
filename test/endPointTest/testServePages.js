@@ -94,4 +94,18 @@ describe('servePages', () => {
         });
     });
   });
+  describe('serveErrorPage', () => {
+    it('Should serve error page on invalid request', (done) => {
+      const config = { mode: 'test', views: './views' };
+      const users = new Users();
+      const games = new Games();
+      const session = expressSession({
+        secret: 'test', resave: false, saveUninitialized: false
+      });
+      const app = request(initApp(config, users, games, session));
+      app.get('/abc')
+        .expect('content-type', /html/)
+        .expect(404, done);
+    });
+  });
 });

@@ -16,4 +16,9 @@ const serveLoginPage = (views) => (req, res) => {
   res.sendFile('login.html', { root: views });
 };
 
-module.exports = { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage };
+const serveNotFoundPage = (views) => (req, res) => {
+  res.status(404);
+  res.sendFile('notFound.html', { root: views });
+};
+
+module.exports = { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage, serveNotFoundPage };
