@@ -10,7 +10,8 @@ let app, sessionId, games;
 
 const initTestApp = () => {
   const config = { mode: 'test', views: './views' };
-  const users = new Users();
+  const root = { root: { username: 'root', password: 'root' } };
+  const users = new Users(root);
   games = new Games();
   const session = expressSession({
     secret: 'test', resave: false, saveUninitialized: false
