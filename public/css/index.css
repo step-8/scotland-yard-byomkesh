@@ -109,16 +109,17 @@ main>div {
 }
 
 .connection-error {
-  width: 20%;
-  height: 7%;
-  top: 90%;
-  left: 78%;
+  width: 22%;
+  height: 5%;
+  top: 80%;
+  left: 39%;
   position: absolute;
   background-color: white;
-  color: black;
+  color: red;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1.5em;
-  box-shadow: 0px 0px 5px white;
+  font-size: 1.8em;
+  font-weight: 400;
+  box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
 }
