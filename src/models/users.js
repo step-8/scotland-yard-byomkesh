@@ -1,9 +1,8 @@
 class Users {
   #users;
 
-  constructor() {
-    const root = { username: 'root', password: 'root' };
-    this.#users = { root };
+  constructor(users) {
+    this.#users = users;
   }
 
   haveUser(uname) {
@@ -26,6 +25,10 @@ class Users {
     const username = uname.toLowerCase();
 
     return this.#users[username] && this.#users[username].password === password;
+  }
+
+  toJson() {
+    return JSON.stringify(this.#users);
   }
 }
 

@@ -10,7 +10,8 @@ describe('Logout', () => {
   beforeEach(() => {
 
     config = { mode: 'test', views: './views' };
-    const users = new Users();
+    const root = { root: { username: 'root', password: 'root' } };
+    const users = new Users(root);
     const games = new Games();
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false

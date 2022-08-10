@@ -9,7 +9,7 @@ describe('servePages', () => {
   describe('serveLandingPage', () => {
     it('Should serve landing page on /', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users();
+      const users = new Users({});
       const games = new Games();
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
@@ -24,19 +24,22 @@ describe('servePages', () => {
   describe('validateAnchor', () => {
     it('Should redirect to lobby page on /host', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users();
+      const users = new Users({});
       const games = new Games();
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
       });
       const app = request(initApp(config, users, games, session));
       const body = 'username=user1&password=user1';
+
       app.post('/signup')
         .send(body)
         .expect('location', '/')
         .expect(302)
         .end((err, res) => {
+
           const cookies = res.header['set-cookie'];
+
           app.get('/host')
             .set('cookie', cookies)
             .expect('location', '/lobby/1')
@@ -47,12 +50,13 @@ describe('servePages', () => {
 
     it('Should redirect on login page if not logged in', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users();
+      const users = new Users({});
       const games = new Games();
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
       });
       const app = request(initApp(config, users, games, session));
+
       app.get('/host')
         .expect(302, done);
     });
@@ -61,12 +65,13 @@ describe('servePages', () => {
   describe('serveLobby', () => {
     it('Should redirect on home page if not logged in', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users();
+      const users = new Users({});
       const games = new Games();
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
       });
       const app = request(initApp(config, users, games, session));
+
       app.get('/lobby/1')
         .expect('location', '/')
         .expect(302, done);
@@ -74,13 +79,14 @@ describe('servePages', () => {
 
     it('Should serve lobby page on /lobby/1', (done) => {
       const config = { mode: 'test', views: './views' };
-      const users = new Users();
+      const users = new Users({});
       const games = new Games();
       const session = expressSession({
         secret: 'test', resave: false, saveUninitialized: false
       });
       const app = request(initApp(config, users, games, session));
       const body = 'username=user1&password=user1';
+
       app.post('/signup')
         .send(body)
         .expect('location', '/')

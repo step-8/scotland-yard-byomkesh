@@ -25,9 +25,9 @@ const { startGameHandler } = require('./handlers/startGameHandler.js');
 
 // app starts here --
 
-const initApp = (config, users, games, session) => {
+const initApp = (config, users, games, session, writeFile) => {
   const app = express();
-  const { mode, views } = config;
+  const { mode, views, userDb } = config;
 
   if (mode === 'dev') {
     app.use(morgan('tiny'));
@@ -38,7 +38,7 @@ const initApp = (config, users, games, session) => {
   app.get('/user-name', serveUsername);
 
   app.get('/signup', protectedAuth, serveSignupPage(views));
-  app.post('/signup', protectedAuth, credentialCheck, signupHandler(users));
+  app.post('/signup', protectedAuth, credentialCheck, signupHandler(users, userDb, writeFile));
 
   app.get('/host', validateAnchor, hostGame(games));
   app.get('/join', authJoinRequest(games), validateAnchor, joinGame(games));

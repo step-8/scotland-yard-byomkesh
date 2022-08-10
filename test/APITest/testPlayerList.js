@@ -8,13 +8,14 @@ describe('serveLobbyStats', () => {
   let app, config, cookie;
   it('Should serve lobby stats of single player', (done) => {
     config = { mode: 'test', views: './views' };
-    const users = new Users();
+    const users = new Users({});
     const games = new Games();
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, games, session));
+    app = request(initApp(config, users, games, session, () => { }));
     const body = 'username=user1&password=user1';
+
     app.post('/signup')
       .send(body)
       .expect('location', '/')

@@ -11,7 +11,8 @@ describe('Join', () => {
   beforeEach(() => {
 
     config = { mode: 'test', views: './views' };
-    users = new Users();
+    const root = { root: { username: 'root', password: 'root' } };
+    users = new Users(root);
     games = new Games();
     session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
