@@ -10,7 +10,7 @@ const { loginHandler, logoutHandler } = authLib;
 const { validateAnchor } = require('./middlewares/validateAnchor.js');
 const { hostGame, joinGame } = require('./handlers/hostGame.js');
 const { authJoinRequest } = require('./middlewares/authJoinRequest.js');
-const { protectedLobby } = require('./middlewares/protectedLobby.js');
+const { protectedGame } = require('./middlewares/protectedGame.js');
 const { injectGame } = require('./middlewares/injectGame.js');
 
 const pagesLib = require('./handlers/servePages.js');
@@ -44,7 +44,7 @@ const initApp = (config, users, games, session, writeFile) => {
 
   app.get('/host', validateAnchor, hostGame(games));
   app.get('/join', authJoinRequest(games), validateAnchor, joinGame(games));
-  app.get('/lobby/:gameId', protectedLobby, serveLobby(views))
+  app.get('/lobby/:gameId', protectedGame, serveLobby(views));
 
   app.get('/login', protectedAuth, serveLoginPage(views));
   app.post('/login', protectedAuth, validateInput, loginHandler(users));
