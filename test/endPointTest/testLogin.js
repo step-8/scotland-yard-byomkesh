@@ -4,7 +4,7 @@ const { initApp } = require('./../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 
-describe.only('Login', () => {
+describe('Login', () => {
   let app, config;
   beforeEach(() => {
     config = { mode: 'test', views: './views' };
