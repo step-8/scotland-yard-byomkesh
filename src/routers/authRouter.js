@@ -12,7 +12,7 @@ const { credentialCheck, validateInput } = authValidators;
 
 const createAuthRouter = (users, userDb, views, writeFile) => {
   const authRouter = express.Router();
-  const authRoutes = ['/login', '/signup', '/logout'];
+  const authRoutes = ['/login', '/signup'];
 
   authRouter.use(authRoutes, protectedAuth)
 
