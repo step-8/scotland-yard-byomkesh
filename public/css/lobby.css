@@ -136,7 +136,7 @@ i {
   color: white !important;
 }
 .hide {
-  display: none;
+  display: none !important;
 }
 
 #message {

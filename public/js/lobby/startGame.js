@@ -14,7 +14,10 @@ const startCountDown = () => {
 
 const removeGameLink = () => {
   const link = byId('game-link');
-  link.remove();
+  if (!link) {
+    return;
+  }
+  link.classList.add('hide');
 };
 
 const removePlayButton = () => {
@@ -22,7 +25,7 @@ const removePlayButton = () => {
   if (!play) {
     return;
   }
-  play.remove();
+  play.classList.add('hide');
 };
 
 const startGame = (status, rawResponse) => {
