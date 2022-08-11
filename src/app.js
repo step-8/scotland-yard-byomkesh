@@ -7,7 +7,7 @@ const authLib = require('./handlers/authUsers.js');
 const { loginHandler, logoutHandler, protectedAuth } = authLib;
 
 const pagesLib = require('./handlers/servePages.js');
-const { serveLandingPage, serveLobby, serveLoginPage, serveNotFoundPage } = pagesLib;
+const { serveLandingPage, serveLobby, serveLoginPage, serveNotFoundPage, serveGamePage } = pagesLib;
 
 const { protectedGame } = require('./middlewares/protectedGame.js');
 const { injectGame } = require('./middlewares/injectGame.js');
@@ -43,6 +43,7 @@ const initApp = (config, users, games, session, writeFile) => {
   app.use(createAuthRouter(users, userDb, views, writeFile));
 
   app.get('/lobby/:gameId', protectedGame, serveLobby(views));
+  app.get('/game', protectedGame, serveGamePage(views))
 
   app.use('/api', createApiRouter());
   app.get('/login', protectedAuth, serveLoginPage(views));

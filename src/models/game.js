@@ -4,11 +4,13 @@ class Game {
   #isGameStarted;
   #players;
   #stops;
+  #currentPlayer;
   #limit;
 
   constructor(gameId, stops = {}) {
     this.#gameId = gameId;
     this.#host = null;
+    this.#currentPlayer = null;
     this.#isGameStarted = false;
     this.#players = [];
     this.#stops = stops;
@@ -29,6 +31,7 @@ class Game {
 
   changeGameStatus() {
     this.#isGameStarted = true;
+    this.#currentPlayer = this.#players[0];
   }
 
   canGameStart() {
@@ -46,6 +49,11 @@ class Game {
   get isStarted() {
     return this.#isGameStarted;
   }
+
+  get currentPlayer() {
+    return this.#currentPlayer.info;
+  }
+
   assignRoles(roles, shuffler = (x) => x) {
     this.#players = shuffler(this.#players);
 
@@ -54,9 +62,9 @@ class Game {
     });
   }
 
-  assignInitialPositions(initalPositions) {
+  assignInitialPositions(initialPositions) {
     this.#players.forEach((player, index) => {
-      player.updatePosition(initalPositions[index]);
+      player.updatePosition(initialPositions[index]);
     });
   }
 

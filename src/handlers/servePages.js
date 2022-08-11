@@ -21,4 +21,8 @@ const serveNotFoundPage = (views) => (req, res) => {
   res.sendFile('notFound.html', { root: views });
 };
 
-module.exports = { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage, serveNotFoundPage };
+const serveGamePage = (views) => (req, res) => {
+  res.sendFile('game.html', { root: views });
+};
+
+module.exports = { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage, serveNotFoundPage, serveGamePage };

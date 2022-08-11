@@ -55,4 +55,30 @@ const joinGame = (games) => (req, res) => {
   res.redirect(`/lobby/${gameId}`);
 };
 
-module.exports = { hostGame, joinGame };
+const isMrX = (players, playerName) => {
+  const me = players.find(({ username }) => username === playerName);
+  return me.color === 'black';
+};
+
+const removeMrX = (players) => {
+  return players.filter(({ color }) => color !== 'black');
+};
+
+const gameStats = (req, res) => {
+  const { game, username } = req.session;
+  let players = game.getPlayers();
+
+  if (!isMrX(players, username)) {
+    players = removeMrX(players);
+  }
+
+  const stats = {
+    playerName: username,
+    players,
+    currentPlayer: game.currentPlayer
+  };
+
+  res.json(stats);
+};
+
+module.exports = { hostGame, joinGame, gameStats };
