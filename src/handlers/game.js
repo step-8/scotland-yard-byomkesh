@@ -67,16 +67,14 @@ const removeMrX = (players) => {
 const gameStats = (req, res) => {
   const { game, username } = req.session;
   let players = game.getPlayers();
+  let currentPlayer = game.currentPlayer;
 
   if (!isMrX(players, username)) {
     players = removeMrX(players);
+    currentPlayer.currentPosition = null;
   }
 
-  const stats = {
-    playerName: username,
-    players,
-    currentPlayer: game.currentPlayer
-  };
+  const stats = { playerName: username, players, currentPlayer };
 
   res.json(stats);
 };
