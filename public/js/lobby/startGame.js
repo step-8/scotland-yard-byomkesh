@@ -4,7 +4,7 @@ const startCountDown = () => {
   countDown.innerText = `Game starts in ${timeLeft} seconds`;
   const intervalId = setInterval(() => {
     timeLeft--;
-    if (timeLeft < 0) {
+    if (timeLeft <= 0) {
       clearInterval(intervalId);
       window.location.href = '/game';
     }

@@ -16,20 +16,18 @@ describe('servePages', () => {
     });
   });
   describe('serveLandingPage', () => {
-    it('Should serve landing page on /', (done) => {
+    it('Should redirect to login page on /, if user is not logged in', (done) => {
       const users = new Users({});
       const app = request(initApp(config, users, games, session));
       app.get('/')
-        .expect('content-type', /html/)
-        .expect(200, done);
+        .expect('location', '/login')
+        .expect(302, done);
     });
-  });
 
-  describe('validateAnchor', () => {
-    it('Should redirect to lobby page on /host', (done) => {
+    it('Should serve landing page on /, if user is logged in', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session, () => { }));
+      const app = request(initApp(config, users, games, session));
       const body = 'username=root&password=root';
 
       app.post('/login')
@@ -37,23 +35,14 @@ describe('servePages', () => {
         .expect('location', '/')
         .expect(302)
         .end((err, res) => {
+          const cookie = res.header['set-cookie'];
+          app.get('/')
+            .set('cookie', cookie)
+            .expect('content-type', /html/)
+            .expect(/<title>Scotland Yard<\/title>/)
+            .expect(200, done);
+        })
 
-          const cookies = res.header['set-cookie'];
-
-          app.get('/host')
-            .set('cookie', cookies)
-            .expect('location', '/lobby/1')
-            .expect(302, done);
-        });
-
-    });
-
-    it('Should redirect on login page if not logged in', (done) => {
-      const users = new Users({});
-      const app = request(initApp(config, users, games, session));
-
-      app.get('/host')
-        .expect(302, done);
     });
   });
 

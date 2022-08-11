@@ -23,7 +23,7 @@ const createPopup = () => {
   const roomId = new Element('input')
     .add('type', 'text')
     .add('name', 'gameId')
-    .add('placeholder', 'Rood id');
+    .add('placeholder', 'Game id');
 
   const popupError = new Element('div')
     .addClass('popup-error');

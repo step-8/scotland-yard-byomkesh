@@ -86,7 +86,7 @@ describe('signupHandler', () => {
       .expect('location', /signup/, done);
   });
 
-  it('Should respond with 302 when username & password are spaces.', (done) => {
+  it('Should respond with 302 when username & password contain spaces.', (done) => {
     const username = '    ';
     const password = '    ';
     const body = `username=${username}&password=${password}`;
@@ -122,7 +122,7 @@ describe('signupHandler', () => {
       });
   });
 
-  it('Should redirect to /host if new user goes to /host.', (done) => {
+  it('Should redirect to landing page if new user goes to /host.', (done) => {
     const updatedUsers = {
       ...usersObj,
       user1: {
@@ -143,14 +143,11 @@ describe('signupHandler', () => {
       .expect(302)
       .expect('location', '/login')
       .end((err, res) => {
-        const cookie = res.header['set-cookie'];
-
         app
           .post('/signup')
-          .set('cookie', cookie)
           .send(body)
           .expect(302)
-          .expect('location', '/host', done)
+          .expect('location', '/', done)
       })
   });
 });

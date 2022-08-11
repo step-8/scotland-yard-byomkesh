@@ -19,4 +19,13 @@ const validateInput = (req, res, next) => {
   next();
 };
 
-module.exports = { credentialCheck, validateInput };
+const authenticateUser = (req, res, next) => {
+  const { username } = req.session;
+  if (!username) {
+    res.redirect('/login');
+    return;
+  }
+  next();
+};
+
+module.exports = { credentialCheck, validateInput, authenticateUser };
