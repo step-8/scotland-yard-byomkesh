@@ -43,12 +43,29 @@ const showPlayerCard = (players) => {
   });
 };
 
+const displayMessage = (totalPlayer, isHost) => {
+  let message = 'Waiting for host to start.';
+  if (isHost) {
+    message = 'You can start the game or wait for other players.';
+  }
+  if (totalPlayer < 3) {
+    message = `Waiting for atleast ${3 - totalPlayer} players.`;
+  }
+  if (totalPlayer === 6 && isHost) {
+    message = `Max player reached. Start the Game.`;
+  }
+
+  const messageDiv = byId('message');
+  messageDiv.innerText = message;
+};
+
 const updatePlayers = intervalId => (status, res) => {
   if (status !== 200) {
     return;
   }
-  const { players, isGameStarted } = JSON.parse(res);
+  const { players, isGameStarted, isHost } = JSON.parse(res);
   showPlayerCard(players);
+  displayMessage(players.length, isHost);
 
   if (players.length > 2) {
     activatePlayBtn();

@@ -1,7 +1,6 @@
 const createRoomId = (gameId) => {
   const roomId = createEl('p');
-  roomId.innerText = 'Room Id : ' + gameId;
-  // return roomId;
+  roomId.innerText = 'Game Id : ' + gameId;
 
   const roomIdEle = byId('room-id');
   roomIdEle.appendChild(roomId);
