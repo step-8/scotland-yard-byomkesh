@@ -3,26 +3,18 @@ const morgan = require('morgan');
 
 const { serveUsername } = require('./handlers/serveUsername.js');
 
-const authLib = require('./handlers/authUsers.js');
-const { signupHandler, protectedAuth } = authLib;
-const { loginHandler, logoutHandler } = authLib;
-
 const { validateAnchor } = require('./middlewares/validateAnchor.js');
-const { hostGame, joinGame } = require('./handlers/hostGame.js');
+const { hostGame, joinGame } = require('./handlers/game.js');
 const { authJoinRequest } = require('./middlewares/authJoinRequest.js');
 const { protectedGame } = require('./middlewares/protectedGame.js');
 const { injectGame } = require('./middlewares/injectGame.js');
 
 const pagesLib = require('./handlers/servePages.js');
-const { serveLandingPage, serveSignupPage, serveLobby, serveLoginPage, serveNotFoundPage } = pagesLib;
+const { serveLandingPage, serveLobby, serveNotFoundPage } = pagesLib;
 
-const { serveLobbyStats } = require('./handlers/serveLobbyStats.js');
-
-const authValidators = require('./middlewares/authValidations.js');
-const { credentialCheck, validateInput } = authValidators;
-
-const { startGameHandler } = require('./handlers/startGameHandler.js');
 const { authApi } = require('./middlewares/authAPIs.js');
+const { createAuthRouter } = require('./routers/authRouter.js');
+const { createApiRouter } = require('./routers/apiRouter.js');
 
 // app starts here --
 
@@ -39,22 +31,15 @@ const initApp = (config, users, games, session, writeFile) => {
   app.get('/', serveLandingPage(views));
   app.get('/user-name', authApi, serveUsername);
 
-  app.get('/signup', protectedAuth, serveSignupPage(views));
-  app.post('/signup', protectedAuth, credentialCheck, signupHandler(users, userDb, writeFile));
+  app.use(createAuthRouter(users, userDb, views, writeFile));
 
   app.get('/host', validateAnchor, hostGame(games));
   app.get('/join', authJoinRequest(games), validateAnchor, joinGame(games));
   app.get('/lobby/:gameId', protectedGame, serveLobby(views));
 
-  app.get('/login', protectedAuth, serveLoginPage(views));
-  app.post('/login', protectedAuth, validateInput, loginHandler(users));
-  app.get('/logout', logoutHandler);
+  app.use('/api', createApiRouter());
 
-  app.get('/api/lobby-stats', authApi, serveLobbyStats);
-
-  app.post('/api/start', authApi, startGameHandler);
   app.use(express.static('./public'));
-
   app.use(serveNotFoundPage(views));
   return app;
 };

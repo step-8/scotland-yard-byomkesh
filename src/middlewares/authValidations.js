@@ -13,8 +13,7 @@ const credentialCheck = (req, res, next) => {
 const validateInput = (req, res, next) => {
   const { username, password } = req.body;
   if (!(username && password)) {
-    res.cookie('loginError', 'Please enter all credentials', { path: '/login' });
-    res.redirect(req.url);
+    res.cookie('loginError', 'Please enter all credentials', { path: '/login' }).redirect(req.url);
     return;
   }
   next();
