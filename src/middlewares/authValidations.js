@@ -20,8 +20,13 @@ const validateInput = (req, res, next) => {
 };
 
 const authenticateUser = (req, res, next) => {
+  let refUrl = '';
+  if (req.query.gameId) {
+    refUrl = `/join?gameId=${req.query.gameId}`;
+  }
   const { username } = req.session;
   if (!username) {
+    req.session.redirectTo = refUrl;
     res.redirect('/login');
     return;
   }

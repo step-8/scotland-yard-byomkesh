@@ -23,6 +23,7 @@ const signupHandler = (users, userDb, writeFile) => (req, res) => {
 };
 
 const loginHandler = (users) => (req, res) => {
+  console.log(req.session.redirectTo);
   const { username, password } = req.body;
   if (users.authUser(username, password)) {
     req.session.username = username;

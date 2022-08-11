@@ -27,7 +27,7 @@ describe('Join', () => {
     game.addPlayer(host);
 
     app.get(`/join?gameId=${gameId}`)
-      .expect('location', '/login')
+      .expect('location', `/login/join?gameId=${gameId}`)
       .expect(302, done);
   });
 
