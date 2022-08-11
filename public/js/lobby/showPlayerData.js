@@ -9,7 +9,9 @@ const createElem = (value, className) => {
 const createPlayerCard = ({ username, role, currentPosition, isHost }) => {
   const playerCard = createEl('div');
 
-  username += isHost ? ' (host)' : '';
+  if (!role) {
+    username += isHost ? ' (host)' : '';
+  }
   const name = createElem(username, 'name inline');
   playerCard.appendChild(name);
 
@@ -18,6 +20,7 @@ const createPlayerCard = ({ username, role, currentPosition, isHost }) => {
     const character = createElem(role, 'role inline');
     const at = createElem('at position', 'at small inline');
     const position = createElem(currentPosition, 'position inline');
+
 
     playerCard.appendChild(is);
     playerCard.appendChild(character);
@@ -44,15 +47,17 @@ const showPlayerCard = (players) => {
 };
 
 const displayMessage = (totalPlayer, isHost) => {
-  let message = 'Waiting for host to start.';
+  let message = 'Waiting for host to start...';
   if (isHost) {
-    message = 'You can start the game or wait for other players.';
+    message = 'You can start the game or wait for other players';
   }
   if (totalPlayer < 3) {
-    message = `Waiting for atleast ${3 - totalPlayer} players.`;
+    const playersNeeded = 3 - totalPlayer;
+    message = `Waiting for atleast ${playersNeeded} `;
+    message += playersNeeded === 1 ? 'player ...' : 'players ...';
   }
   if (totalPlayer === 6 && isHost) {
-    message = `Max player reached. Start the Game.`;
+    message = `Max players joined. Please start the Game.`;
   }
 
   const messageDiv = byId('message');

@@ -76,19 +76,12 @@ i {
   font-size: 1.5em;
   padding: 0.6em 1.5em;
   border: 1px solid white;
-}
-
-.disable {
-  background-color: #2b5394bc;
-  cursor: no-drop;
-  color: #d9d9d994;
-}
-
-.activate {
   background-color: #2b5494;
   cursor: pointer;
   color: white;
+  visibility: hidden;
 }
+
 .inline {
   display: inline-block;
   width: fit-content;
@@ -124,6 +117,7 @@ i {
   display: flex;
   align-items: center;
 }
+
 .player-card>* {
   color: #2b5494;
 }
@@ -135,6 +129,7 @@ i {
 .black div {
   color: white !important;
 }
+
 .hide {
   display: none !important;
 }

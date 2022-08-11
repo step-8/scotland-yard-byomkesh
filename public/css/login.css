@@ -8,8 +8,13 @@ body {
   margin: 0;
   font-size: 16px;
   font-family: sans-serif;
-  color: var(--font_color);
+  color: white;
   font-weight: 100;
+
+  background-image: url('../images/scotland_map.jpeg');
+  background-size: 110% 125%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 input[type=submit],
@@ -18,7 +23,8 @@ button {
 }
 
 a {
-  text-decoration: none;
+  text-decoration: underline;
+  color: white;
 }
 
 h1,
@@ -52,18 +58,21 @@ h6 {
 }
 
 main {
-  background-color: var(--secondary_color);
   flex: 1;
   height: 85%;
   display: flex;
+  font-size: 18px;
   justify-content: center;
   align-items: center;
+  background: rgba(40, 40, 40, 0.75);
 }
 
 .login {
-  background-color: #8aa1c4;
-  height: 50%;
-  width: 30%;
+  background: rgba(15, 15, 15, 0.75);
+  height: 60%;
+  width: 32%;
+  letter-spacing: 1px;
+  box-shadow: 0px 0px 25px 25px rgba(100, 100, 100, 0.2);
 }
 
 .login>.form-header {
@@ -84,16 +93,25 @@ main {
 }
 
 .login .input-group {
-  width: 40%;
-  /* margin: 0 auto; */
+  width: 50%;
 }
 
 .input-group input {
   display: block;
   border: 0;
   width: 100%;
-  margin: 1em 0;
+  margin: 0.5em 0;
   padding: 0.4em 0.5em;
+  background: none;
+  border-bottom: 1px solid var(--secondary_color);
+  color: white;
+  font-size: 18px;
+}
+
+#username:focus,
+#password:focus {
+  outline: none;
+  caret-color: white;
 }
 
 #login-btn,

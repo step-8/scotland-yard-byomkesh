@@ -30,8 +30,7 @@ const activatePlayBtn = () => {
   if (!btn) {
     return;
   }
-  btn.className = 'activate';
-  btn.disabled = false;
+  btn.style.visibility = 'visible';
 };
 
 const updateGameId = () => {
@@ -43,7 +42,6 @@ const refreshPage = (intervalId) => {
   const req = { method: 'GET', url: '/api/lobby-stats' };
   sendRequest(req, updatePlayers(intervalId));
 };
-
 
 const initiateLobby = (status, res) => {
   const { isHost } = JSON.parse(res);
