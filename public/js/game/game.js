@@ -32,6 +32,10 @@ class GameState {
     return this.#currentPlayer.color;
   }
 
+  get currentPlayer() {
+    return this.#currentPlayer;
+  }
+
   set possibleRoutes(stops) {
     this.#possibleRoutes = stops;
   }
