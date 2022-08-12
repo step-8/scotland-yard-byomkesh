@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { gameStats } = require('../handlers/game.js');
-const { validStops, move } = require('../handlers/gameAPI.js');
+const { validStops, movePlayer } = require('../handlers/gameAPI.js');
 const { serveLobbyStats } = require('../handlers/serveLobbyStats.js');
 const { startGameHandler } = require('../handlers/startGameHandler.js');
 
@@ -17,7 +17,7 @@ const createApiRouter = () => {
   apiRouter.post('/start', startGameHandler);
   apiRouter.get('/game-stats', gameStats);
   apiRouter.get('/valid-stops', validStops);
-  apiRouter.post('/move', move);
+  apiRouter.post('/move', movePlayer);
 
   return apiRouter;
 };

@@ -1,10 +1,10 @@
 const validStops = (req, res) => {
   const { username, game } = req.session;
   const players = game.getPlayers();
-  const currentPlayer = game.findPlayer(username);
-  const stops = game.stopInfo(currentPlayer.position);
+  const requestedPlayer = game.findPlayer(username).info;
+  const stops = game.stopInfo(requestedPlayer.currentPosition);
 
-  if (currentPlayer.role === 'Mr. X') {
+  if (requestedPlayer.role === 'Mr. X') {
     return res.json(stops);
   }
 
@@ -23,14 +23,16 @@ const validStops = (req, res) => {
   res.json(stops);
 };
 
-const move = (req, res) => {
+const movePlayer = (req, res) => {
   const { username, game } = req.session;
   const { destination } = req.body;
 
+  if (game.currentPlayer.username !== username) {
+    return res.json({ isMoved: false });
+  }
   const currentPlayer = game.findPlayer(username);
   const stops = game.stopInfo(currentPlayer.position);
-  const { buses, taxies, subways, ferries } = stops;
-  const allStops = buses.concat(taxies, subways, ferries);
+  const allStops = Object.values(stops).flat();
 
   if (allStops.includes(destination)) {
     currentPlayer.updatePosition(destination);
@@ -43,4 +45,4 @@ const move = (req, res) => {
 
 };
 
-module.exports = { validStops, move };
+module.exports = { validStops, movePlayer };
