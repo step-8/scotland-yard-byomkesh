@@ -40,19 +40,12 @@ const sendMoveRequest = (stop) => {
 
   fetch('/api/move', requestDetails)
     .then((res) => res.json())
-    .then((res) => movePin(stop, res));
+    .then((res) => movePin(stop, res))
+    .then((res) => removeAllHighlight());
 };
 
-const initiateMove = (res) => {
-  gameState.possibleRoutes = res;
-
+const initiateMove = () => {
   Object.values(gameState.possibleRoutes).forEach((stops) => {
     addClickEvent(sendMoveRequest, stops);
   });
-};
-
-const getValidStops = () => {
-  fetch('/api/valid-stops')
-    .then((res) => res.json())
-    .then(initiateMove)
 };

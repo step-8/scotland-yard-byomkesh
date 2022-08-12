@@ -58,6 +58,29 @@ const updatePins = () => {
   });
 };
 
+const highlightStops = () => {
+  const validRoutes = gameState.possibleRoutes;
+  const validStops = Object.values(validRoutes).flat();
+  validStops.forEach(stopNo => {
+    if (byId(stopNo)) {
+      highlightPoint(stopNo);
+    }
+    // const stop = byId(stopNo);
+    // stop.addEventListener('click', highlightSelectedPoint(stopNo, validStops));
+  });
+};
+
+const reqValidStops = () => {
+  fetch('/api/valid-stops', { method: 'GET' })
+    .then(res => res.json())
+    .then(validRoutes => {
+      gameState.possibleRoutes = validRoutes;
+
+      highlightStops();
+      initiateMove();
+    });
+};
+
 const reqGameStats = () => {
   fetch('/api/game-stats', { method: 'GET' })
     .then((res) => res.json())
@@ -65,7 +88,7 @@ const reqGameStats = () => {
       gameState.initialize(data);
       if (gameState.isMyTurn()) {
         // stop polling
-        getValidStops();
+        reqValidStops();
       }
     })
     .then(_ => updatePins());
