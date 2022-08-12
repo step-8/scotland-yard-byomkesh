@@ -26,6 +26,10 @@ class Player {
     this.#currentPosition = currentPosition;
   }
 
+  isSamePlayer(username) {
+    return this.#username === username;
+  }
+
   setHost() {
     this.#isHost = true;
   }
@@ -34,6 +38,9 @@ class Player {
     return this.#tickets;
   }
 
+  get position() {
+    return this.#currentPosition;
+  }
   get info() {
     return {
       username: this.#username,

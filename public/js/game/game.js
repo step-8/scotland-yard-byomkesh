@@ -2,6 +2,7 @@ class GameState {
   #players;
   #currentPlayer;
   #playerName;
+  #possibleRoutes;
 
   constructor() {
     this.#players = null;
@@ -23,7 +24,17 @@ class GameState {
     return this.#playerName === this.#currentPlayer.username;
   }
 
-  getPossibleRoutes() { }
+  get possibleRoutes() {
+    return this.#possibleRoutes;
+  }
+
+  get currentPlayerColor() {
+    return this.#currentPlayer.color;
+  }
+
+  set possibleRoutes(stops) {
+    this.#possibleRoutes = stops;
+  }
 }
 
 const gameState = new GameState();
@@ -52,12 +63,10 @@ const reqGameStats = () => {
     .then((res) => res.json())
     .then(data => {
       gameState.initialize(data);
+      if (gameState.isMyTurn()) {
+        // stop polling
+        getValidStops();
+      }
     })
     .then(_ => updatePins());
 };
-
-const main = () => {
-  reqGameStats();
-};
-
-window.onload = main;

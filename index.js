@@ -11,13 +11,15 @@ const config = {
   views: parsed.VIEWS,
   cookieKey: parsed.COOKIE_KEY,
   port: parsed.PORT,
-  userDb: parsed.USERS_DB
+  userDb: parsed.USERS_DB,
+  stops: parsed.STOPS
 };
 
 const startServer = port => {
   const userJson = JSON.parse(fs.readFileSync(config.userDb, 'utf8'));
+  const stopsJson = JSON.parse(fs.readFileSync(config.stops, 'utf8'));
   const users = new Users(userJson);
-  const games = new Games();
+  const games = new Games(stopsJson);
   const session = expressSession({
     secret: config.cookieKey, resave: false, saveUninitialized: false
   });

@@ -4,13 +4,12 @@ class Game {
   #isGameStarted;
   #players;
   #stops;
-  #currentPlayer;
   #limit;
+  #currentPlayerIndex;
 
   constructor(gameId, stops = {}) {
     this.#gameId = gameId;
     this.#host = null;
-    this.#currentPlayer = null;
     this.#isGameStarted = false;
     this.#players = [];
     this.#stops = stops;
@@ -29,11 +28,18 @@ class Game {
     return this.#players.map(player => player.info);
   }
 
-  changeGameStatus() {
-    this.#isGameStarted = true;
-    this.#currentPlayer = this.#players[0];
+  findPlayer(username) {
+    return this.#players.find((player) => player.isSamePlayer(username));
   }
 
+  changeGameStatus() {
+    this.#isGameStarted = true;
+    this.#currentPlayerIndex = 0
+  }
+
+  changeCurrentPlayer() {
+    this.#currentPlayerIndex = (this.#currentPlayerIndex + 1) % this.#players.length;
+  }
   canGameStart() {
     return this.#players.length >= this.#limit.min;
   }
@@ -51,7 +57,15 @@ class Game {
   }
 
   get currentPlayer() {
-    return this.#currentPlayer.info;
+    return this.#players[this.#currentPlayerIndex].info;
+  }
+
+  getLocations() {
+    return this.#players.map(({ color, currentPosition }) => ({ color, currentPosition }));
+  }
+
+  stopInfo(stop) {
+    return this.#stops[stop];
   }
 
   assignRoles(roles, shuffler = (x) => x) {

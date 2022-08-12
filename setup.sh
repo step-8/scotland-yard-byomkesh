@@ -14,3 +14,7 @@ touch "${DB_PATH}"
 echo '{}' > "${DB_PATH}" 
 
 echo "USERS_DB='${DB_PATH}'" >> .env
+
+STOPS_PATH='./data/stops.json'
+
+echo "STOPS='${STOPS_PATH}'" >> .env
