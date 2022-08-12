@@ -3,15 +3,12 @@ const assert = require('assert');
 const { gameStats } = require('../../src/handlers/game.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
+const { roles, mrX } = require('../../src/utils/roles.js');
 
 const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
 const MR_X_TICKETS = { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
 
 const createDummyPlayers = (noOfPlayers) => {
-  const roles = [
-    'Mr. X', 'Det. red', 'Det. green',
-    'Det. blue', 'Det. yellow', 'Det. purple'
-  ];
   const initialPositions = [19, 43, 32, 74, 46, 73, 31];
 
   return Array(noOfPlayers).fill(0).map((_, index) => {
@@ -35,7 +32,7 @@ describe('gameStats handler', () => {
       players: [
         {
           username: 'player0',
-          role: 'Mr. X',
+          role: mrX,
           currentPosition: 19,
           isHost: true,
           color: 'black',
@@ -43,7 +40,7 @@ describe('gameStats handler', () => {
         },
         {
           username: 'player1',
-          role: 'Det. red',
+          role: 'Detective Red',
           currentPosition: 43,
           isHost: false,
           color: 'red',
@@ -51,7 +48,7 @@ describe('gameStats handler', () => {
         },
         {
           username: 'player2',
-          role: 'Det. green',
+          role: 'Detective Green',
           currentPosition: 32,
           isHost: false,
           color: 'green',
@@ -61,7 +58,7 @@ describe('gameStats handler', () => {
       playerName: 'player0',
       currentPlayer: {
         username: 'player0',
-        role: 'Mr. X',
+        role: mrX,
         currentPosition: 19,
         isHost: true,
         color: 'black',
@@ -96,7 +93,7 @@ describe('gameStats handler', () => {
         },
         {
           username: 'player1',
-          role: 'Det. red',
+          role: 'Detective Red',
           currentPosition: 43,
           isHost: false,
           color: 'red',
@@ -104,7 +101,7 @@ describe('gameStats handler', () => {
         },
         {
           username: 'player2',
-          role: 'Det. green',
+          role: 'Detective Green',
           currentPosition: 32,
           isHost: false,
           color: 'green',
@@ -114,7 +111,7 @@ describe('gameStats handler', () => {
       playerName: 'player1',
       currentPlayer: {
         username: 'player0',
-        role: 'Mr. X',
+        role: mrX,
         currentPosition: null,
         isHost: true,
         color: 'black',

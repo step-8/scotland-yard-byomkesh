@@ -1,3 +1,5 @@
+const { roles } = require("../utils/roles");
+
 const randInt = (limit) => {
   return Math.ceil((Math.random() * 1000)) % limit;
 };
@@ -19,11 +21,6 @@ const startGameHandler = (req, res) => {
     res.json({ isStarted: false });
     return;
   }
-
-  const roles = [
-    'Mr. X', 'Det. red', 'Det. green',
-    'Det. blue', 'Det. yellow', 'Det. purple'
-  ];
 
   // const initalPositions = [
   //   13, 26, 29, 91, 117, 34, 50, 53, 94, 103,

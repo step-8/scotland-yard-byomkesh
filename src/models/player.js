@@ -14,6 +14,7 @@ const getMrXTickets = () => {
 }
 
 
+const { mrX } = require('../utils/roles.js');
 
 class Player {
   #username;
@@ -33,7 +34,7 @@ class Player {
       this.#role = role;
       this.#color = getColor(role);
       this.#tickets =
-        role === 'Mr. X' ? getMrXTickets() : getDetectiveTickets();
+        role === mrX ? getMrXTickets() : getDetectiveTickets();
     }
   }
 
@@ -76,11 +77,11 @@ class Player {
 const getColor = (role) => {
   const rolesColor = {
     'Mr. X': 'black',
-    'Det. red': 'red',
-    'Det. green': 'green',
-    'Det. blue': 'blue',
-    'Det. yellow': 'yellow',
-    'Det. purple': 'purple'
+    'Detective Red': 'red',
+    'Detective Green': 'green',
+    'Detective Blue': 'blue',
+    'Detective Yellow': 'yellow',
+    'Detective Purple': 'purple'
   };
   return rolesColor[role];
 }

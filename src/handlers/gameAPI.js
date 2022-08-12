@@ -1,3 +1,5 @@
+const { mrX } = require("../utils/roles");
+
 const validStops = (req, res) => {
   const { username, game } = req.session;
   const players = game.getPlayers();
@@ -5,7 +7,7 @@ const validStops = (req, res) => {
   const stops = game.stopInfo(requestedPlayer.currentPosition);
 
   players.forEach(player => {
-    if (player.role === 'Mr. X') {
+    if (player.role === mrX) {
       return;
     }
     Object.keys(stops).forEach((route) => {

@@ -3,12 +3,10 @@ const assert = require('assert');
 const { movePlayer } = require('../../src/handlers/gameAPI.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
+const { roles } = require('../../src/utils/roles.js');
 
 const createDummyPlayers = (noOfPlayers) => {
-  const roles = [
-    'Mr. X', 'Det. red', 'Det. green',
-    'Det. blue', 'Det. yellow', 'Det. purple'
-  ];
+
   const initialPositions = [19, 43, 32, 74, 46, 73, 31];
 
   return Array(noOfPlayers).fill(0).map((_, index) => {

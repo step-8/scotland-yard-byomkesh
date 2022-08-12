@@ -105,14 +105,14 @@ describe('Game', () => {
     const tickets = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
     const expected = [
       { username: 'host', role: 'Mr. X', currentPosition: 1, isHost: true, color: 'black', tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 } },
-      { username: 'player1', role: 'Det. red', currentPosition: 2, isHost: false, color: 'red', tickets },
-      { username: 'player2', role: 'Det. green', currentPosition: 3, isHost: false, color: 'green', tickets }
+      { username: 'player1', role: 'Detective Red', currentPosition: 2, isHost: false, color: 'red', tickets },
+      { username: 'player2', role: 'Detective Green', currentPosition: 3, isHost: false, color: 'green', tickets }
     ];
 
 
     const positions = [1, 2, 3];
     game.assignInitialPositions(positions);
-    game.assignRoles(['Mr. X', 'Det. red', 'Det. green']);
+    game.assignRoles(['Mr. X', 'Detective Red', 'Detective Green']);
     // game.assignColors(['black', 'red', 'green']);
     game.changeGameStatus();
     const destination = 4;
