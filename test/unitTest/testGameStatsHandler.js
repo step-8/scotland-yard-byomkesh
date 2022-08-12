@@ -4,6 +4,9 @@ const { gameStats } = require('../../src/handlers/game.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
 
+const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
+const MR_X_TICKETS = { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
+
 const createDummyPlayers = (noOfPlayers) => {
   const roles = [
     'Mr. X', 'Det. red', 'Det. green',
@@ -36,6 +39,7 @@ describe('gameStats handler', () => {
           currentPosition: 19,
           isHost: true,
           color: 'black',
+          tickets: MR_X_TICKETS
         },
         {
           username: 'player1',
@@ -43,6 +47,7 @@ describe('gameStats handler', () => {
           currentPosition: 43,
           isHost: false,
           color: 'red',
+          tickets: DETECTIVE_TICKETS
         },
         {
           username: 'player2',
@@ -50,6 +55,7 @@ describe('gameStats handler', () => {
           currentPosition: 32,
           isHost: false,
           color: 'green',
+          tickets: DETECTIVE_TICKETS
         }
       ],
       playerName: 'player0',
@@ -59,6 +65,7 @@ describe('gameStats handler', () => {
         currentPosition: 19,
         isHost: true,
         color: 'black',
+        tickets: MR_X_TICKETS
       }
     }
     const mockedRequest = { session: { username: 'player0', game } };
@@ -80,11 +87,20 @@ describe('gameStats handler', () => {
     const expectedData = {
       players: [
         {
+          username: 'player0',
+          role: 'Mr. X',
+          currentPosition: null,
+          isHost: true,
+          color: 'black',
+          tickets: MR_X_TICKETS
+        },
+        {
           username: 'player1',
           role: 'Det. red',
           currentPosition: 43,
           isHost: false,
           color: 'red',
+          tickets: DETECTIVE_TICKETS
         },
         {
           username: 'player2',
@@ -92,6 +108,7 @@ describe('gameStats handler', () => {
           currentPosition: 32,
           isHost: false,
           color: 'green',
+          tickets: DETECTIVE_TICKETS
         }
       ],
       playerName: 'player1',
@@ -101,6 +118,7 @@ describe('gameStats handler', () => {
         currentPosition: null,
         isHost: true,
         color: 'black',
+        tickets: MR_X_TICKETS
       }
     }
     const mockedRequest = { session: { username: 'player1', game } };

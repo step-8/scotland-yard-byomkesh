@@ -39,7 +39,7 @@ describe('Move Player', () => {
   it('Should move to destination if it is a valid stop', () => {
     const expectedData = { isMoved: true };
 
-    const body = { destination: 1 };
+    const body = { destination: 1, ticket: 'taxi' };
     const mockedRequest = { session: { username: 'player0', game }, body };
     const mockedResponse = {
       json: (actualData) => {
@@ -81,7 +81,7 @@ describe('Move Player', () => {
   it('Should change the current player and let the next player move', () => {
     // player0 plays
     let expectedData = { isMoved: true };
-    let body = { destination: 1 };
+    let body = { destination: 1, ticket: 'taxi' };
 
     let mockedRequest = { session: { username: 'player0', game }, body };
     let mockedResponse = {
@@ -94,7 +94,7 @@ describe('Move Player', () => {
     //-----------
     // player1 plays
     expectedData = { isMoved: true };
-    body = { destination: 2 };
+    body = { destination: 2, ticket: 'taxi' };
 
     mockedRequest = { session: { username: 'player1', game }, body };
     mockedResponse = {

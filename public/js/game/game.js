@@ -28,8 +28,8 @@ class GameState {
     return this.#possibleRoutes;
   }
 
-  get currentPlayerColor() {
-    return this.#currentPlayer.color;
+  get currentPlayer() {
+    return this.#currentPlayer;
   }
 
   get currentPlayer() {
@@ -57,6 +57,9 @@ const putPinInMap = (currentPosition, color) => {
 const updatePins = () => {
   const locations = gameState.getLocations();
   locations.forEach(({ currentPosition, color }) => {
+    if (currentPosition === null) {
+      return;
+    }
     removePin(color);
     putPinInMap(currentPosition, color);
   });
@@ -69,8 +72,8 @@ const highlightStops = () => {
     if (byId(stopNo)) {
       highlightPoint(stopNo);
     }
-    // const stop = byId(stopNo);
-    // stop.addEventListener('click', highlightSelectedPoint(stopNo, validStops));
+    const stop = byId(stopNo);
+    stop.addEventListener('click', highlightSelectedPoint(stopNo, validStops));
   });
 };
 
@@ -85,15 +88,3 @@ const reqValidStops = () => {
     });
 };
 
-const reqGameStats = () => {
-  fetch('/api/game-stats', { method: 'GET' })
-    .then((res) => res.json())
-    .then(data => {
-      gameState.initialize(data);
-      if (gameState.isMyTurn()) {
-        // stop polling
-        reqValidStops();
-      }
-    })
-    .then(_ => updatePins());
-};

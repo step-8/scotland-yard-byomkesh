@@ -21,7 +21,7 @@ const validStops = (req, res) => {
 
 const movePlayer = (req, res) => {
   const { username, game } = req.session;
-  const { destination } = req.body;
+  const { destination, ticket } = req.body;
 
   if (game.currentPlayer.username !== username) {
     return res.json({ isMoved: false });
@@ -31,8 +31,11 @@ const movePlayer = (req, res) => {
   const allStops = Object.values(stops).flat();
 
   if (allStops.includes(destination)) {
-    currentPlayer.updatePosition(destination);
-    game.changeCurrentPlayer();
+    // currentPlayer.updatePosition(destination);
+    // currentPlayer.updateTicket(ticket);
+    game.playMove(destination, ticket);
+
+    // game.changeCurrentPlayer();
     res.json({ isMoved: true });
     return;
   }

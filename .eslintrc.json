@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "env": {
     "commonjs": true,
     "es6": true,
@@ -93,42 +92,41 @@
       {
         "max": 1
       }
-=======
     "env": {
         "commonjs": true,
         "es6": true,
         "node": true,
         "mocha": true
-    },
-    "extends": "eslint:recommended",
-    "globals": {
+      },
+      "extends": "eslint:recommended",
+      "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
-    },
-    "parserOptions": {
+      },
+      "parserOptions": {
         "ecmaVersion": "latest"
-    },
-    "rules": {
+      },
+      "rules": {
         "indent": [
-            "error",
-            2
+          "error",
+          2
         ],
         "quotes": [
-            "error",
-            "single"
+          "error",
+          "single"
         ],
         "linebreak-style": [
-            "error",
-            "unix"
+          "error",
+          "unix"
         ],
         "semi": [
-            "error",
-            "always"
+          "error",
+          "always"
         ],
         "camelcase": "error",
         "class-methods-use-this": "warn",
         "array-bracket-spacing": [
-            "error"
+          "error"
         ],
         "comma-spacing": "error",
         "arrow-spacing": "error",
@@ -145,10 +143,10 @@
         "key-spacing": "error",
         // "max-len": "error",
         "max-params": [
-            "error",
-            {
-                "max": 4
-            }
+          "error",
+          {
+            "max": 4
+          }
         ],
         // "max-statements": "error",
         "no-console": "warn",
@@ -184,45 +182,44 @@
         "no-multi-spaces": "error",
         "semi-spacing": "error",
         "no-multiple-empty-lines": [
-            "error",
-            {
-                "max": 1
-            }
+          "error",
+          {
+            "max": 1
+          }
         ]
-    },
-    "overrides": [
+      },
+      "overrides": [
         {
-            "files": [
-                "test*.js"
-            ],
-            "rules": {
-                "max-len": "off",
-                "no-magic-numbers": "off",
-                "max-statements": "off"
-            }
+          "files": [
+            "test*.js"
+          ],
+          "rules": {
+            "max-len": "off",
+            "no-magic-numbers": "off",
+            "max-statements": "off"
+          }
         },
         {
-            "files": [
-                "app.js"
-            ],
-            "rules": {
-                "max-statements": "off"
-            }
+          "files": [
+            "app.js"
+          ],
+          "rules": {
+            "max-statements": "off"
+          }
         }
->>>>>>> bd4a98e9c5ca5cd1de64f32a7d3af7af607aa3e0
-    ]
-  },
-  "overrides": [
-    {
-      "files": [
-        "app.js",
-        "test*.js"
-      ],
-      "rules": {
-        "max-len": "off",
-        "no-magic-numbers": "off",
-        "max-statements": "off"
+      ]
+    },
+    "overrides": [
+      {
+        "files": [
+          "app.js",
+          "test*.js"
+        ],
+        "rules": {
+          "max-len": "off",
+          "no-magic-numbers": "off",
+          "max-statements": "off"
+        }
       }
-    }
-  ]
-}
+    ]
+  }

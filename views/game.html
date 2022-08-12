@@ -2,23 +2,20 @@
   <head>
     <title>Scotland map</title>
     <link rel="stylesheet" href="/css/game.css">
+    <link rel="stylesheet" href="/css/ticket-popup.css">
+
     <script src="/js/functionAliases.js"></script>
     <script src="/js/game/game.js"></script>
     <script src="/js/game/move.js"></script>
     <script src="/js/game/svgLib.js"></script>
     <script src="/js/game/notifier.js"></script>
     <script src="/js/game/controller.js"></script>
+    <script src="/js/game/ticketPopup.js"></script>
     <script src="/js/game/gameMain.js"></script>
-
   </head>
   <body>
-
     <div class="main">
       <div class="map">
-        <!-- width="2570"
-    height="1926" -->
-
-
         <svg version="1.1" id="map" width="1570" height="1000" viewBox="0 0 2570 1926"
           xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"
           xmlns:svg="http://www.w3.org/2000/svg">
@@ -403,7 +400,18 @@
 
 
       </div>
-      <div class="stats"></div>
+
+      <!-- stats board  -->
+      <div class="stats">
+        <!-- <div class="ticket-popup">
+          <a href="#" id="train">
+            <img src="/images/train.svg" alt="" srcset="">
+          </a>
+          <a href="#" id="bus">
+            <img src="/images/bus.svg" alt="" srcset="">
+          </a>
+        </div> -->
+      </div>
     </div>
 
 

@@ -48,6 +48,15 @@ class Game {
     return this.#players.length >= this.#limit.max;
   }
 
+  playMove(destination, ticket) {
+    const currentPlayer = this.#players[this.#currentPlayerIndex];
+
+    currentPlayer.updatePosition(destination);
+    currentPlayer.reduceTicket(ticket);
+
+    this.changeCurrentPlayer();
+  }
+
   get gameId() {
     return this.#gameId;
   }

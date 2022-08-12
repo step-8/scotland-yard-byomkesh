@@ -1,0 +1,16 @@
+.ticket-popup {
+  position: absolute;
+  right: 25%;
+  top: 80px;
+  display: flex;
+  flex-direction: column;
+}
+
+.ticket-popup>a {
+  padding: 10px 25px;
+  border: 1px solid black;
+}
+
+.ticket-popup>a>img {
+  width: 30px;
+}

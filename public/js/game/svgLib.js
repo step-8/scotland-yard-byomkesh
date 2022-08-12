@@ -6,6 +6,7 @@ const removeAllHighlight = () => {
   ellipses.forEach(ellipse => {
     ellipse.style.stroke = defaultStroke;
     ellipse.style.filter = 'drop-shadow(0px 0px 0px)';
+    ellipse.style.fill = 'white';
   })
 };
 

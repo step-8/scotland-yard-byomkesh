@@ -60,8 +60,13 @@ const isMrX = (players, playerName) => {
   return me.color === 'black';
 };
 
-const removeMrX = (players) => {
-  return players.filter(({ color }) => color !== 'black');
+const removeMrXPosition = (players) => {
+  return players.map((player) => {
+    if (player.color === 'black') {
+      player.currentPosition = null;
+    }
+    return player;
+  });
 };
 
 const gameStats = (req, res) => {
@@ -70,7 +75,7 @@ const gameStats = (req, res) => {
   let currentPlayer = game.currentPlayer;
 
   if (!isMrX(players, username)) {
-    players = removeMrX(players);
+    players = removeMrXPosition(players);
     currentPlayer.currentPosition = null;
   }
 

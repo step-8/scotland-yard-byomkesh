@@ -1,5 +1,19 @@
-const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
-const MR_X_TICKETS = { taxi: 0, bus: 0, subway: 0, black: 5, twoX: 2 };
+
+const getDetectiveTickets = () => {
+  const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
+  const { taxi, bus, subway, black, twoX } = DETECTIVE_TICKETS;
+
+  return { taxi, bus, subway, black, twoX };
+};
+
+const getMrXTickets = () => {
+  const MR_X_TICKETS = { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
+  const { taxi, bus, subway, black, twoX } = MR_X_TICKETS;
+
+  return { taxi, bus, subway, black, twoX };
+}
+
+
 
 class Player {
   #username;
@@ -18,7 +32,8 @@ class Player {
     if (!this.#role) {
       this.#role = role;
       this.#color = getColor(role);
-      this.#tickets = role === 'Mr. X' ? MR_X_TICKETS : DETECTIVE_TICKETS;
+      this.#tickets =
+        role === 'Mr. X' ? getMrXTickets() : getDetectiveTickets();
     }
   }
 
@@ -34,6 +49,10 @@ class Player {
     this.#isHost = true;
   }
 
+  reduceTicket(ticket) {
+    this.#tickets[ticket]--;
+  }
+
   get tickets() {
     return this.#tickets;
   }
@@ -41,6 +60,7 @@ class Player {
   get position() {
     return this.#currentPosition;
   }
+
   get info() {
     return {
       username: this.#username,
@@ -48,6 +68,7 @@ class Player {
       currentPosition: this.#currentPosition,
       isHost: this.#isHost,
       color: this.#color,
+      tickets: this.#tickets
     }
   }
 }
