@@ -6,44 +6,88 @@ const createElem = (value, className) => {
   return playerNameTag;
 };
 
-const createPlayerCard = ({ username, role, currentPosition, isHost }) => {
+const createCharacterCard = ({ username, currentPosition, color }, user) => {
   const playerCard = createEl('div');
-
-  if (!role) {
-    username += isHost ? ' (host)' : '';
-  }
-  const name = createElem(username, 'name inline');
+  const name = createElem(username, 'name');
   playerCard.appendChild(name);
+  const at = createElem('at', 'at small');
+  const position = createElem(currentPosition, 'position');
 
-  if (role && currentPosition) {
-    const is = createElem('is', 'is small inline');
-    const character = createElem(role, 'role inline');
-    const at = createElem('at position', 'at small inline');
-    const position = createElem(currentPosition, 'position inline');
+  playerCard.appendChild(at);
+  playerCard.appendChild(position);
 
+  const classes = color;
+  playerCard.className = classes;
 
-    playerCard.appendChild(is);
-    playerCard.appendChild(character);
-    playerCard.appendChild(at);
-    playerCard.appendChild(position);
-
-    const classes = role === 'Mr. X' ? 'black' : '';
-    playerCard.className = classes;
+  playerCard.classList.add('character-card');
+  if (username === user) {
+    playerCard.classList.add('me');
   }
-
-  playerCard.classList.add('player-card');
   return playerCard;
 };
 
+const createPlayerCard = ({ username, isHost }, user) => {
+  const playerCard = createEl('div');
 
-const showPlayerCard = (players) => {
+  if (username === user) {
+    playerCard.classList.add('me');
+  }
+
+  username += isHost ? ' (host)' : '';
+  const name = createElem(username, 'name inline');
+  playerCard.appendChild(name);
+
+  playerCard.classList.add('player-card');
+
+  return playerCard;
+};
+
+const createPlaceHolder = () => {
+  const placeHolder = createEl('div');
+  placeHolder.className = 'place-holder';
+  return placeHolder;
+};
+
+const showPlayerCard = (players, isGameStarted, user) => {
   const playersContainer = byId('players-container');
   playersContainer.innerHTML = '';
 
-  players.forEach(player => {
-    const playerInfo = createPlayerCard(player);
-    playersContainer.appendChild(playerInfo);
-  });
+  if (!isGameStarted) {
+    players.forEach(player => {
+      const playerInfo = createPlayerCard(player, user);
+      playersContainer.appendChild(playerInfo);
+    });
+
+    for (let i = 1; i <= 6 - players.length; i += 1) {
+      const placeHolder = createPlaceHolder();
+      playersContainer.appendChild(placeHolder);
+    };
+  } else {
+    const robberEle = createEl('div');
+    robberEle.className = 'robber-container';
+
+    const vs = createEl('div');
+    vs.className = 'vs';
+    vs.innerText = 'vs';
+
+    const detectivesEle = createEl('div');
+    detectivesEle.className = 'detectives-container';
+
+    players.forEach(player => {
+      if (player.role === 'Mr. X') {
+        const robberCard = createCharacterCard(player, user);
+        robberCard.classList.add('robber-card');
+        robberEle.appendChild(robberCard);
+      } else {
+        const playerCard = createCharacterCard(player, user);
+        playerCard.classList.add('detective-card');
+        detectivesEle.appendChild(playerCard);
+      }
+    });
+    playersContainer.appendChild(robberEle);
+    playersContainer.appendChild(vs);
+    playersContainer.appendChild(detectivesEle);
+  }
 };
 
 const displayMessage = (totalPlayer, isHost) => {
@@ -68,8 +112,8 @@ const updatePlayers = intervalId => (status, res) => {
   if (status !== 200) {
     return;
   }
-  const { players, isGameStarted, isHost } = JSON.parse(res);
-  showPlayerCard(players);
+  const { players, isGameStarted, isHost, username } = JSON.parse(res);
+  showPlayerCard(players, isGameStarted, username);
   displayMessage(players.length, isHost);
 
   if (players.length > 2) {

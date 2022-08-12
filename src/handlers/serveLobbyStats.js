@@ -1,5 +1,5 @@
 const serveLobbyStats = (req, res) => {
-  const { game } = req.session;
+  const { game, username } = req.session;
   if (!game) {
     res.status(401).end();
   }
@@ -12,7 +12,7 @@ const serveLobbyStats = (req, res) => {
     mrX.currentPosition = 'XX';
   }
 
-  res.json({ players, isGameStarted, isHost });
+  res.json({ players, isGameStarted, isHost, username });
   return;
 };
 
