@@ -37,7 +37,7 @@ describe('Valid stops', () => {
   })
 
   it('Should provide all connected stops as valid stops to Mr. X', () => {
-    const expectedData = { taxies: [1, 2, 32, 43] };
+    const expectedData = { taxies: [1, 2] };
 
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {

@@ -4,10 +4,6 @@ const validStops = (req, res) => {
   const requestedPlayer = game.findPlayer(username).info;
   const stops = game.stopInfo(requestedPlayer.currentPosition);
 
-  if (requestedPlayer.role === 'Mr. X') {
-    return res.json(stops);
-  }
-
   players.forEach(player => {
     if (player.role === 'Mr. X') {
       return;
