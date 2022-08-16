@@ -61,7 +61,7 @@
     "no-eval": "error",
     "no-implicit-globals": "error",
     "prefer-const": "error",
-    "no-magic-numbers": "warn",
+    "no-magic-numbers": "off",
     "no-process-exit": "error",
     "no-process-env": "error",
     "no-return-assign": "error",
@@ -102,7 +102,6 @@
       ],
       "rules": {
         "max-len": "off",
-        "no-magic-numbers": "off",
         "max-statements": "off"
       }
     },
@@ -112,6 +111,16 @@
       ],
       "rules": {
         "max-statements": "off"
+      }
+    },
+    {
+      "files": [
+        "public/js/*/*",
+        "public/js/*",
+        "public/css/*"
+      ],
+      "rules": {
+        "no-unused-vars": "off",
       }
     }
   ]

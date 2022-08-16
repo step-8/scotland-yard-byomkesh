@@ -6,36 +6,21 @@ const createRoomId = (gameId) => {
   roomIdEle.appendChild(roomId);
 };
 
-const createRoomLink = (gameId) => {
-  const roomLink = createEl('span');
-  roomLink.id = 'link-text';
-  roomLink.innerText = 'http://localhost:8000/join?gameId=' + gameId;
-
-  const gameLinkEle = byId('game-link');
-  gameLinkEle.prepend(roomLink);
-};
-
-const showGameId = (status, res) => {
-  if (status !== 200) {
-    return;
-  }
-  const { gameId } = JSON.parse(res);
-
-  createRoomId(gameId);
-  createRoomLink(gameId);
-};
-
 const activatePlayBtn = () => {
   const btn = byId('play');
   if (!btn) {
     return;
   }
-  btn.style.visibility = 'visible';
+  btn.classList.remove('hide');
 };
 
-const updateGameId = () => {
-  const req = { method: 'GET', url: '/user-name' };
-  sendRequest(req, showGameId);
+const setGameId = () => {
+  fetch('/user-name', { method: 'GET' })
+    .then((res) => res.json())
+    .then((res) => {
+      createRoomId(res.gameId);
+      byId('copy-btn').onclick = () => copyToClipboard(res.gameId);
+    })
 };
 
 const refreshPage = (intervalId) => {
@@ -45,13 +30,14 @@ const refreshPage = (intervalId) => {
 
 const initiateLobby = (status, res) => {
   const { isHost } = JSON.parse(res);
+  console.log(res);
   if (!isHost) {
     removePlayButton();
   }
   // calling atleast once
   refreshPage();
-  updateGameId();
+  setGameId();
 
   // starting page refresh each second
   const intervalId = setInterval(() => refreshPage(intervalId), 1000);
-}
+};

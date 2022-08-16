@@ -5,7 +5,6 @@ const serveUsername = (req, res) => {
     return;
   }
   res.status(200).json({});
-  return;
 };
 
 module.exports = { serveUsername };
