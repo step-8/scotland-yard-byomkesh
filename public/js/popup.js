@@ -2,6 +2,13 @@ const handleClosePopup = (event) => {
   query('.popup-backdrop').remove();
 };
 
+const submitOnEnter = (event) => {
+  if (event.key === 'Enter') {
+    const popup = query('.popup');
+    popup.submit();
+  }
+};
+
 const createPopup = () => {
   const backdrop = new Element('div')
     .addClass('popup-backdrop');
@@ -9,6 +16,7 @@ const createPopup = () => {
   const popup = new Element('form')
     .add('action', '/join')
     .add('method', 'get')
+    .addEvent('keydown', submitOnEnter)
     .addClass('popup');
 
   const closePopup = new Element('button')
@@ -29,6 +37,7 @@ const createPopup = () => {
     .addClass('popup-error');
 
   const joinButton = new Element('button')
+    .add('value', 'Join')
     .addClass('join-btn')
     .add('type', 'submit')
     .add('innerText', 'Join');

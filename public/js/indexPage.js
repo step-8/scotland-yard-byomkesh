@@ -1,5 +1,6 @@
 const showPopup = () => {
   query('body').prepend(createPopup());
+  query('.popup>input[type=text]').focus();
 };
 
 const displayJoinError = () => {
