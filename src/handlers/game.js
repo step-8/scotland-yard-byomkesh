@@ -33,7 +33,7 @@ const hostGame = (games) => (req, res) => {
 
   req.session.gameId = gameId;
   req.session.game = game;
-  res.redirect(`/lobby/${gameId}`);
+  res.redirect(`/lobby`);
   return;
 };
 
@@ -52,7 +52,7 @@ const joinGame = (games) => (req, res) => {
 
   game.addPlayer(player);
 
-  res.redirect(`/lobby/${gameId}`);
+  res.redirect(`/lobby`);
 };
 
 const isMrX = (players, playerName) => {

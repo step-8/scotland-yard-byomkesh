@@ -46,7 +46,7 @@ describe('Join', () => {
 
         app.get(`/join?gameId=${gameId}`)
           .set('cookie', cookie)
-          .expect('location', `/lobby/${gameId}`)
+          .expect('location', `/lobby`)
           .expect(302, done);
       });
   });

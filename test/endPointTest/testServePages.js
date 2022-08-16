@@ -53,12 +53,12 @@ describe('servePages', () => {
       app = request(initApp(config, users, games, session, () => { }));
     });
     it('Should redirect on home page if not logged in', (done) => {
-      app.get('/lobby/1')
+      app.get('/lobby')
         .expect('location', '/')
         .expect(302, done);
     });
 
-    it('Should not serve lobby page on /lobby/1 to non-player', (done) => {
+    it('Should not serve lobby page on /lobby to non-player', (done) => {
       const body = 'username=root&password=root';
 
       app.post('/login')
@@ -67,14 +67,14 @@ describe('servePages', () => {
         .expect(302)
         .end((err, res) => {
           const cookies = res.header['set-cookie'];
-          app.get('/lobby/1')
+          app.get('/lobby')
             .set('cookie', cookies)
             .expect('location', '/')
             .expect(302, done);
         });
     });
 
-    it('Should send player of game 1 to lobby of game 1 on /lobby/1', (done) => {
+    it('Should serve lobby of game 1 on /lobby', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
       const app = request(initApp(config, users, games, session));
@@ -92,7 +92,7 @@ describe('servePages', () => {
 
           app.get(`/join?gameId=${gameId}`)
             .set('cookie', cookie)
-            .expect('location', `/lobby/${gameId}`)
+            .expect('location', `/lobby`)
             .expect(302, done);
         });
     });

@@ -42,7 +42,7 @@ const initApp = (config, users, games, session, writeFile) => {
 
   app.use(createAuthRouter(users, userDb, views, writeFile));
 
-  app.get('/lobby/:gameId', protectedGame, serveLobby(views));
+  app.get('/lobby', protectedGame, serveLobby(views));
   app.get('/game', protectedGame, serveGamePage(views))
 
   app.use('/api', createApiRouter());
