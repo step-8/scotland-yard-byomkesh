@@ -90,7 +90,8 @@ main>div {
   width: 25%;
   background-color: #2b5494;
   border: none;
-  box-shadow: 2px 2px 4px #334bf7;
+  cursor: pointer;
+  box-shadow: 0px 0px 2px #000000;
 }
 
 .popup-error {
