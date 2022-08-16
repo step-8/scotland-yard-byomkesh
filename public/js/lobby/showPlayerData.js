@@ -10,10 +10,8 @@ const createCharacterCard = ({ username, currentPosition, color }, user) => {
   const playerCard = createEl('div');
   const name = createElem(username, 'name');
   playerCard.appendChild(name);
-  const at = createElem('at', 'at small');
-  const position = createElem(currentPosition, 'position');
+  const position = createElem(`at ${currentPosition}`, 'position');
 
-  playerCard.appendChild(at);
   playerCard.appendChild(position);
 
   const classes = color;
@@ -61,14 +59,14 @@ const showPlayerCard = (players, isGameStarted, user) => {
     for (let i = 1; i <= 6 - players.length; i += 1) {
       const placeHolder = createPlaceHolder();
       playersContainer.appendChild(placeHolder);
-    };
+    }
   } else {
     const robberEle = createEl('div');
     robberEle.className = 'robber-container';
 
     const vs = createEl('div');
     vs.className = 'vs';
-    vs.innerText = 'vs';
+    vs.innerHTML = '<img src="/images/versus.png" id="vs-img">';
 
     const detectivesEle = createEl('div');
     detectivesEle.className = 'detectives-container';
@@ -91,21 +89,29 @@ const showPlayerCard = (players, isGameStarted, user) => {
 };
 
 const displayMessage = (totalPlayer, isHost) => {
-  let message = 'Waiting for host to start...';
-  if (isHost) {
-    message = 'You can start the game or wait for other players';
+  const messageContainer = byId('message-container');
+  let gif = '';
+  let message = 'You can start the game or wait for other players';
+  if (!isHost) {
+    gif = '<img src="/images/loading.gif" id="loading-gif">';
+    message = 'Waiting for host to start...';
   }
   if (totalPlayer < 3) {
+    gif = '<img src="/images/loading.gif" id="loading-gif">';
     const playersNeeded = 3 - totalPlayer;
     message = `Waiting for atleast ${playersNeeded} `;
     message += playersNeeded === 1 ? 'player ...' : 'players ...';
   }
   if (totalPlayer === 6 && isHost) {
-    message = `Max players joined. Please start the Game.`;
+    message = 'Max players joined. Please start the Game.';
   }
 
-  const messageDiv = byId('message');
-  messageDiv.innerText = message;
+  const messageDiv = createElem(message, 'message');
+
+  messageContainer.replaceChildren();
+
+  messageContainer.innerHTML = gif;
+  messageContainer.appendChild(messageDiv);
 };
 
 const updatePlayers = intervalId => (status, res) => {
@@ -125,6 +131,5 @@ const updatePlayers = intervalId => (status, res) => {
     removeGameLink();
     startCountDown();
     clearInterval(intervalId);
-    return;
   }
-}
+};
