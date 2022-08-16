@@ -34,6 +34,7 @@ main {
   font-size: 2em;
 }
 
+
 #players-container {
   width: 50%;
   height: 60%;
@@ -95,6 +96,7 @@ i {
 
 #game-link {
   height: 2em;
+  display: flex;
 }
 
 #copy-message {
