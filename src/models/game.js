@@ -118,16 +118,18 @@ class Game {
   }
 
   getValidStops(username) {
-    const requestedPlayer = this.findPlayer(username).info;
-    const stop = this.#stops[requestedPlayer.currentPosition];
+    const requestedPlayer = this.findPlayer(username);
+    const connectedStop = this.#stops[requestedPlayer.position];
     const validStops = createEmptyStop();
-    const routes = Object.keys(stop);
+    const routes = Object.keys(connectedStop);
 
     routes.forEach(route => {
-      const availableStops = stop[route].filter(x => {
+      const availableStops = connectedStop[route].filter(x => {
         return !this.#isStopOccupiedByDetective(x);
       });
-      validStops[route] = availableStops;
+
+      validStops[route] =
+        requestedPlayer.isTicketAvailable(route) ? availableStops : [];
     });
     return validStops;
   }

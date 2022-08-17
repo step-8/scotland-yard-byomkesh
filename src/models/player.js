@@ -1,3 +1,15 @@
+const { mrX } = require('../utils/roles.js');
+
+const ticketNameMapper = (pluralTicket) => {
+  const obj = {
+    'buses': 'bus',
+    'subways': 'subway',
+    'taxies': 'taxi',
+    'ferries': 'ferry'
+  };
+
+  return obj[pluralTicket];
+};
 
 const getDetectiveTickets = () => {
   const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
@@ -12,8 +24,6 @@ const getMrXTickets = () => {
 
   return { taxi, bus, subway, black, twoX };
 };
-
-const { mrX } = require('../utils/roles.js');
 
 class Player {
   #username;
@@ -57,6 +67,11 @@ class Player {
 
   reduceTicket(ticket) {
     this.#tickets[ticket]--;
+  }
+
+  isTicketAvailable(rawTicket) {
+    const ticket = ticketNameMapper(rawTicket);
+    return this.#tickets[ticket] > 0;
   }
 
   get tickets() {

@@ -46,7 +46,7 @@ const ticketNameMapper = (pluralTicket) => {
     'buses': 'bus',
     'subways': 'subway',
     'taxies': 'taxi'
-  }
+  };
 
   return obj[pluralTicket];
 };
@@ -62,7 +62,7 @@ const sendMoveRequest = (stop) => {
     const requestDetails = {
       method: 'post',
       body,
-      headers: { 'Content-Type': "application/json" }
+      headers: { 'Content-Type': 'application/json' }
     };
 
     fetch('/api/move', requestDetails)
