@@ -13,6 +13,7 @@ const profile = (playerName) => {
   profileName.innerText = 'Hi ' + playerName;
   return profileName;
 };
+
 const updateNav = (status, res) => {
   const playerName = JSON.parse(res).username;
   if (!playerName) {
@@ -22,5 +23,4 @@ const updateNav = (status, res) => {
   const logoutButton = logout();
   const nav = byId('auth');
   nav.replaceChildren(profileName, logoutButton);
-  return;
 };

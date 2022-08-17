@@ -46,7 +46,7 @@
     "grouped-accessor-pairs": "warn",
     "global-require": "error",
     "handle-callback-err": "error",
-    "id-length": "error",
+    "id-length": "off",
     "key-spacing": "error",
     // "max-len": "error",
     "max-params": [
@@ -63,7 +63,7 @@
     "prefer-const": "error",
     "no-magic-numbers": "off",
     "no-process-exit": "error",
-    "no-process-env": "error",
+    "no-process-env": "off",
     "no-return-assign": "error",
     "no-useless-return": "error",
     "no-undef": "off",

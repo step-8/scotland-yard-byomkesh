@@ -27,15 +27,20 @@ describe('Valid stops', () => {
       43: { taxies: [1, 2, 19, 74] },
       32: { taxies: [1, 2, 19] },
       74: { taxies: [1, 2, 43] },
-    }
+    };
     const games = new Games(stops);
     game = games.createGame();
     createDummyPlayers(3).forEach(player => game.addPlayer(player));
     game.changeGameStatus();
-  })
+  });
 
   it('Should provide all connected stops as valid stops to Mr. X', () => {
-    const expectedData = { taxies: [1, 2] };
+    const expectedData = {
+      taxies: [1, 2],
+      buses: [],
+      subways: [],
+      ferries: []
+    };
 
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {
@@ -49,7 +54,10 @@ describe('Valid stops', () => {
 
   it('should provide valid stops of detective which are not blocked by other detectives', () => {
     const expectedData = {
-      taxies: [1, 2, 19, 74]
+      taxies: [1, 2, 19, 74],
+      buses: [],
+      subways: [],
+      ferries: []
     };
 
     const mockedRequest = { session: { username: 'player1', game } };
@@ -63,7 +71,10 @@ describe('Valid stops', () => {
 
   it('should provide valid stops of detective even Mr. X is present on a stop', () => {
     const expectedData = {
-      taxies: [1, 2, 19]
+      taxies: [1, 2, 19],
+      buses: [],
+      subways: [],
+      ferries: []
     };
 
     const mockedRequest = { session: { username: 'player2', game } };

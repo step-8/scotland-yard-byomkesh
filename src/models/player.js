@@ -11,8 +11,7 @@ const getMrXTickets = () => {
   const { taxi, bus, subway, black, twoX } = MR_X_TICKETS;
 
   return { taxi, bus, subway, black, twoX };
-}
-
+};
 
 const { mrX } = require('../utils/roles.js');
 
@@ -70,7 +69,7 @@ class Player {
       isHost: this.#isHost,
       color: this.#color,
       tickets: this.#tickets
-    }
+    };
   }
 }
 
@@ -84,6 +83,6 @@ const getColor = (role) => {
     'Detective Purple': 'purple'
   };
   return rolesColor[role];
-}
+};
 
 module.exports = { Player };

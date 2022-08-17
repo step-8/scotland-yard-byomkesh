@@ -5,9 +5,7 @@ const isPlayerInGame = (games, username) => {
   return allGames.some(game => {
     const { players } = game.getStatus();
     return players.some(player => {
-      if (player.username === username) {
-        return true;
-      }
+      return player.username === username;
     });
   });
 };
@@ -16,7 +14,6 @@ const sendConnectionError = (req, res) => {
   const message = 'You are already in a Game';
   res.cookie('connError', message, { maxAge: 1000 });
   res.redirect(302, '/');
-  return;
 };
 
 const hostGame = (games) => (req, res) => {
@@ -33,8 +30,7 @@ const hostGame = (games) => (req, res) => {
 
   req.session.gameId = gameId;
   req.session.game = game;
-  res.redirect(`/lobby`);
-  return;
+  res.redirect('/lobby');
 };
 
 const joinGame = (games) => (req, res) => {
@@ -52,7 +48,7 @@ const joinGame = (games) => (req, res) => {
 
   game.addPlayer(player);
 
-  res.redirect(`/lobby`);
+  res.redirect('/lobby');
 };
 
 const isMrX = (players, playerName) => {
@@ -72,7 +68,7 @@ const removeMrXPosition = (players) => {
 const gameStats = (req, res) => {
   const { game, username } = req.session;
   let players = game.getPlayers();
-  let currentPlayer = game.currentPlayer;
+  const currentPlayer = game.currentPlayer;
 
   if (!isMrX(players, username)) {
     players = removeMrXPosition(players);

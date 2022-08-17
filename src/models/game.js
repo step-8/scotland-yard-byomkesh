@@ -1,3 +1,14 @@
+const { mrX } = require('../utils/roles.js');
+
+const createEmptyStop = () => {
+  return {
+    taxies: [],
+    buses: [],
+    subways: [],
+    ferries: []
+  };
+};
+
 class Game {
   #gameId;
   #host;
@@ -34,11 +45,12 @@ class Game {
 
   changeGameStatus() {
     this.#isGameStarted = true;
-    this.#currentPlayerIndex = 0
+    this.#currentPlayerIndex = 0;
   }
 
   changeCurrentPlayer() {
-    this.#currentPlayerIndex = (this.#currentPlayerIndex + 1) % this.#players.length;
+    this.#currentPlayerIndex =
+      (this.#currentPlayerIndex + 1) % this.#players.length;
   }
   canGameStart() {
     return this.#players.length >= this.#limit.min;
@@ -55,18 +67,6 @@ class Game {
     currentPlayer.reduceTicket(ticket);
 
     this.changeCurrentPlayer();
-  }
-
-  get gameId() {
-    return this.#gameId;
-  }
-
-  get isStarted() {
-    return this.#isGameStarted;
-  }
-
-  get currentPlayer() {
-    return this.#players[this.#currentPlayerIndex].info;
   }
 
   getLocations() {
@@ -100,6 +100,48 @@ class Game {
     });
     return { players, isGameStarted };
   }
-};
+
+  #stopsOccupiedByDetectives() {
+    const occupiedStops = [];
+    this.getPlayers().forEach(player => {
+      if (player.role === mrX) {
+        return;
+      }
+      occupiedStops.push(player.currentPosition);
+    });
+    return occupiedStops;
+  }
+
+  #isStopOccupiedByDetective(stop) {
+    return this.#stopsOccupiedByDetectives().includes(stop);
+  }
+
+  getValidStops(username) {
+    const requestedPlayer = this.findPlayer(username).info;
+    const stop = this.#stops[requestedPlayer.currentPosition];
+    const validStops = createEmptyStop();
+    const routes = Object.keys(stop);
+
+    routes.forEach(route => {
+      const availableStops = stop[route].filter(x => {
+        return !this.#isStopOccupiedByDetective(x);
+      });
+      validStops[route] = availableStops;
+    });
+    return validStops;
+  }
+
+  get gameId() {
+    return this.#gameId;
+  }
+
+  get isStarted() {
+    return this.#isGameStarted;
+  }
+
+  get currentPlayer() {
+    return this.#players[this.#currentPlayerIndex].info;
+  }
+}
 
 module.exports = { Game };
