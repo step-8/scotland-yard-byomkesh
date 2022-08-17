@@ -1,5 +1,5 @@
 const main = () => {
-  const req = { method: 'GET', url: '/user-name' };
+  const req = { method: 'GET', url: '/api/user-name' };
   sendRequest(req, updateNav);
 };
 

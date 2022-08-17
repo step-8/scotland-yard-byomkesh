@@ -17,7 +17,7 @@ describe('Join', () => {
     session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, games, session));
+    app = request(initApp(config, users, games, session, () => { }));
   });
 
   it('should redirect to login, if user is not logged in', (done) => {

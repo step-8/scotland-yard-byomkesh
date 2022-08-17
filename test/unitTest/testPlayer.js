@@ -57,4 +57,29 @@ describe('Player entity', () => {
     const expected = { username, role, currentPosition, isHost: false, color, tickets, log };
     assert.deepStrictEqual(actual, expected);
   });
+
+  it('Should initialize player.', () => {
+    const playerData = {
+      role: 'Mr. X',
+      color: 'black',
+      currentPosition: 1,
+      tickets: {},
+      log: []
+    };
+
+    const player = new Player('user');
+    player.init(playerData);
+
+    const expected = {
+      role: 'Mr. X',
+      color: 'black',
+      currentPosition: 1,
+      tickets: {},
+      isHost: false,
+      username: 'user',
+      log: []
+    };
+
+    assert.deepStrictEqual(player.info, expected);
+  });
 });

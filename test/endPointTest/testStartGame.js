@@ -16,7 +16,7 @@ const initTestApp = () => {
   const session = expressSession({
     secret: 'test', resave: false, saveUninitialized: false
   });
-  app = request(initApp(config, users, games, session));
+  app = request(initApp(config, users, games, session, () => { }));
   return app;
 };
 

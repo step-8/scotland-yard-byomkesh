@@ -14,13 +14,17 @@ const activatePlayBtn = () => {
   btn.classList.remove('hide');
 };
 
-const setGameId = () => {
-  fetch('/user-name', { method: 'GET' })
+const setGameId = () =>
+  fetch('/api/user-name', { method: 'GET' })
     .then((res) => res.json())
     .then((res) => {
       createRoomId(res.gameId);
       byId('copy-btn').onclick = () => copyToClipboard(res.gameId);
     });
+
+const updateGameId = () => {
+  const req = { method: 'GET', url: '/api/user-name' };
+  sendRequest(req, showGameId);
 };
 
 const refreshPage = (intervalId) => {

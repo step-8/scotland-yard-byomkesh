@@ -1,3 +1,4 @@
+const { Player } = require("./player");
 const { mrX } = require('../utils/roles.js');
 
 const createEmptyStop = () => {
@@ -25,6 +26,23 @@ class Game {
     this.#players = [];
     this.#stops = stops;
     this.#limit = { min: 3, max: 6 };
+  }
+
+  init({ isGameStarted, players, currentPlayerIndex }) {
+    this.#isGameStarted = isGameStarted;
+    this.#currentPlayerIndex = currentPlayerIndex;
+
+    players.forEach(({ username, isHost, ...playerData }) => {
+
+      const player = new Player(username);
+      if (isHost) {
+        player.setHost();
+        this.#host = player;
+      }
+
+      player.init(playerData);
+      this.#players.push(player);
+    });
   }
 
   addPlayer(player) {
@@ -145,6 +163,14 @@ class Game {
   get currentPlayer() {
     return this.#players[this.#currentPlayerIndex].info;
   }
-}
+
+  getState() {
+    const gameData = this.getStatus();
+    gameData.gameId = this.#gameId;
+    gameData.currentPlayerIndex = this.#currentPlayerIndex;
+
+    return gameData;
+  }
+};
 
 module.exports = { Game };

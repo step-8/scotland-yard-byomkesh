@@ -119,4 +119,18 @@ describe('Game', () => {
 
     assert.deepStrictEqual(game.getPlayers(), expected);
   });
+
+  it('Should initialize the game', () => {
+    const gameData = { isGameStarted: true, players: [], currentPlayerIndex: 0 };
+    const game = new Game(1, {});
+    game.init(gameData);
+    const expected = {
+      gameId: 1,
+      isGameStarted: true,
+      players: [],
+      currentPlayerIndex: 0
+    };
+
+    assert.deepStrictEqual(game.getState(), expected);
+  });
 });

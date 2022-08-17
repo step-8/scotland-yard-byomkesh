@@ -2,7 +2,8 @@ const { Player } = require('../models/player.js');
 const { mrX } = require('../utils/roles.js');
 
 const isPlayerInGame = (games, username) => {
-  const allGames = Object.values(games.games);
+  const allGames = games.getAllGames();
+
   return allGames.some(game => {
     const { players } = game.getStatus();
     return players.some(player => player.username === username);
@@ -15,7 +16,7 @@ const sendConnectionError = (req, res) => {
   res.redirect(302, '/');
 };
 
-const hostGame = (games) => (req, res) => {
+const hostGame = (games, persistGames) => (req, res) => {
   const { username } = req.session;
   if (isPlayerInGame(games, username)) {
     sendConnectionError(req, res);
@@ -29,10 +30,12 @@ const hostGame = (games) => (req, res) => {
 
   req.session.gameId = gameId;
   req.session.game = game;
+
+  persistGames();
   res.redirect('/lobby');
 };
 
-const joinGame = (games) => (req, res) => {
+const joinGame = (games, persistGames) => (req, res) => {
   const { username } = req.session;
   if (isPlayerInGame(games, username)) {
     sendConnectionError(req, res);
@@ -47,6 +50,7 @@ const joinGame = (games) => (req, res) => {
 
   game.addPlayer(player);
 
+  persistGames();
   res.redirect('/lobby');
 };
 

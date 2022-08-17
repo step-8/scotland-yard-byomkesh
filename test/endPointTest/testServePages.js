@@ -18,7 +18,7 @@ describe('servePages', () => {
   describe('serveLandingPage', () => {
     it('Should redirect to login page on /, if user is not logged in', (done) => {
       const users = new Users({});
-      const app = request(initApp(config, users, games, session));
+      const app = request(initApp(config, users, games, session, () => { }));
       app.get('/')
         .expect('location', '/login')
         .expect(302, done);
@@ -27,7 +27,7 @@ describe('servePages', () => {
     it('Should serve landing page on /, if user is logged in', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session));
+      const app = request(initApp(config, users, games, session, () => { }));
       const body = 'username=root&password=root';
 
       app.post('/login')
@@ -77,7 +77,7 @@ describe('servePages', () => {
     it('Should serve lobby of game 1 on /lobby', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session));
+      const app = request(initApp(config, users, games, session, () => { }));
       const game = games.createGame();
       const gameId = game.gameId;
       const host = new Player('host');

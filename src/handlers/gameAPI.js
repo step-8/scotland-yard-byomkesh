@@ -3,7 +3,7 @@ const validStops = (req, res) => {
   res.json(game.getValidStops(username));
 };
 
-const movePlayer = (req, res) => {
+const movePlayer = persistGames => (req, res) => {
   const { username, game } = req.session;
   const { destination, ticket } = req.body;
 
@@ -17,6 +17,7 @@ const movePlayer = (req, res) => {
   if (allStops.includes(destination)) {
     game.playMove(destination, ticket);
     res.json({ isMoved: true });
+    persistGames();
     return;
   }
 

@@ -7,7 +7,7 @@ const { loginHandler, logoutHandler } = authLib;
 const pagesLib = require('../handlers/servePages.js');
 const { serveLoginPage, serveSignupPage } = pagesLib;
 
-const authValidators = require('../middlewares/authValidations.js');
+const authValidators = require('../middleware/authValidations.js');
 const { credentialCheck, validateInput } = authValidators;
 
 const createAuthRouter = (users, userDb, views, writeFile) => {

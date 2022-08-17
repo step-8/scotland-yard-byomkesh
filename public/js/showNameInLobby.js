@@ -17,6 +17,6 @@ const showProfile = (status, res) => {
 };
 
 const updateProfile = () => {
-  const req = { method: 'GET', url: '/user-name' };
+  const req = { method: 'GET', url: '/api/user-name' };
   sendRequest(req, showProfile);
 };

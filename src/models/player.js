@@ -40,6 +40,14 @@ class Player {
     this.#log = [];
   }
 
+  init({ role, currentPosition, color, tickets, log }) {
+    this.#role = role;
+    this.#currentPosition = currentPosition;
+    this.#color = color;
+    this.#tickets = tickets;
+    this.#log = log;
+  }
+
   assignRole(role) {
     if (!this.#role) {
       this.#role = role;

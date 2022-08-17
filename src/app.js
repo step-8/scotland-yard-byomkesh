@@ -1,30 +1,21 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const { serveUsername } = require('./handlers/serveUsername.js');
-
-const authLib = require('./handlers/authUsers.js');
-const { loginHandler, logoutHandler, protectedAuth } = authLib;
-
-const pagesLib = require('./handlers/servePages.js');
-const { serveLandingPage, serveLobby, serveLoginPage, serveNotFoundPage, serveGamePage } = pagesLib;
-
-const { protectedGame } = require('./middlewares/protectedGame.js');
-const { injectGame } = require('./middlewares/injectGame.js');
-const { authApi } = require('./middlewares/authAPIs.js');
-
-const authValidators = require('./middlewares/authValidations.js');
-const { validateInput, authenticateUser } = authValidators;
-
+const { injectGame } = require('./middleware/injectGame.js');
 const { createAuthRouter } = require('./routers/authRouter.js');
 const { createApiRouter } = require('./routers/apiRouter.js');
 const { protectedRouter } = require('./routers/protectedRouter.js');
+const { createPagesRouter } = require('./routers/pagesRouter.js');
 
-// app starts here --
+
+const createGamePersister = (games, gamesFile, writeFile) => () => {
+  writeFile(gamesFile, JSON.stringify(games.getState()), 'utf8');
+};
 
 const initApp = (config, users, games, session, writeFile) => {
   const app = express();
-  const { mode, views, userDb } = config;
+  const { mode, views, userDb, gamesDb } = config;
+  const persistGames = createGamePersister(games, gamesDb, writeFile);
 
   if (mode === 'dev') {
     app.use(morgan('tiny'));
@@ -33,24 +24,22 @@ const initApp = (config, users, games, session, writeFile) => {
   app.use(injectGame(games));
   app.use(express.urlencoded({ extended: true }));
 
-  app.get('/', authenticateUser, serveLandingPage(views));
-
-  app.use(protectedRouter(views, games));
-
-  app.get('/logout', logoutHandler);
-  app.get('/user-name', authApi, serveUsername);
-
+  app.use(protectedRouter(games, persistGames));
   app.use(createAuthRouter(users, userDb, views, writeFile));
 
-  app.get('/lobby', protectedGame, serveLobby(views));
-  app.get('/game', protectedGame, serveGamePage(views));
+  app.use('/api', createApiRouter(persistGames));
+  app.get('/end', (req, res) => {
+    games.deleteGame(req.session.gameId);
 
-  app.use('/api', createApiRouter());
-  app.get('/login', protectedAuth, serveLoginPage(views));
-  app.post('/login', protectedAuth, validateInput, loginHandler(users));
+    req.session.gameId = null;
+    req.session.game = null;
 
+    persistGames();
+    res.redirect('/');
+  });
   app.use(express.static('./public'));
-  app.use(serveNotFoundPage(views));
+  app.use(createPagesRouter(views));
+
   return app;
 };
 
