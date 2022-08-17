@@ -30,5 +30,5 @@ const startServer = port => {
   });
 };
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 startServer(PORT);
