@@ -1,0 +1,39 @@
+.stats {
+  width: 20%;
+  border-left: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.Mr-X-log {
+  height: 50%;
+}
+
+.detectives-log {
+  border-top: 1px solid black;
+  height: 50%;
+}
+
+.detectives-log>table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.detectives-log thead {
+  height: 88px;
+}
+
+.detectives-log th img {
+  width: 50%;
+}
+
+.detectives-log tbody tr {
+  height: 70px;
+}
+
+.detectives-log td,
+.detectives-log th {
+  width: 25%;
+  text-align: center;
+  border-bottom: 1px solid black;
+}

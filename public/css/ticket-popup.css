@@ -1,6 +1,9 @@
 .ticket-popup {
   position: absolute;
-  right: 25%;
+
+  /*don't change this */
+  right: 21%;
+
   top: 80px;
   display: flex;
   flex-direction: column;
