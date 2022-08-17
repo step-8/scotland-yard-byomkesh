@@ -20,7 +20,7 @@ const setGameId = () => {
     .then((res) => {
       createRoomId(res.gameId);
       byId('copy-btn').onclick = () => copyToClipboard(res.gameId);
-    })
+    });
 };
 
 const refreshPage = (intervalId) => {
@@ -30,7 +30,6 @@ const refreshPage = (intervalId) => {
 
 const initiateLobby = (status, res) => {
   const { isHost } = JSON.parse(res);
-  console.log(res);
   if (!isHost) {
     removePlayButton();
   }

@@ -24,6 +24,10 @@ class GameState {
     return this.#playerName === this.#currentPlayer.username;
   }
 
+  set possibleRoutes(stops) {
+    this.#possibleRoutes = stops;
+  }
+
   get possibleRoutes() {
     return this.#possibleRoutes;
   }
@@ -32,13 +36,14 @@ class GameState {
     return this.#currentPlayer;
   }
 
-  get currentPlayer() {
-    return this.#currentPlayer;
+  get players() {
+    return this.#players;
   }
 
-  set possibleRoutes(stops) {
-    this.#possibleRoutes = stops;
+  get playerName() {
+    return this.#playerName;
   }
+
 }
 
 const gameState = new GameState();

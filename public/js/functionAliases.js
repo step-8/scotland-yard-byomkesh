@@ -11,7 +11,7 @@ const createEl = (...args) => document.createElement(...args);
 const appendChildTo = (parentQuery, child) => {
   const parent = query(parentQuery);
   parent.appendChild(child);
-}
+};
 
 const removeAllChildren = (parentNode) => {
   let child = parentNode.firstChild;
@@ -20,9 +20,7 @@ const removeAllChildren = (parentNode) => {
     parentNode.removeChild(child);
     child = parentNode.firstChild;
   }
-}
-
-
+};
 class Element {
   #element;
   constructor(element) {
@@ -35,7 +33,7 @@ class Element {
   }
 
   append(...element) {
-    this.#element.appendChild(...element)
+    this.#element.appendChild(...element);
     return this;
   }
 
