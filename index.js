@@ -10,7 +10,6 @@ const config = {
   mode: parsed.NODE_ENV,
   views: parsed.VIEWS,
   cookieKey: parsed.COOKIE_KEY,
-  port: parsed.PORT,
   userDb: parsed.USERS_DB,
   stops: parsed.STOPS
 };
@@ -26,11 +25,10 @@ const startServer = port => {
 
   const app = initApp(config, users, games, session, fs.writeFileSync);
 
-  app.listen(config.port, () => {
+  app.listen(port, () => {
     console.log(`Listening on the Port : ${port}`);
   });
 };
 
-const PORT = 8000;
-
+const PORT = process.env.PORT || 8000;
 startServer(PORT);

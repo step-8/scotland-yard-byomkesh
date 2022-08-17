@@ -6,7 +6,6 @@ echo "Done"
 echo "NODE_ENV='dev'" > .env
 echo "VIEWS='./views'" >> .env
 echo "COOKIE_KEY='cookie_key_here'" >> .env
-echo "PORT='8000'" >> .env
 
 mkdir 'db' 2> /dev/null
 DB_PATH='./db/users.json' 2> /dev/null
