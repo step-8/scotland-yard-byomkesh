@@ -1,12 +1,11 @@
 const { Player } = require('../models/player.js');
+const { mrX } = require('../utils/roles.js');
 
 const isPlayerInGame = (games, username) => {
   const allGames = Object.values(games.games);
   return allGames.some(game => {
     const { players } = game.getStatus();
-    return players.some(player => {
-      return player.username === username;
-    });
+    return players.some(player => player.username === username);
   });
 };
 
@@ -65,6 +64,11 @@ const removeMrXPosition = (players) => {
   });
 };
 
+const getRobberLog = (players) => {
+  const robber = players.find(({ role }) => role === mrX);
+  return robber ? robber.log : [];
+};
+
 const gameStats = (req, res) => {
   const { game, username } = req.session;
   let players = game.getPlayers();
@@ -75,9 +79,11 @@ const gameStats = (req, res) => {
     currentPlayer.currentPosition = null;
   }
 
-  const stats = { playerName: username, players, currentPlayer };
+  const robberLog = getRobberLog(players);
+
+  const stats = { playerName: username, players, currentPlayer, robberLog };
 
   res.json(stats);
 };
 
-module.exports = { hostGame, joinGame, gameStats };
+module.exports = { hostGame, joinGame, getRobberLog, gameStats };

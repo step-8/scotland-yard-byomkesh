@@ -1,5 +1,5 @@
 const startCountDown = () => {
-  let timeLeft = 15;
+  let timeLeft = 10;
   const countDown = byId('message-container');
   countDown.innerText = `Game starts in ${timeLeft} seconds`;
   const intervalId = setInterval(() => {

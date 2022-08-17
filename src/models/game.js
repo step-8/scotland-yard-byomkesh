@@ -64,6 +64,7 @@ class Game {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
 
     currentPlayer.updatePosition(destination);
+    currentPlayer.updateLog(ticket);
     currentPlayer.reduceTicket(ticket);
 
     this.changeCurrentPlayer();
@@ -74,7 +75,7 @@ class Game {
   }
 
   stopInfo(stop) {
-    return this.#stops[stop];
+    return JSON.parse(JSON.stringify(this.#stops[stop]));
   }
 
   assignRoles(roles, shuffler = (x) => x) {

@@ -20,7 +20,7 @@ describe('Game', () => {
     game.addPlayer(player);
     const expected = {
       players: [
-        { currentPosition, isHost: true, role, username: 'host', color, tickets: undefined }
+        { currentPosition, isHost: true, log: [], role, username: 'host', color, tickets: undefined }
       ],
       isGameStarted: false
     };
@@ -72,9 +72,9 @@ describe('Game', () => {
     const roles = ['Mr. X', 'b', 'c', 'd'];
     let currentPosition, color;
     const expected = [
-      { username: 'host', role: 'Mr. X', currentPosition, isHost: true, color: 'black', tickets: MR_X_TICKETS },
-      { username: 'player1', role: 'b', currentPosition, isHost: false, color, tickets: DETECTIVE_TICKETS },
-      { username: 'player2', role: 'c', currentPosition, isHost: false, color, tickets: DETECTIVE_TICKETS }
+      { username: 'host', role: 'Mr. X', currentPosition, isHost: true, log: [], color: 'black', tickets: MR_X_TICKETS },
+      { username: 'player1', role: 'b', currentPosition, isHost: false, log: [], color, tickets: DETECTIVE_TICKETS },
+      { username: 'player2', role: 'c', currentPosition, isHost: false, log: [], color, tickets: DETECTIVE_TICKETS }
     ];
     game.assignRoles(roles);
     assert.deepStrictEqual(game.getPlayers(), expected);
@@ -88,9 +88,9 @@ describe('Game', () => {
     const positions = [1, 2, 3];
     let role, color, tickets;
     const expected = [
-      { username: 'host', role, currentPosition: 1, isHost: true, color, tickets },
-      { username: 'player1', role, currentPosition: 2, isHost: false, color, tickets },
-      { username: 'player2', role, currentPosition: 3, isHost: false, color, tickets }
+      { username: 'host', role, currentPosition: 1, isHost: true, log: [], color, tickets },
+      { username: 'player1', role, currentPosition: 2, isHost: false, log: [], color, tickets },
+      { username: 'player2', role, currentPosition: 3, isHost: false, log: [], color, tickets }
     ];
     game.assignInitialPositions(positions);
     assert.deepStrictEqual(game.getPlayers(), expected);
@@ -104,21 +104,19 @@ describe('Game', () => {
 
     const tickets = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
     const expected = [
-      { username: 'host', role: 'Mr. X', currentPosition: 1, isHost: true, color: 'black', tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 } },
-      { username: 'player1', role: 'Detective Red', currentPosition: 2, isHost: false, color: 'red', tickets },
-      { username: 'player2', role: 'Detective Green', currentPosition: 3, isHost: false, color: 'green', tickets }
+      { username: 'host', role: 'Mr. X', currentPosition: 1, isHost: true, log: [], color: 'black', tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 } },
+      { username: 'player1', role: 'Detective Red', currentPosition: 2, isHost: false, log: [], color: 'red', tickets },
+      { username: 'player2', role: 'Detective Green', currentPosition: 3, isHost: false, log: [], color: 'green', tickets }
     ];
 
 
     const positions = [1, 2, 3];
     game.assignInitialPositions(positions);
     game.assignRoles(['Mr. X', 'Detective Red', 'Detective Green']);
-    // game.assignColors(['black', 'red', 'green']);
     game.changeGameStatus();
     const destination = 4;
     const ticket = 'taxi';
 
-    // game.playMove(destination, ticket);
     assert.deepStrictEqual(game.getPlayers(), expected);
   });
 });

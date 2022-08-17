@@ -21,12 +21,13 @@ const createDummyPlayers = (noOfPlayers) => {
 
 describe('Valid stops', () => {
   let game;
+  const buses = [], subways = [], ferries = [];
   beforeEach(() => {
     const stops = {
-      19: { taxies: [1, 2, 32, 43] },
-      43: { taxies: [1, 2, 19, 74] },
-      32: { taxies: [1, 2, 19] },
-      74: { taxies: [1, 2, 43] },
+      19: { taxies: [1, 2, 32, 43], buses, subways, ferries },
+      43: { taxies: [1, 2, 19, 74], buses, subways, ferries },
+      32: { taxies: [1, 2, 19], buses, subways, ferries },
+      74: { taxies: [1, 2, 43], buses, subways, ferries },
     };
     const games = new Games(stops);
     game = games.createGame();
@@ -35,13 +36,7 @@ describe('Valid stops', () => {
   });
 
   it('Should provide all connected stops as valid stops to Mr. X', () => {
-    const expectedData = {
-      taxies: [1, 2],
-      buses: [],
-      subways: [],
-      ferries: []
-    };
-
+    const expectedData = { taxies: [1, 2], buses, subways, ferries };
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {
       json: (actualData) => {
@@ -54,12 +49,8 @@ describe('Valid stops', () => {
 
   it('should provide valid stops of detective which are not blocked by other detectives', () => {
     const expectedData = {
-      taxies: [1, 2, 19, 74],
-      buses: [],
-      subways: [],
-      ferries: []
+      taxies: [1, 2, 19, 74], buses, subways, ferries
     };
-
     const mockedRequest = { session: { username: 'player1', game } };
     const mockedResponse = {
       json: (actualData) => {
@@ -71,12 +62,8 @@ describe('Valid stops', () => {
 
   it('should provide valid stops of detective even Mr. X is present on a stop', () => {
     const expectedData = {
-      taxies: [1, 2, 19],
-      buses: [],
-      subways: [],
-      ferries: []
+      taxies: [1, 2, 19], buses, subways, ferries
     };
-
     const mockedRequest = { session: { username: 'player2', game } };
     const mockedResponse = {
       json: (actualData) => {

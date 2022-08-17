@@ -10,12 +10,21 @@ const removeAllHighlight = () => {
   })
 };
 
-const highlightSelectedPoint = (selectedStop, validStops) => event => {
+const highlightSelectedPoint = (selectedStop, validStops) => {
   validStops.forEach(stop => {
     const selectedElement = byId(stop);
     const ellipse = selectedElement.querySelector('ellipse');
     ellipse.style.fill = selectedStop === stop ? '#c55e5e' : 'white';
   });
+};
+
+const removeEvent = () => {
+  const ellipses = queryAll('#layer6 ellipse');
+  ellipses.forEach(ellipse => {
+    ellipse.onclick = null;
+    const stop = ellipse.parentElement;
+    stop.style.cursor = 'default';
+  })
 };
 
 const highlightPoint = (stopNo) => {

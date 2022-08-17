@@ -21,7 +21,6 @@ const movePlayer = (req, res) => {
   }
 
   res.json({ isMoved: false });
-
 };
 
 module.exports = { validStops, movePlayer };

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { gameStats } = require('../../src/handlers/game.js');
+const { getRobberLog, gameStats } = require('../../src/handlers/game.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
 const { roles, mrX } = require('../../src/utils/roles.js');
@@ -35,6 +35,7 @@ describe('gameStats handler', () => {
           role: mrX,
           currentPosition: 19,
           isHost: true,
+          log: [],
           color: 'black',
           tickets: MR_X_TICKETS
         },
@@ -43,6 +44,7 @@ describe('gameStats handler', () => {
           role: 'Detective Red',
           currentPosition: 43,
           isHost: false,
+          log: [],
           color: 'red',
           tickets: DETECTIVE_TICKETS
         },
@@ -51,6 +53,7 @@ describe('gameStats handler', () => {
           role: 'Detective Green',
           currentPosition: 32,
           isHost: false,
+          log: [],
           color: 'green',
           tickets: DETECTIVE_TICKETS
         }
@@ -61,9 +64,11 @@ describe('gameStats handler', () => {
         role: mrX,
         currentPosition: 19,
         isHost: true,
+        log: [],
         color: 'black',
         tickets: MR_X_TICKETS
-      }
+      },
+      robberLog: []
     }
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {
@@ -88,6 +93,7 @@ describe('gameStats handler', () => {
           role: 'Mr. X',
           currentPosition: null,
           isHost: true,
+          log: [],
           color: 'black',
           tickets: MR_X_TICKETS
         },
@@ -96,6 +102,7 @@ describe('gameStats handler', () => {
           role: 'Detective Red',
           currentPosition: 43,
           isHost: false,
+          log: [],
           color: 'red',
           tickets: DETECTIVE_TICKETS
         },
@@ -104,6 +111,7 @@ describe('gameStats handler', () => {
           role: 'Detective Green',
           currentPosition: 32,
           isHost: false,
+          log: [],
           color: 'green',
           tickets: DETECTIVE_TICKETS
         }
@@ -114,9 +122,11 @@ describe('gameStats handler', () => {
         role: mrX,
         currentPosition: null,
         isHost: true,
+        log: [],
         color: 'black',
         tickets: MR_X_TICKETS
-      }
+      },
+      robberLog: []
     }
     const mockedRequest = { session: { username: 'player1', game } };
     const mockedResponse = {
@@ -126,5 +136,36 @@ describe('gameStats handler', () => {
     };
 
     gameStats(mockedRequest, mockedResponse);
+  });
+});
+
+describe('robberLog', () => {
+  it('Should return empty array before robber\'s first move', () => {
+    const players = [
+      { username: 'player0', role: 'Mr. X', log: [] },
+      { username: 'player1', role: 'Detective Red', log: [] },
+      { username: 'player2', role: 'Detective Green', log: [] }
+    ];
+    const expected = [];
+    assert.deepStrictEqual(getRobberLog(players), expected);
+  });
+
+  it('Should return taxi after robber used taxi in first move', () => {
+    const players = [
+      { username: 'player0', role: 'Mr. X', log: ['taxi'] },
+      { username: 'player1', role: 'Detective Red', log: [] },
+      { username: 'player2', role: 'Detective Green', log: [] }
+    ];
+    const expected = ['taxi'];
+    assert.deepStrictEqual(getRobberLog(players), expected);
+  });
+
+  it('Should return taxi after robber used taxi in first move', () => {
+    const players = [
+      { username: 'player1', role: 'Detective Red', log: [] },
+      { username: 'player2', role: 'Detective Green', log: [] }
+    ];
+    const expected = [];
+    assert.deepStrictEqual(getRobberLog(players), expected);
   });
 });

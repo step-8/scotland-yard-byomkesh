@@ -32,7 +32,6 @@ const movePin = (stop, res) => {
 
 const getPossibleTickets = (stop) => {
   const routes = gameState.possibleRoutes;
-  // const tickets = Object.keys(routes);
 
   return Object.entries(routes).reduce((transports, [ticket, stations]) => {
     if (stations.includes(stop)) {
@@ -53,6 +52,9 @@ const ticketNameMapper = (pluralTicket) => {
 };
 
 const sendMoveRequest = (stop) => {
+  const validRoutes = gameState.possibleRoutes;
+  const validStops = Object.values(validRoutes).flat();
+  highlightSelectedPoint(stop, validStops);
   removeTicketPopup();
   createTicketPopup(getPossibleTickets(stop), (pluralTicket) => {
     const ticket = ticketNameMapper(pluralTicket);
@@ -69,6 +71,7 @@ const sendMoveRequest = (stop) => {
       .then((res) => {
         removeAllHighlight();
         removeTicketPopup();
+        removeEvent();
       });
   });
 

@@ -3,17 +3,20 @@ class GameState {
   #currentPlayer;
   #playerName;
   #possibleRoutes;
+  #robberLog;
 
   constructor() {
     this.#players = null;
     this.#currentPlayer = null;
     this.#playerName = null;
+    this.#robberLog = [];
   }
 
-  initialize({ players, currentPlayer, playerName }) {
+  initialize({ players, currentPlayer, playerName, robberLog }) {
     this.#players = players;
     this.#currentPlayer = currentPlayer;
     this.#playerName = playerName;
+    this.#robberLog = robberLog;
   }
 
   getLocations() {
@@ -44,6 +47,9 @@ class GameState {
     return this.#playerName;
   }
 
+  get robberLog() {
+    return this.#robberLog;
+  }
 }
 
 const gameState = new GameState();
@@ -77,8 +83,6 @@ const highlightStops = () => {
     if (byId(stopNo)) {
       highlightPoint(stopNo);
     }
-    const stop = byId(stopNo);
-    stop.addEventListener('click', highlightSelectedPoint(stopNo, validStops));
   });
 };
 

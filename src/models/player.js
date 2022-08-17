@@ -22,10 +22,12 @@ class Player {
   #isHost;
   #color;
   #tickets;
+  #log;
 
   constructor(username) {
     this.#username = username;
     this.#isHost = false;
+    this.#log = [];
   }
 
   assignRole(role) {
@@ -39,6 +41,10 @@ class Player {
 
   updatePosition(currentPosition) {
     this.#currentPosition = currentPosition;
+  }
+
+  updateLog(ticket) {
+    this.#log.push(ticket);
   }
 
   isSamePlayer(username) {
@@ -68,7 +74,8 @@ class Player {
       currentPosition: this.#currentPosition,
       isHost: this.#isHost,
       color: this.#color,
-      tickets: this.#tickets
+      tickets: this.#tickets,
+      log: this.#log
     };
   }
 }

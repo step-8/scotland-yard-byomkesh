@@ -18,7 +18,7 @@ const notifier = (message, color) => {
   const banner = createBanner(message, color);
   const map = query('.map');
   map.append(banner);
-  setTimeout(removeBanner, 1500);
+  setTimeout(removeBanner, 2000);
 };
 
 const turnNotifier = () => {
