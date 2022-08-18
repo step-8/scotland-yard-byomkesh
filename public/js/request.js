@@ -10,4 +10,4 @@ const sendRequest = (req, cb) => {
   xhr.onload = () => cb(xhr.status, xhr.response);
 
   xhr.send(body);
-}
+};

@@ -6,8 +6,8 @@ class Poller {
   #initializer;
 
   constructor(request, initializer, interval = 1000) {
-    this.#initializer = initializer;
     this.#request = request;
+    this.#initializer = initializer;
     this.#interval = interval;
   }
 

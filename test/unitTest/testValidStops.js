@@ -19,7 +19,7 @@ const createDummyPlayers = (role, position, tickets) => {
 describe('Valid stops', () => {
   let games;
   let tickets;
-  const buses = [], subways = [], ferries = [];
+  const taxies = [], buses = [], subways = [], ferries = [];
 
   beforeEach(() => {
     const stops = {
@@ -155,6 +155,42 @@ describe('Valid stops', () => {
       }
     };
 
+    validStops(mockedRequest, mockedResponse);
+  });
+
+  it('Shouldn\'t give any stops if no stop is available.', () => {
+    const tickets = {
+      taxi: 0,
+      bus: 0,
+      subway: 0,
+      black: 0,
+      twoX: 0
+    };
+    const player1 = createDummyPlayers(red, 74, tickets);
+    const player2 = createDummyPlayers(green, 43, tickets);
+    const gamesData = {
+      newGameId: 2,
+      games: [{
+        players: [player1, player2],
+        isGameStarted: true,
+        gameId: 1,
+        currentPlayerIndex: 0
+      }]
+    };
+
+    games.init(gamesData);
+    const game = games.findGame(1);
+
+    const expectedData = {
+      taxies, buses, subways, ferries
+    };
+
+    const mockedRequest = { session: { username: 'a', game } };
+    const mockedResponse = {
+      json: (actualData) => {
+        assert.deepStrictEqual(actualData, expectedData);
+      }
+    };
     validStops(mockedRequest, mockedResponse);
   });
 });

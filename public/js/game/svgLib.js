@@ -26,7 +26,7 @@ const removeEvent = () => {
     ellipse.onclick = null;
     const stop = ellipse.parentElement;
     stop.style.cursor = 'default';
-  })
+  });
 };
 
 const highlightPoint = (stopNo) => {

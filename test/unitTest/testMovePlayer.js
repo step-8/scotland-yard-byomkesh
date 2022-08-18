@@ -1,4 +1,4 @@
-const assert = require('assert');
+const { assert } = require('chai');
 
 const { movePlayer } = require('../../src/handlers/gameAPI.js');
 const { Games } = require('../../src/models/games.js');
@@ -45,7 +45,7 @@ describe('Move Player', () => {
       }
     };
 
-    movePlayer(mockedRequest, mockedResponse);
+    movePlayer(() => { })(mockedRequest, mockedResponse);
   });
 
   it('Should not move to destination if it is not a valid stop', () => {
@@ -59,7 +59,7 @@ describe('Move Player', () => {
       }
     };
 
-    movePlayer(mockedRequest, mockedResponse);
+    movePlayer(() => { })(mockedRequest, mockedResponse);
   });
 
   it('Should not move to destination if current player is not requested player', () => {
@@ -73,7 +73,7 @@ describe('Move Player', () => {
       }
     };
 
-    movePlayer(mockedRequest, mockedResponse);
+    movePlayer(() => { })(mockedRequest, mockedResponse);
   });
 
   it('Should change the current player and let the next player move', () => {
@@ -87,7 +87,7 @@ describe('Move Player', () => {
         assert.deepStrictEqual(actualData, expectedData);
       }
     };
-    movePlayer(mockedRequest, mockedResponse);
+    movePlayer(() => { })(mockedRequest, mockedResponse);
     // player0 played sucessfully
     //-----------
     // player1 plays
@@ -100,7 +100,7 @@ describe('Move Player', () => {
         assert.deepStrictEqual(actualData, expectedData);
       }
     };
-    movePlayer(mockedRequest, mockedResponse);
+    movePlayer(() => { })(mockedRequest, mockedResponse);
     // player1 played sucessfully
   });
 });

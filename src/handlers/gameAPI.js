@@ -24,4 +24,12 @@ const movePlayer = persistGames => (req, res) => {
   res.json({ isMoved: false });
 };
 
-module.exports = { validStops, movePlayer };
+const skipTurn = persistGames => (req, res) => {
+  const { game } = req.session;
+  game.changeCurrentPlayer();
+  persistGames();
+  const currentPlayer = game.currentPlayer;
+  res.json(currentPlayer);
+};
+
+module.exports = { validStops, movePlayer, skipTurn };

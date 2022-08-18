@@ -15,7 +15,7 @@ const removeClickEvent = (stops) => {
 };
 
 const movePin = (stop) => (gameState) => {
-  const activePlayerColor = gameState.currentPlayer.color
+  const activePlayerColor = gameState.currentPlayer.color;
   removePin(activePlayerColor);
   putPinInMap(stop, activePlayerColor);
 
@@ -52,7 +52,7 @@ const ticketNameMapper = (pluralTicket) => {
 
 const validateMove = (isMoved) => {
   if (!isMoved) {
-    throw new Error('Failed to move.')
+    throw new Error('Failed to move.');
   }
 };
 

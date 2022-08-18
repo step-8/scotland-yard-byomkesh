@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/step-8/scotland-yard-byomkesh#readme",
   "devDependencies": {
+    "chai": "^4.3.6",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.19",
     "sinon": "^14.0.0",

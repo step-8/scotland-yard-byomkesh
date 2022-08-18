@@ -31,6 +31,14 @@ class GameState {
     return this.#playerName === this.#currentPlayer.username;
   }
 
+  addHandler(handler) {
+    this.#handlers.push(handler);
+  }
+
+  #emit() {
+    this.#handlers.forEach(handler => handler(this));
+  }
+
   set possibleRoutes(stops) {
     this.#possibleRoutes = stops;
   }
@@ -53,14 +61,6 @@ class GameState {
 
   get robberLog() {
     return this.#robberLog;
-  }
-
-  addHandler(handler) {
-    this.#handlers.push(handler);
-  }
-
-  #emit() {
-    this.#handlers.forEach(handler => handler(this));
   }
 }
 

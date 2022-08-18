@@ -110,7 +110,10 @@
         "app.js"
       ],
       "rules": {
-        "max-statements": "off"
+        "max-statements": "off",
+        "max-params": [
+          "off"
+        ]
       }
     },
     {
