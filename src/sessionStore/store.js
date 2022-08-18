@@ -1,4 +1,4 @@
-const EventEmitter = require('events');
+// const EventEmitter = require('events');
 const session = require('express-session');
 const store = session.Store;
 

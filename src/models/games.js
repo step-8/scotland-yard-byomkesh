@@ -1,4 +1,4 @@
-const { Game } = require("./game.js");
+const { Game } = require('./game.js');
 
 class Games {
   #index;
@@ -45,6 +45,6 @@ class Games {
 
     return gamesData;
   }
-};
+}
 
 module.exports = { Games };
