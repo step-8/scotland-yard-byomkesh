@@ -1,6 +1,6 @@
 const removeBanner = () => {
   query('.banner').remove();
-}
+};
 
 const createBanner = (message, color) => {
   const bannerBody = new Element('div')
@@ -23,13 +23,24 @@ const notifier = (message, color) => {
   setTimeout(removeBanner, 2000);
 };
 
+const isPlayerStranded = (strandedPlayers, currentPlayer) => {
+  return strandedPlayers.some(player => player.role === currentPlayer.role);
+};
+
 const roundNotifier = (gameState) => {
-  const { role, color } = gameState.currentPlayer;
+  const { strandedPlayers, currentPlayer } = gameState;
+  const { role, color } = currentPlayer;
+  let bannerColor = color;
   let message = `${role}'s turn`;
 
   if (gameState.isMyTurn()) {
     message = 'Your turn';
   }
 
-  notifier(message, color);
+  if (isPlayerStranded(strandedPlayers, currentPlayer)) {
+    message = `${role} is stranded`;
+    bannerColor = 'grey';
+  }
+
+  notifier(message, bannerColor);
 };

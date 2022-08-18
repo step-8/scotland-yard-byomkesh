@@ -18,7 +18,7 @@ const createDummyPlayers = (noOfPlayers) => {
     player.updatePosition(initialPositions[index]);
 
     return player;
-  })
+  });
 };
 
 describe('gameStats handler', () => {
@@ -37,7 +37,7 @@ describe('gameStats handler', () => {
           isHost: true,
           log: [],
           color: 'black',
-          tickets: MR_X_TICKETS
+          tickets: MR_X_TICKETS,
         },
         {
           username: 'player1',
@@ -68,12 +68,13 @@ describe('gameStats handler', () => {
         color: 'black',
         tickets: MR_X_TICKETS
       },
+      strandedPlayers: [],
       robberLog: []
-    }
+    };
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {
       json: (actualData) => {
-        assert.deepStrictEqual(actualData, expectedData)
+        assert.deepStrictEqual(actualData, expectedData);
       }
     };
 
@@ -126,8 +127,9 @@ describe('gameStats handler', () => {
         color: 'black',
         tickets: MR_X_TICKETS
       },
-      robberLog: []
-    }
+      robberLog: [],
+      strandedPlayers: []
+    };
     const mockedRequest = { session: { username: 'player1', game } };
     const mockedResponse = {
       json: (actualData) => {

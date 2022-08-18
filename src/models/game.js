@@ -10,6 +10,11 @@ const createEmptyStop = () => {
   };
 };
 
+const isStranded = validStops => {
+  const stops = Object.values(validStops).flat();
+  return stops.length <= 0;
+};
+
 class Game {
   #gameId;
   #host;
@@ -148,7 +153,7 @@ class Game {
 
   getValidStops(username) {
     const requestedPlayer = this.findPlayer(username);
-    const connectedStop = this.#stops[requestedPlayer.position];
+    const connectedStop = this.#stops[requestedPlayer.info.currentPosition];
     const validStops = createEmptyStop();
     const routes = Object.keys(connectedStop);
 
@@ -161,6 +166,22 @@ class Game {
         requestedPlayer.isTicketAvailable(route) ? availableStops : [];
     });
     return validStops;
+  }
+
+  #getStrandedPlayers() {
+    const strandedPlayers = [];
+
+    this.getPlayers().forEach(player => {
+      const validStops = this.getValidStops(player.username);
+      if (isStranded(validStops)) {
+        strandedPlayers.push({
+          role: player.role,
+          username: player.username
+        });
+      }
+    });
+
+    return strandedPlayers;
   }
 
   get gameId() {
@@ -189,7 +210,8 @@ class Game {
     gameData.gameId = this.#gameId;
     gameData.currentPlayerIndex = this.#currentPlayerIndex;
     gameData.round = this.#round;
-
+    gameData.strandedPlayers =
+      this.#round > 0 ? this.#getStrandedPlayers() : [];
     return gameData;
   }
 }

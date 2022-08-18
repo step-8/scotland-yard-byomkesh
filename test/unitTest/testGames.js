@@ -98,7 +98,8 @@ describe('games', () => {
           players: [],
           gameId: 1,
           currentPlayerIndex: undefined,
-          round: 0
+          round: 0,
+          strandedPlayers: []
         }
       ]
     };

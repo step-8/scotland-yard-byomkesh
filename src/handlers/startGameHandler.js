@@ -34,8 +34,8 @@ const startGameHandler = (persistGames) => (req, res) => {
   game.assignInitialPositions(shuffledPositions);
   game.changeGameStatus();
 
-  res.json({ isStarted: true, players: game.getPlayers() });
   persistGames();
+  res.json({ isStarted: true, players: game.getPlayers() });
 };
 
 module.exports = { startGameHandler };

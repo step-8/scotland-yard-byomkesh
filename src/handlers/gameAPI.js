@@ -16,8 +16,8 @@ const movePlayer = persistGames => (req, res) => {
 
   if (allStops.includes(destination)) {
     game.playMove(destination, ticket);
-    res.json({ isMoved: true });
     persistGames();
+    res.json({ isMoved: true });
     return;
   }
 

@@ -1,23 +1,9 @@
 const assert = require('assert');
 const { Game } = require('../../src/models/game.js');
 const { Player } = require('../../src/models/player.js');
-const { green, red } = require('../../src/utils/roles.js');
 
 const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
 const MR_X_TICKETS = { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
-
-const createDummyPlayers = (username, role, position, tickets) => {
-  const player = {
-    username,
-    role,
-    currentPosition: position,
-    isHost: true,
-    color: 'green',
-    tickets,
-    log: []
-  };
-  return player;
-};
 
 describe('Game', () => {
   let game;
@@ -140,7 +126,8 @@ describe('Game', () => {
       isGameStarted: true,
       players: [],
       currentPlayerIndex: 0,
-      round: 0
+      round: 0,
+      strandedPlayers: []
     };
 
     assert.deepStrictEqual(game.getState(), expected);

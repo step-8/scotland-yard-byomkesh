@@ -7,6 +7,7 @@ class GameState {
   #possibleRoutes;
   #robberLog;
   #handlers;
+  #strandedPlayers;
 
   constructor() {
     this.#players = null;
@@ -14,14 +15,15 @@ class GameState {
     this.#playerName = null;
     this.#robberLog = [];
     this.#handlers = [];
+    this.#strandedPlayers = [];
   }
 
-  initialize({ players, currentPlayer, playerName, robberLog }) {
+  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers }) {
     this.#players = players;
     this.#currentPlayer = currentPlayer;
     this.#playerName = playerName;
     this.#robberLog = robberLog;
-
+    this.#strandedPlayers = strandedPlayers;
     this.#emit();
   }
 
@@ -69,6 +71,10 @@ class GameState {
     const players = this.#players;
     const robber = players.find(({ role }) => role === 'Mr. X');
     return robber;
+  }
+
+  get strandedPlayers() {
+    return this.#strandedPlayers;
   }
 }
 

@@ -77,6 +77,7 @@ const gameStats = (req, res) => {
   const { game, username } = req.session;
   let players = game.getPlayers();
   const currentPlayer = game.currentPlayer;
+  const { strandedPlayers } = game.getState();
 
   if (!isMrX(players, username) && !game.isRevelationRound()) {
     players = removeMrXPosition(players);
@@ -85,7 +86,9 @@ const gameStats = (req, res) => {
 
   const robberLog = getRobberLog(players);
 
-  const stats = { playerName: username, players, currentPlayer, robberLog };
+  const stats = {
+    playerName: username, players, currentPlayer, robberLog, strandedPlayers
+  };
 
   res.json(stats);
 };

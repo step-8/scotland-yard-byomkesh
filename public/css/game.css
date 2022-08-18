@@ -71,3 +71,36 @@
 .blue {
   background-color: rgba(0, 0, 255, 0.653);
 }
+
+.grey {
+  background-color: rgba(128, 128, 128, 0.591);
+}
+
+.dark-red {
+  background-color: rgba(255, 0, 0, 0.8);
+
+}
+
+.dark-yellow {
+  background-color: rgba(255, 255, 0, 0.8);
+}
+
+.dark-purple {
+  background-color: rgba(128, 0, 128, 0.8);
+}
+
+.dark-green {
+  background-color: rgba(0, 128, 0, 0.8);
+}
+
+.dark-blue {
+  background-color: rgba(0, 0, 255, 0.8);
+}
+
+.dark-grey {
+  background-color: rgba(128, 128, 128, 0.8);
+}
+
+.white-text {
+  color: white;
+}

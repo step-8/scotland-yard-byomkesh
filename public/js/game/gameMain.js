@@ -1,7 +1,22 @@
 const API = {
   getGameStat: () => fetch('/api/game-stats'),
   getValidStops: () => fetch('/api/valid-stops', { method: 'GET' }),
-  postMoveReq: (reqDetails) => fetch('/api/move', reqDetails)
+  postMoveReq: (reqDetails) => fetch('/api/move', reqDetails),
+  skipTurnReq: () => fetch('/api/skip-turn', { method: 'POST' })
+};
+
+const skipStuckPlayer = gameState => {
+  const { currentPlayer, strandedPlayers } = gameState;
+  if (!isPlayerStranded(strandedPlayers, currentPlayer)) {
+    return gameState;
+  }
+
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      API.skipTurnReq();
+      resolve(gameState);
+    }, 3000);
+  });
 };
 
 const main = () => {
@@ -21,6 +36,7 @@ const main = () => {
     }
 
     reqValidStops(gameState)
+      .then(skipStuckPlayer)
       .then(highlightStops)
       .then(initiateMove);
   });
