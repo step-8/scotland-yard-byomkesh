@@ -28,8 +28,13 @@ const movePin = (stop) => (gameState) => {
   return gameState;
 };
 
+const isHidePossible = robberLog => {
+  return robberLog[robberLog.length - 1] !== 'black';
+};
+
 const getPossibleTickets = (stop, gameState) => {
   const routes = gameState.possibleRoutes;
+  const robberLog = gameState.robberLog;
   const { role, tickets } = gameState.currentPlayer;
   const routeEntries = Object.entries(routes);
 
@@ -40,7 +45,7 @@ const getPossibleTickets = (stop, gameState) => {
     return transports;
   }, []);
 
-  if (role === 'Mr. X' && tickets.black > 0) {
+  if (role === 'Mr. X' && tickets.black > 0 && isHidePossible(robberLog)) {
     transports.push('ferries');
   }
   return transports;
