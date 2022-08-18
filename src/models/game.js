@@ -1,4 +1,4 @@
-const { Player } = require("./player");
+const { Player } = require('./player.js');
 const { mrX } = require('../utils/roles.js');
 
 const createEmptyStop = () => {
@@ -18,6 +18,7 @@ class Game {
   #stops;
   #limit;
   #currentPlayerIndex;
+  #round;
 
   constructor(gameId, stops = {}) {
     this.#gameId = gameId;
@@ -26,6 +27,7 @@ class Game {
     this.#players = [];
     this.#stops = stops;
     this.#limit = { min: 3, max: 6 };
+    this.#round = 0;
   }
 
   init({ isGameStarted, players, currentPlayerIndex }) {
@@ -78,6 +80,13 @@ class Game {
     return this.#players.length >= this.#limit.max;
   }
 
+  updateRound() {
+    const currentPlayer = this.#players[this.#currentPlayerIndex];
+    if (currentPlayer.info.role === mrX) {
+      this.#round += 1;
+    }
+  }
+
   playMove(destination, ticket) {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
 
@@ -85,6 +94,7 @@ class Game {
     currentPlayer.updateLog(ticket);
     currentPlayer.reduceTicket(ticket);
 
+    this.updateRound();
     this.changeCurrentPlayer();
   }
 
@@ -164,13 +174,23 @@ class Game {
     return this.#players[this.#currentPlayerIndex].info;
   }
 
+  get round() {
+    return this.#round;
+  }
+
+  isRevelationRound() {
+    const revelationRounds = [3, 8, 13, 18, 24];
+    return revelationRounds.includes(this.#round);
+  }
+
   getState() {
     const gameData = this.getStatus();
     gameData.gameId = this.#gameId;
     gameData.currentPlayerIndex = this.#currentPlayerIndex;
+    gameData.round = this.#round;
 
     return gameData;
   }
-};
+}
 
 module.exports = { Game };

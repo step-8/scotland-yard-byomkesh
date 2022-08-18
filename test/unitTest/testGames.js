@@ -1,4 +1,4 @@
-const { Games } = require("../../src/models/games");
+const { Games } = require('../../src/models/games');
 const assert = require('assert');
 
 describe('games', () => {
@@ -36,7 +36,6 @@ describe('games', () => {
 
     assert.deepStrictEqual(game.getStatus(), expected);
   });
-
 
   it('Should create game', () => {
     const games = new Games({});
@@ -83,7 +82,7 @@ describe('games', () => {
   it('Should return serialized data of games when there are no games', () => {
     const games = new Games();
     const actual = games.getState();
-    const expected = { "newGameId": 1, "games": [] };
+    const expected = { 'newGameId': 1, 'games': [] };
 
     assert.deepStrictEqual(actual, expected);
   });
@@ -92,14 +91,14 @@ describe('games', () => {
     const games = new Games();
     games.createGame();
     const actual = games.getState();
-    // const expected = '{"newGameIndex":1,"games":[{"isGameS}]}';
     const expected = {
       newGameId: 2, games: [
         {
           isGameStarted: false,
           players: [],
           gameId: 1,
-          currentPlayerIndex: undefined
+          currentPlayerIndex: undefined,
+          round: 0
         }
       ]
     };

@@ -7,7 +7,6 @@ const { createApiRouter } = require('./routers/apiRouter.js');
 const { protectedRouter } = require('./routers/protectedRouter.js');
 const { createPagesRouter } = require('./routers/pagesRouter.js');
 
-
 const createGamePersister = (games, gamesFile, writeFile) => () => {
   writeFile(gamesFile, JSON.stringify(games.getState()), 'utf8');
 };

@@ -78,7 +78,7 @@ const gameStats = (req, res) => {
   let players = game.getPlayers();
   const currentPlayer = game.currentPlayer;
 
-  if (!isMrX(players, username)) {
+  if (!isMrX(players, username) && !game.isRevelationRound()) {
     players = removeMrXPosition(players);
     currentPlayer.currentPosition = null;
   }

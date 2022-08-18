@@ -69,6 +69,7 @@ const updatePins = () => {
   const locations = gameState.getLocations();
   locations.forEach(({ currentPosition, color }) => {
     if (currentPosition === null) {
+      removePin(color);
       return;
     }
     removePin(color);

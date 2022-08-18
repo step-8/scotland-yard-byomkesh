@@ -16,7 +16,7 @@ describe('Game', () => {
 
   it('Should add player.', () => {
     let currentPosition, role, color;
-    const player = new Player('host')
+    const player = new Player('host');
     game.addPlayer(player);
     const expected = {
       players: [
@@ -109,13 +109,10 @@ describe('Game', () => {
       { username: 'player2', role: 'Detective Green', currentPosition: 3, isHost: false, log: [], color: 'green', tickets }
     ];
 
-
     const positions = [1, 2, 3];
     game.assignInitialPositions(positions);
     game.assignRoles(['Mr. X', 'Detective Red', 'Detective Green']);
     game.changeGameStatus();
-    const destination = 4;
-    const ticket = 'taxi';
 
     assert.deepStrictEqual(game.getPlayers(), expected);
   });
@@ -128,7 +125,8 @@ describe('Game', () => {
       gameId: 1,
       isGameStarted: true,
       players: [],
-      currentPlayerIndex: 0
+      currentPlayerIndex: 0,
+      round: 0
     };
 
     assert.deepStrictEqual(game.getState(), expected);

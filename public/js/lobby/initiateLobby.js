@@ -1,8 +1,13 @@
 const createRoomId = (gameId) => {
-  const roomId = createEl('p');
-  roomId.innerText = 'Game Id : ' + gameId;
+  const roomIdDes = createEl('span');
+  roomIdDes.innerText = 'Game Id : ';
+
+  const roomId = createEl('span');
+  roomId.id = 'game-id';
+  roomId.innerText = gameId;
 
   const roomIdEle = byId('room-id');
+  roomIdEle.appendChild(roomIdDes);
   roomIdEle.appendChild(roomId);
 };
 
