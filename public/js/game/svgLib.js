@@ -78,7 +78,6 @@ const placePin = (stationNumber, pin) => {
   pin.setAttribute('transform', `translate(${x},${y - ry * 2})`);
 };
 
-
 const removePin = (color) => {
   const pin = byId(color);
   pin && pin.remove();
@@ -94,6 +93,7 @@ const updatePins = (gameState) => {
   const locations = gameState.getLocations();
   locations.forEach(({ currentPosition, color }) => {
     if (currentPosition === null) {
+      removePin(color);
       return;
     }
     removePin(color);
