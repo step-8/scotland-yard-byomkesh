@@ -1,12 +1,12 @@
-const byId = (...args) => document.getElementById(...args);
+const byId = (id) => document.getElementById(id);
 
-const byClass = (...args) => [...document.getElementsByClassName(...args)];
+const byClass = (className) => [...document.getElementsByClassName(className)];
 
-const query = (...args) => document.querySelector(...args);
+const query = (selector) => document.querySelector(selector);
 
-const queryAll = (...args) => [...document.querySelectorAll(...args)];
+const queryAll = (selector) => [...document.querySelectorAll(selector)];
 
-const createEl = (...args) => document.createElement(...args);
+const createEl = (tagName) => document.createElement(tagName);
 
 const appendChildTo = (parentQuery, child) => {
   const parent = query(parentQuery);

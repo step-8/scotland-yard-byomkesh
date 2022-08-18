@@ -13,6 +13,8 @@
     <script src="/js/lobby/showPlayerData.js"></script>
     <script src="/js/lobby/startGame.js"></script>
     <script src="/js/lobby/lobbyMain.js"></script>
+    <script src="/js/poller.js"></script>
+    <script src="/js/lobby/lobbyState.js"></script>
     <script src="/js/roles.js"></script>
 
     <link rel="stylesheet"
@@ -23,16 +25,16 @@
 
   <body>
     <main>
-        <div id="room-id"></div>
-        <div id="game-link">
-          <button class="btn small" onclick="copyToClipboard()" id="copy-btn">Copy game link</button>
-          <div class="small hide" id="copy-message">
-            <span class="material-symbols-outlined">
-              check
-            </span>
-            Link copied
-          </div>
-          </div>
+      <div id="room-id"></div>
+      <div id="game-link">
+        <button class="btn small" onclick="copyToClipboard()" id="copy-btn">Copy game link</button>
+        <div class="small hide" id="copy-message">
+          <span class="material-symbols-outlined">
+            check
+          </span>
+          Link copied
+        </div>
+      </div>
       <div id="players-container">
       </div>
       <div id="message-container"></div>

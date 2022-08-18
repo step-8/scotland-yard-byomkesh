@@ -1,3 +1,5 @@
+const cloneObject = (obj) => JSON.parse(JSON.stringify(obj));
+
 class GameState {
   #players;
   #currentPlayer;
@@ -44,15 +46,15 @@ class GameState {
   }
 
   get possibleRoutes() {
-    return this.#possibleRoutes;
+    return cloneObject(this.#possibleRoutes);
   }
 
   get currentPlayer() {
-    return this.#currentPlayer;
+    return cloneObject(this.#currentPlayer);
   }
 
   get players() {
-    return this.#players;
+    return cloneObject(this.#players);
   }
 
   get playerName() {
@@ -60,7 +62,7 @@ class GameState {
   }
 
   get robberLog() {
-    return this.#robberLog;
+    return cloneObject(this.#robberLog);
   }
 
   get robber() {

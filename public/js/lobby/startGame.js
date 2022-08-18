@@ -28,13 +28,33 @@ const removePlayButton = () => {
   play.classList.add('hide');
 };
 
-const startGame = (status, rawResponse) => {
+
+const updateLobbyOnStart = (poller) => (lobbyState) => {
+  if (!lobbyState.isStarted()) {
+    return;
+  }
+
+  removePlayButton();
+  removeGameLink();
+  startCountDown();
+
+  poller.pause();
 };
 
-const sendStartRequest = () => {
-  const request = {
-    method: 'POST',
-    url: '/api/start',
-  };
-  sendRequest(request, startGame);
+const activatePlayBtn = (lobbyState) => {
+  const btn = byId('play');
+  if (!btn) {
+    return;
+  }
+
+  if (lobbyState.canGameStart()) {
+    markVisible(btn);
+  }
+
+  return lobbyState;
 };
+
+const markVisible = (button) =>
+  button.classList.remove('hide');
+
+const sendStartRequest = () => API.postStartReq();

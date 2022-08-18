@@ -6,7 +6,8 @@ const serveLobbyStats = (req, res) => {
     res.status(401).end();
   }
   const { players, isGameStarted } = game.getStatus();
-  const currentPlayer = players.find(player => player.username === req.session.username);
+  const currentPlayer = players.find(player =>
+    player.username === req.session.username);
   const playerMrX = players.find(player => player.role === mrX);
   const isHost = currentPlayer.isHost;
 

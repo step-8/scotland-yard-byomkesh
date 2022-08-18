@@ -18,7 +18,8 @@ const createCharacterCard = ({ username, currentPosition, color }, user) => {
   playerCard.className = classes;
 
   playerCard.classList.add('character-card');
-  if (username === user) {
+
+  if (username === user.username) {
     playerCard.classList.add('me');
   }
   return playerCard;
@@ -27,7 +28,7 @@ const createCharacterCard = ({ username, currentPosition, color }, user) => {
 const createPlayerCard = ({ username, isHost }, user) => {
   const playerCard = createEl('div');
 
-  if (username === user) {
+  if (username === user.username) {
     playerCard.classList.add('me');
   }
 
@@ -46,49 +47,64 @@ const createPlaceHolder = () => {
   return placeHolder;
 };
 
-const showPlayerCard = (players, isGameStarted, user) => {
-  const playersContainer = byId('players-container');
-  playersContainer.innerHTML = '';
+const createPlayersContainer = (players, user) => {
+  const playerCards = [];
 
-  if (!isGameStarted) {
-    players.forEach(player => {
-      const playerInfo = createPlayerCard(player, user);
-      playersContainer.appendChild(playerInfo);
-    });
+  players.forEach(player => {
+    const playerInfo = createPlayerCard(player, user);
+    playerCards.push(playerInfo);
+  });
 
-    for (let i = 1; i <= 6 - players.length; i += 1) {
-      const placeHolder = createPlaceHolder();
-      playersContainer.appendChild(placeHolder);
-    }
-  } else {
-    const robberEle = createEl('div');
-    robberEle.className = 'robber-container';
-
-    const vs = createEl('div');
-    vs.className = 'vs';
-    vs.innerHTML = '<img src="/images/versus.png" id="vs-img">';
-
-    const detectivesEle = createEl('div');
-    detectivesEle.className = 'detectives-container';
-
-    players.forEach(player => {
-      if (player.role === 'Mr. X') {
-        const robberCard = createCharacterCard(player, user);
-        robberCard.classList.add('robber-card');
-        robberEle.appendChild(robberCard);
-      } else {
-        const playerCard = createCharacterCard(player, user);
-        playerCard.classList.add('detective-card');
-        detectivesEle.appendChild(playerCard);
-      }
-    });
-    playersContainer.appendChild(robberEle);
-    playersContainer.appendChild(vs);
-    playersContainer.appendChild(detectivesEle);
+  for (let i = 1; i <= 6 - players.length; i += 1) {
+    const placeHolder = createPlaceHolder();
+    playerCards.push(placeHolder);
   }
+
+  return playerCards;
 };
 
-const displayMessage = (totalPlayer, isHost) => {
+const showPlayerCard = (lobbyState) => {
+  const user = lobbyState.myData();
+  const players = lobbyState.getPlayers();
+  const isGameStarted = lobbyState.isStarted();
+
+  const playersContainer = byId('players-container');
+
+  if (!isGameStarted) {
+    const playerCards = createPlayersContainer(players, user);
+    playersContainer.replaceChildren(...playerCards);
+  } else {
+    const robberEle = new Element('div')
+      .addClass('robber-container');
+
+    const vsImg = '<img src="/images/versus.png" id="vs-img">';
+    const vs = new Element('div')
+      .addClass('vs')
+      .add('innerHTML', vsImg);
+
+    const detectivesEle = new Element('div')
+      .addClass('detectives-container');
+
+    players.forEach(player => {
+      const playerCard = createCharacterCard(player, user);
+      if (player.role === 'Mr. X') {
+        playerCard.classList.add('robber-card');
+        robberEle.append(playerCard);
+        return;
+      }
+      playerCard.classList.add('detective-card');
+      detectivesEle.append(playerCard);
+    });
+    playersContainer.replaceChildren(robberEle.html, vs.html, detectivesEle.html);
+  }
+
+  return lobbyState;
+};
+
+const displayMessage = (lobbyState) => {
+  const { isHost } = lobbyState.myData();
+  const totalPlayer = lobbyState.getPlayers().length;
+
   const messageContainer = byId('message-container');
   let gif = '';
   let message = 'You can start the game or wait for other players';
@@ -112,24 +128,6 @@ const displayMessage = (totalPlayer, isHost) => {
 
   messageContainer.innerHTML = gif;
   messageContainer.appendChild(messageDiv);
-};
 
-const updatePlayers = intervalId => (status, res) => {
-  if (status !== 200) {
-    return;
-  }
-  const { players, isGameStarted, isHost, username } = JSON.parse(res);
-  showPlayerCard(players, isGameStarted, username);
-  displayMessage(players.length, isHost);
-
-  if (players.length > 2) {
-    activatePlayBtn();
-  }
-
-  if (isGameStarted) {
-    removePlayButton();
-    removeGameLink();
-    startCountDown();
-    clearInterval(intervalId);
-  }
+  return lobbyState;
 };

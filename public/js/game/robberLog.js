@@ -13,17 +13,18 @@ const createImage = ticket => {
   const icon = new Element('img')
     .add('src', `/images/${ticketImg}`)
     .addClass('transport');
+
   return icon.html;
 };
 
 const updateRobberLog = (gameState) => {
   const robberLog = gameState.robberLog;
   const logBoard = byId('log-board');
-  const divs = logBoard.children;
+  const logsElement = logBoard.children;
 
   robberLog.forEach((ticket, index) => {
     const image = createImage(ticket);
 
-    divs[index].replaceWith(image);
+    logsElement[index].replaceWith(image);
   });
 };

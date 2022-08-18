@@ -19,12 +19,15 @@ class Poller {
     this.#startPolling();
   }
 
+  #poll() {
+    this.#request()
+      .then(res => res.text())
+      .then((res) => this.#handleData(res));
+  }
+
   #startPolling() {
-    this.#intervalId = setInterval(() => {
-      this.#request()
-        .then(res => res.text())
-        .then((res) => this.#handleData(res));
-    }, this.#interval);
+    this.#poll();
+    this.#intervalId = setInterval(() => this.#poll(), this.#interval);
   }
 
   #handleData(res) {
