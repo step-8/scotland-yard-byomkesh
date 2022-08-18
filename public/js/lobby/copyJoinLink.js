@@ -1,5 +1,6 @@
 const copyToClipboard = (gameId) => {
-  const copyText = `http://localhost:8000/join?gameId=${gameId}`;
+  const origin = window.location.origin;
+  const copyText = `${origin}/join?gameId=${gameId}`;
   navigator.clipboard.writeText(copyText);
   const message = byId('copy-message');
   const copyBtn = byId('copy-btn');
