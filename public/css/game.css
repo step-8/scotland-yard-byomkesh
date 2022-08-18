@@ -78,7 +78,6 @@
 
 .dark-red {
   background-color: rgba(255, 0, 0, 0.8);
-
 }
 
 .dark-yellow {
@@ -99,6 +98,10 @@
 
 .dark-grey {
   background-color: rgba(128, 128, 128, 0.8);
+}
+
+.dark-black {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .white-text {

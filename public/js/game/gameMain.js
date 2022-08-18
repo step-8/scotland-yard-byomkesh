@@ -40,9 +40,6 @@ const main = () => {
       .then(highlightStops)
       .then(initiateMove);
   });
-  gameState.addHandler((gameState) => {
-    console.log(gameState);
-  });
 
   poller.resume();
 };
