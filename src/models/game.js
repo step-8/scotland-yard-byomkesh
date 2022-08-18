@@ -30,9 +30,10 @@ class Game {
     this.#round = 0;
   }
 
-  init({ isGameStarted, players, currentPlayerIndex }) {
+  init({ isGameStarted, players, currentPlayerIndex, round }) {
     this.#isGameStarted = isGameStarted;
     this.#currentPlayerIndex = currentPlayerIndex;
+    this.#round = round;
 
     players.forEach(({ username, isHost, ...playerData }) => {
 

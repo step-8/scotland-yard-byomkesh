@@ -30,21 +30,28 @@ const movePin = (stop) => (gameState) => {
 
 const getPossibleTickets = (stop, gameState) => {
   const routes = gameState.possibleRoutes;
+  const { role, tickets } = gameState.currentPlayer;
   const routeEntries = Object.entries(routes);
 
-  return routeEntries.reduce((transports, [ticket, stations]) => {
+  const transports = routeEntries.reduce((transports, [ticket, stations]) => {
     if (stations.includes(stop)) {
       transports.push(ticket);
     }
     return transports;
   }, []);
+
+  if (role === 'Mr. X' && tickets.black > 0) {
+    transports.push('ferries');
+  }
+  return transports;
 };
 
 const ticketNameMapper = (pluralTicket) => {
   const obj = {
     'buses': 'bus',
     'subways': 'subway',
-    'taxies': 'taxi'
+    'taxies': 'taxi',
+    'ferries': 'black'
   };
 
   return obj[pluralTicket];

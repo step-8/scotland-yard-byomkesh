@@ -12,17 +12,11 @@ const ticketNameMapper = (pluralTicket) => {
 };
 
 const getDetectiveTickets = () => {
-  const DETECTIVE_TICKETS = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
-  const { taxi, bus, subway, black, twoX } = DETECTIVE_TICKETS;
-
-  return { taxi, bus, subway, black, twoX };
+  return { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
 };
 
 const getMrXTickets = () => {
-  const MR_X_TICKETS = { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
-  const { taxi, bus, subway, black, twoX } = MR_X_TICKETS;
-
-  return { taxi, bus, subway, black, twoX };
+  return { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 };
 };
 
 class Player {

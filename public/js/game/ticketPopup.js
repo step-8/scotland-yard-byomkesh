@@ -2,10 +2,12 @@ const createTicket = (ticket, fn) => {
   const ticketName = new Element('a')
     .add('href', '#')
     .add('id', ticket)
-    .addEvent('click', () => fn(ticket))
+    .addEvent('click', () => fn(ticket));
+  const ext = ticket === 'ferries' ? '.jpeg' : '.svg';
+
   const icon = new Element('img')
-    .add('src', `/images/${ticket}.svg`)
-  ticketName.append(icon.html)
+    .add('src', `/images/${ticket}${ext}`);
+  ticketName.append(icon.html);
   return ticketName.html;
 };
 

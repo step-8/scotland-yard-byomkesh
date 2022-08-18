@@ -1,7 +1,7 @@
-const { roles } = require("../utils/roles");
+const { roles } = require('../utils/roles.js');
 
 const randInt = (limit) => {
-  return Math.ceil((Math.random() * 1000)) % limit;
+  return Math.ceil(Math.random() * 1000) % limit;
 };
 
 const shuffle = (list) => {

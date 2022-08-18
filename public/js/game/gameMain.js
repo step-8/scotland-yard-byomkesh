@@ -1,17 +1,3 @@
-// const main = () => {
-//   const poll = new Poller('/api/game-stats', { method: 'GET' });
-//   poll.addObserver(updateRobberLog);
-//   poll.addObserver(updateDetectivesLog);
-//   poll.addObserver(updatePins);
-//   poll.addObserver(turnNotifier);
-//   poll.addObserver(() => {
-//     if (gameState.isMyTurn()) {
-//       reqValidStops();
-//     }
-//   });
-//   poll.startPolling();
-// };
-
 const API = {
   getGameStat: () => fetch('/api/game-stats'),
   getValidStops: () => fetch('/api/valid-stops', { method: 'GET' }),
@@ -24,10 +10,11 @@ const main = () => {
   const initGame = (data) => gameState.initialize(data);
   const poller = new Poller(API.getGameStat, initGame);
 
-  gameState.addHandler(roundNotifier);
   gameState.addHandler(updateRobberLog);
+  gameState.addHandler(updateSpecialTickets);
   gameState.addHandler(updateDetectivesLog);
   gameState.addHandler(updatePins);
+  gameState.addHandler(roundNotifier);
   gameState.addHandler((gameState) => {
     if (!gameState.isMyTurn()) {
       return;

@@ -132,7 +132,7 @@ describe('Game', () => {
   });
 
   it('Should initialize the game', () => {
-    const gameData = { isGameStarted: true, players: [], currentPlayerIndex: 0 };
+    const gameData = { isGameStarted: true, players: [], currentPlayerIndex: 0, round: 0 };
     const game = new Game(1, {});
     game.init(gameData);
     const expected = {

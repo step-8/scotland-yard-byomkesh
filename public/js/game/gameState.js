@@ -62,5 +62,11 @@ class GameState {
   get robberLog() {
     return this.#robberLog;
   }
+
+  get robber() {
+    const players = this.#players;
+    const robber = players.find(({ role }) => role === 'Mr. X');
+    return robber;
+  }
 }
 

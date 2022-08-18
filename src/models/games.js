@@ -41,7 +41,8 @@ class Games {
 
   getState() {
     const gamesData = { newGameId: this.#index, games: [] };
-    this.getAllGames().forEach(game => gamesData.games.push(game.getState()));
+    this.getAllGames().forEach(
+      game => gamesData.games.push(game.getState()));
 
     return gamesData;
   }

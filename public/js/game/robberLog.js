@@ -2,7 +2,8 @@ const getImage = ticket => {
   const filename = {
     'taxi': 'taxies.svg',
     'bus': 'buses.svg',
-    'subway': 'subways.svg'
+    'subway': 'subways.svg',
+    'black': 'ferries.jpeg'
   };
   return filename[ticket];
 };
