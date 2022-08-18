@@ -1,8 +1,7 @@
-// const EventEmitter = require('events');
 const session = require('express-session');
-const store = session.Store;
+const Store = session.Store;
 
-class SessionStore extends store {
+class SessionStore extends Store {
   constructor(session, writeSession) {
     super();
     this.session = session;

@@ -21,7 +21,7 @@ const notifier = (message, color) => {
   setTimeout(removeBanner, 2000);
 };
 
-const turnNotifier = () => {
+const roundNotifier = (gameState) => {
   const { role, color } = gameState.currentPlayer;
   let message = `${role}'s turn`;
   if (gameState.isMyTurn()) {

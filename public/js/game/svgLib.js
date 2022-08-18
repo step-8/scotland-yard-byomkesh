@@ -3,11 +3,12 @@ const W3STD = 'http://www.w3.org/2000/svg';
 
 const removeAllHighlight = () => {
   const ellipses = queryAll('#layer6 ellipse');
+
   ellipses.forEach(ellipse => {
     ellipse.style.stroke = defaultStroke;
     ellipse.style.filter = 'drop-shadow(0px 0px 0px)';
     ellipse.style.fill = 'white';
-  })
+  });
 };
 
 const highlightSelectedPoint = (selectedStop, validStops) => {
@@ -20,6 +21,7 @@ const highlightSelectedPoint = (selectedStop, validStops) => {
 
 const removeEvent = () => {
   const ellipses = queryAll('#layer6 ellipse');
+
   ellipses.forEach(ellipse => {
     ellipse.onclick = null;
     const stop = ellipse.parentElement;
@@ -74,4 +76,38 @@ const placePin = (stationNumber, pin) => {
   const ry = ellipse.getAttribute('ry');
 
   pin.setAttribute('transform', `translate(${x},${y - ry * 2})`);
+};
+
+
+const removePin = (color) => {
+  const pin = byId(color);
+  pin && pin.remove();
+};
+
+const putPinInMap = (currentPosition, color) => {
+  const newPin = createPin(color);
+  placePin(currentPosition, newPin);
+  byId('map').appendChild(newPin);
+};
+
+const updatePins = (gameState) => {
+  const locations = gameState.getLocations();
+  locations.forEach(({ currentPosition, color }) => {
+    if (currentPosition === null) {
+      return;
+    }
+    removePin(color);
+    putPinInMap(currentPosition, color);
+  });
+};
+
+const highlightStops = (gameState) => {
+  const validRoutes = gameState.possibleRoutes;
+  const validStops = Object.values(validRoutes).flat();
+  validStops.forEach(stopNo => {
+    if (byId(stopNo)) {
+      highlightPoint(stopNo);
+    }
+  });
+  return gameState;
 };

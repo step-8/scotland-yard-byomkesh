@@ -15,12 +15,14 @@ const createImage = ticket => {
   return icon.html;
 };
 
-const updateRobberLog = () => {
+const updateRobberLog = (gameState) => {
   const robberLog = gameState.robberLog;
   const logBoard = byId('log-board');
   const divs = logBoard.children;
+
   robberLog.forEach((ticket, index) => {
     const image = createImage(ticket);
+
     divs[index].replaceWith(image);
   });
 };

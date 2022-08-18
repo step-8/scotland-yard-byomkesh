@@ -35,7 +35,7 @@ const createDetectivesLog = (detectives, user, currentPlayer) => {
   });
 };
 
-const updateDetectivesLog = () => {
+const updateDetectivesLog = (gameState) => {
   const { players, playerName, currentPlayer } = gameState;
   const currentPlayerName = currentPlayer.username;
 
