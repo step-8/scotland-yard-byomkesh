@@ -10,10 +10,10 @@ const removeAllHighlight = () => {
 };
 
 const removeAllPointer = () => {
-  const ellipses = queryAll('.pointer');
+  const stops = queryAll('.pointer');
 
-  ellipses.forEach(ellipse =>
-    ellipse.classList.remove('pointer')
+  stops.forEach(stop =>
+    stop.classList.remove('pointer')
   );
 };
 
@@ -43,7 +43,7 @@ const highlightPoint = (stopNo) => {
   const stop = byId(stopNo);
   const ellipse = stop.querySelector('ellipse');
   ellipse.classList.add('possible-stop');
-  stop.querySelector('.copy').classList.add('pointer');
+  stop.classList.add('pointer');
 };
 
 const highlightPoints = (stopNo) => {
@@ -68,7 +68,9 @@ const createPin = (color) => {
 
   const gElement = document.createElementNS(W3STD, 'g');
   const pin = document.createElementNS(W3STD, 'path');
-  pin.setAttribute('transform', 'scale(1.5)');
+  pin.setAttribute('transform', 'scale(3)');
+  // pin.setAttribute('transform', 'scale(2)');
+  pin.setAttribute('stroke', 'black');
   pin.setAttribute('fill', color);
   pin.setAttribute('id', color);
   pin.setAttribute('d', pinVector);
@@ -84,7 +86,8 @@ const placePin = (stationNumber, pin) => {
   const { x, y } = boxSize;
   const ry = ellipse.getAttribute('ry');
 
-  pin.setAttribute('transform', `translate(${x},${y - ry * 2})`);
+  pin.setAttribute('transform', `translate(${x - 16},${y - ry * 3.7})`);
+  // pin.setAttribute('transform', `translate(${x - 5},${y - ry * 2.5})`);
 };
 
 const removePin = (color) => {
