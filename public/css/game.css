@@ -92,6 +92,9 @@
 .grey {
   background-color: rgba(128, 128, 128, 0.591);
 }
+.gold {
+  background-color: rgb(255, 217, 0);
+}
 
 .dark-red {
   background-color: rgba(255, 0, 0, 0.8);
@@ -101,6 +104,9 @@
   background-color: rgba(255, 255, 0, 0.8);
 }
 
+.dark-gold {
+  background-color: gold;
+}
 .dark-purple {
   background-color: rgba(128, 0, 128, 0.8);
 }

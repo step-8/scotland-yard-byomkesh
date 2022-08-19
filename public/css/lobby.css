@@ -153,6 +153,9 @@ i {
   background-color: rgb(150, 0, 200, 0.7) !important;
 }
 
+.gold {
+  background-color: gold !important;
+}
 .black div {
   color: white !important;
 }
