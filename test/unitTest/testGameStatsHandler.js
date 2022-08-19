@@ -69,7 +69,9 @@ describe('gameStats handler', () => {
         tickets: MR_X_TICKETS
       },
       strandedPlayers: [],
-      robberLog: []
+      robberLog: [],
+      gameOver: false,
+      winningStatus: null
     };
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {
@@ -128,12 +130,14 @@ describe('gameStats handler', () => {
         tickets: MR_X_TICKETS
       },
       robberLog: [],
-      strandedPlayers: []
+      strandedPlayers: [],
+      gameOver: false,
+      winningStatus: null
     };
     const mockedRequest = { session: { username: 'player1', game } };
     const mockedResponse = {
       json: (actualData) => {
-        assert.deepStrictEqual(actualData, expectedData)
+        assert.deepStrictEqual(actualData, expectedData);
       }
     };
 

@@ -29,6 +29,7 @@ const main = () => {
   gameState.addHandler(updateSpecialTickets);
   gameState.addHandler(updateDetectivesLog);
   gameState.addHandler(updatePins);
+  gameState.addHandler(endGame(poller));
   gameState.addHandler(roundNotifier);
   gameState.addHandler((gameState) => {
     if (!gameState.isMyTurn()) {

@@ -39,6 +39,23 @@
   color: white;
 }
 
+.game-end {
+  position: absolute;
+  top: 54%;
+  left: 47%;
+  width: 6%;
+  height: 3%;
+  border: 1px solid white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
+  font-weight: 100;
+  color: white;
+  text-decoration: none;
+}
+
 .banner {
   top: 0;
   left: 0;

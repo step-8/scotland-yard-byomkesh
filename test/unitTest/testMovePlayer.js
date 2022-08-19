@@ -23,6 +23,7 @@ describe('Move Player', () => {
   let game;
   beforeEach(() => {
     const stops = {
+      1: { taxies: [19, 43, 32, 74] },
       19: { taxies: [1, 2, 32, 43] },
       43: { taxies: [1, 2, 19, 74] },
       32: { taxies: [1, 2, 19] },

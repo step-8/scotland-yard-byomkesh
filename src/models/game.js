@@ -10,6 +10,10 @@ const createEmptyStop = () => {
   };
 };
 
+const isMrXStranded = strandedPlayers => {
+  return strandedPlayers.some(player => player.role === mrX);
+};
+
 const isStranded = validStops => {
   const stops = Object.values(validStops).flat();
   return stops.length <= 0;
@@ -24,6 +28,8 @@ class Game {
   #limit;
   #currentPlayerIndex;
   #round;
+  #gameOver;
+  #winningStatus;
 
   constructor(gameId, stops = {}) {
     this.#gameId = gameId;
@@ -33,12 +39,16 @@ class Game {
     this.#stops = stops;
     this.#limit = { min: 3, max: 6 };
     this.#round = 0;
+    this.#gameOver = false;
+    this.#winningStatus = null;
   }
 
-  init({ isGameStarted, players, currentPlayerIndex, round }) {
+  init({ isGameStarted, players, currentPlayerIndex, round, gameOver, winningStatus }) {
     this.#isGameStarted = isGameStarted;
     this.#currentPlayerIndex = currentPlayerIndex;
     this.#round = round;
+    this.#gameOver = gameOver;
+    this.#winningStatus = winningStatus;
 
     players.forEach(({ username, isHost, ...playerData }) => {
 
@@ -90,6 +100,7 @@ class Game {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
     if (currentPlayer.info.role === mrX) {
       this.#round += 1;
+      this.#setGameOverStatus();
     }
   }
 
@@ -101,6 +112,7 @@ class Game {
     currentPlayer.reduceTicket(ticket);
 
     this.updateRound();
+    this.#setGameOverStatus();
     this.changeCurrentPlayer();
   }
 
@@ -184,6 +196,31 @@ class Game {
     return strandedPlayers;
   }
 
+  #getMrXLocation() {
+    const mrXLocation = this.getPlayers().find(player => player.role === mrX);
+    return mrXLocation.currentPosition;
+  }
+
+  #isRoundOver() {
+    return this.#players.length - 1 === this.#currentPlayerIndex;
+  }
+
+  #setGameOverStatus() {
+    if (!this.#isRoundOver()) {
+      return;
+    }
+    if (isMrXStranded(this.#getStrandedPlayers())) {
+      this.#gameOver = true;
+      this.#winningStatus = 1;
+    }
+
+    const mrXLocation = this.#getMrXLocation();
+    if (this.#isStopOccupiedByDetective(mrXLocation)) {
+      this.#gameOver = true;
+      this.#winningStatus = 2;
+    }
+  }
+
   get gameId() {
     return this.#gameId;
   }
@@ -212,6 +249,8 @@ class Game {
     gameData.round = this.#round;
     gameData.strandedPlayers =
       this.#round > 0 ? this.#getStrandedPlayers() : [];
+    gameData.gameOver = this.#gameOver;
+    gameData.winningStatus = this.#winningStatus;
     return gameData;
   }
 }

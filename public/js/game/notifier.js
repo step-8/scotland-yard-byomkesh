@@ -28,10 +28,14 @@ const isPlayerStranded = (strandedPlayers, currentPlayer) => {
 };
 
 const roundNotifier = (gameState) => {
-  const { strandedPlayers, currentPlayer } = gameState;
+  const { strandedPlayers, currentPlayer, gameOver } = gameState;
   const { role, color } = currentPlayer;
   let bannerColor = color;
   let message = `${role}'s turn`;
+
+  if (gameOver) {
+    return;
+  }
 
   if (gameState.isMyTurn()) {
     message = 'Your turn';

@@ -8,6 +8,8 @@ class GameState {
   #robberLog;
   #handlers;
   #strandedPlayers;
+  #gameOver;
+  #winningStatus;
 
   constructor() {
     this.#players = null;
@@ -16,14 +18,18 @@ class GameState {
     this.#robberLog = [];
     this.#handlers = [];
     this.#strandedPlayers = [];
+    this.#gameOver = false;
+    this.#winningStatus = null;
   }
 
-  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers }) {
+  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, gameOver, winningStatus }) {
     this.#players = players;
     this.#currentPlayer = currentPlayer;
     this.#playerName = playerName;
     this.#robberLog = robberLog;
     this.#strandedPlayers = strandedPlayers;
+    this.#gameOver = gameOver;
+    this.#winningStatus = winningStatus;
     this.#emit();
   }
 
@@ -76,5 +82,8 @@ class GameState {
   get strandedPlayers() {
     return this.#strandedPlayers;
   }
-}
 
+  get gameOver() {
+    return this.#gameOver;
+  }
+}

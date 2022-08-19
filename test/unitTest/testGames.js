@@ -99,7 +99,9 @@ describe('games', () => {
           gameId: 1,
           currentPlayerIndex: undefined,
           round: 0,
-          strandedPlayers: []
+          strandedPlayers: [],
+          gameOver: false,
+          winningStatus: null
         }
       ]
     };

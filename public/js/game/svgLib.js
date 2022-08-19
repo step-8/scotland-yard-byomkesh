@@ -111,6 +111,9 @@ const updatePins = (gameState) => {
 };
 
 const highlightStops = (gameState) => {
+  if (gameState.gameOver) {
+    return;
+  }
   const validRoutes = gameState.possibleRoutes;
   const validStops = Object.values(validRoutes).flat();
   validStops.forEach(stopNo => {
