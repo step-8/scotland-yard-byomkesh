@@ -85,6 +85,7 @@ const sendMoveReq = (stop, gameState) => (pluralTicket) => {
     })
     .then(movePin(stop))
     .then(removeAllHighlight)
+    .then(removeAllPointer)
     .then(removeTicketPopup)
     .then(removeEvent)
     .catch((err) => alert(err.message));

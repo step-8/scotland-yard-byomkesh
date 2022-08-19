@@ -107,3 +107,48 @@
 .white-text {
   color: white;
 }
+
+.copy {
+  display: inline;
+  fill: #ffffff;
+  fill-opacity: 1;
+  stroke-width: 3.768px;
+  stroke: #000000;
+  stroke-miterlimit: 0.5;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 0.538983;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.possible-stop {
+  stroke: #11db18c7 !important;
+  animation-name: pulsate;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in;
+}
+
+.selected-stop {
+  stroke: #0cbd12 !important;
+  stroke-opacity: 0.8 !important;
+  animation-name: pulsate;
+  animation-duration: 0.7s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in;
+}
+
+@keyframes pulsate {
+  0% {
+    stroke-width: 5px;
+  }
+
+  100% {
+    stroke-width: 75px;
+  }
+}

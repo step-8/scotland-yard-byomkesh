@@ -2,20 +2,30 @@ const defaultStroke = '#000000';
 const W3STD = 'http://www.w3.org/2000/svg';
 
 const removeAllHighlight = () => {
-  const ellipses = queryAll('#layer6 ellipse');
+  const ellipses = queryAll('.selected-stop, .possible-stop');
 
   ellipses.forEach(ellipse => {
-    ellipse.style.stroke = defaultStroke;
-    ellipse.style.filter = 'drop-shadow(0px 0px 0px)';
-    ellipse.style.fill = 'white';
+    ellipse.classList = '';
   });
+};
+
+const removeAllPointer = () => {
+  const ellipses = queryAll('.pointer');
+
+  ellipses.forEach(ellipse =>
+    ellipse.classList.remove('pointer')
+  );
 };
 
 const highlightSelectedPoint = (selectedStop, validStops) => {
   validStops.forEach(stop => {
     const selectedElement = byId(stop);
     const ellipse = selectedElement.querySelector('ellipse');
-    ellipse.style.fill = selectedStop === stop ? '#c55e5e' : 'white';
+    if (selectedStop === stop) {
+      ellipse.classList.add('selected-stop');
+      return;
+    }
+    ellipse.classList.remove('selected-stop');
   });
 };
 
@@ -32,9 +42,8 @@ const removeEvent = () => {
 const highlightPoint = (stopNo) => {
   const stop = byId(stopNo);
   const ellipse = stop.querySelector('ellipse');
-  ellipse.style.stroke = 'red';
-  ellipse.style.filter = 'drop-shadow(0px 0px 4px)';
-  stop.style.cursor = 'pointer';
+  ellipse.classList.add('possible-stop');
+  stop.querySelector('.copy').classList.add('pointer');
 };
 
 const highlightPoints = (stopNo) => {
