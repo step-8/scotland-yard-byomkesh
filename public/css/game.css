@@ -124,8 +124,8 @@
   cursor: pointer;
 }
 
-.possible-stop {
-  stroke: #11db18c7 !important;
+.possible-stop,
+.selected-stop {
   animation-name: pulsate;
   animation-duration: 0.7s;
   animation-iteration-count: infinite;
@@ -133,14 +133,13 @@
   animation-timing-function: ease-in;
 }
 
+.possible-stop {
+  stroke: #0ba910f9 !important;
+}
+
 .selected-stop {
-  stroke: #0cbd12 !important;
-  stroke-opacity: 0.8 !important;
-  animation-name: pulsate;
-  animation-duration: 0.7s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  animation-timing-function: ease-in;
+  stroke: #019706 !important;
+  stroke-opacity: 1 !important;
 }
 
 @keyframes pulsate {
