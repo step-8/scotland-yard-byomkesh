@@ -15,8 +15,12 @@ const isMrXStranded = strandedPlayers => {
 };
 
 const areDetectivesStranded = (detectives, strandedPlayers) => {
-  return detectives.every(detective => {
-    return strandedPlayers.includes(detective);
+  const strandedDetectives = strandedPlayers.filter(
+    ({ role }) => role.includes('Detective')
+  ).map(({ username }) => username);
+
+  return detectives.every(({ username }) => {
+    return strandedDetectives.includes(username);
   });
 };
 
