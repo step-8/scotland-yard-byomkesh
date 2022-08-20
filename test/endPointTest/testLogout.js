@@ -4,6 +4,12 @@ const expressSession = require('express-session');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 const { initApp } = require('../../src/app.js');
+const Datastore = require('../../src/models/datastore.js');
+
+const mockClient = () => {
+  const p = new Promise((res, rej) => res());
+  return { hGet: () => p, hSet: () => p, hDel: () => p };
+};
 
 describe('Logout', () => {
   let app, config;
@@ -16,7 +22,12 @@ describe('Logout', () => {
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, games, session));
+
+    const stores = {
+      gamesStore: new Datastore('games', mockClient()),
+      usersStore: new Datastore('users', mockClient()),
+    };
+    app = request(initApp(config, users, games, session, stores));
   });
 
   it('Should redirect to / if user is logged in', (done) => {

@@ -31,8 +31,9 @@ const hostGame = (games, persistGames) => (req, res) => {
   req.session.gameId = gameId;
   req.session.game = game;
 
-  persistGames();
-  res.redirect('/lobby');
+  persistGames(gameId, () => {
+    res.redirect('/lobby');
+  });
 };
 
 const joinGame = (games, persistGames) => (req, res) => {
@@ -50,8 +51,9 @@ const joinGame = (games, persistGames) => (req, res) => {
 
   game.addPlayer(player);
 
-  persistGames();
-  res.redirect('/lobby');
+  persistGames(gameId, () => {
+    res.redirect('/lobby');
+  });
 };
 
 const isMrX = (players, playerName) => {

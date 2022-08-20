@@ -7,14 +7,26 @@ const { createApiRouter } = require('./routers/apiRouter.js');
 const { protectedRouter } = require('./routers/protectedRouter.js');
 const { createPagesRouter } = require('./routers/pagesRouter.js');
 
-const createGamePersister = (games, gamesFile, writeFile) => () => {
-  writeFile(gamesFile, JSON.stringify(games.getState()), 'utf8');
+const createGamePersister = (games, gamesStore) => (gameId, callback) => {
+  const game = games.findGame(gameId);
+  const gameState = game.getState();
+
+  gamesStore.set(gameId, JSON.stringify(gameState))
+    .then(() => gamesStore.set('newGameId', games.getNextGameId()))
+    .then(() => callback());
 };
 
-const initApp = (config, users, games, session, writeFile) => {
+const createUserPersister = (usersStore) => (username, password, callback) => {
+  usersStore.set(username, JSON.stringify({ username, password }))
+    .then(() => callback());
+};
+
+const initApp = (config, users, games, session, stores) => {
   const app = express();
-  const { mode, views, userDb, gamesDb } = config;
-  const persistGames = createGamePersister(games, gamesDb, writeFile);
+  const { mode, views } = config;
+  const { gamesStore, usersStore } = stores;
+  const persistGames = createGamePersister(games, gamesStore);
+  const persistUser = createUserPersister(usersStore);
 
   if (mode === 'dev') {
     app.use(morgan('tiny'));
@@ -24,16 +36,17 @@ const initApp = (config, users, games, session, writeFile) => {
   app.use(express.urlencoded({ extended: true }));
 
   app.use(protectedRouter(games, persistGames));
-  app.use(createAuthRouter(users, userDb, views, writeFile));
+  app.use(createAuthRouter(users, views, persistUser));
 
   app.use('/api', createApiRouter(persistGames));
   app.get('/end', (req, res) => {
-    games.deleteGame(req.session.gameId);
+    const { gameId } = req.session;
+    games.deleteGame(gameId);
 
     req.session.gameId = null;
     req.session.game = null;
 
-    persistGames();
+    gamesStore.delete(gameId);
     res.redirect('/');
   });
   app.use(express.static('./public'));

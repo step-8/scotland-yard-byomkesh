@@ -5,6 +5,12 @@ const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
+const Datastore = require('../../src/models/datastore.js');
+
+const mockClient = () => {
+  const p = new Promise((res, rej) => res());
+  return { hGet: () => p, hSet: () => p, hDel: () => p };
+};
 
 describe('Join', () => {
   let app, config, users, games, session;
@@ -17,7 +23,13 @@ describe('Join', () => {
     session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, games, session, () => { }));
+
+
+    const store = {
+      gamesStore: new Datastore('games', mockClient()),
+    };
+    // const sessionStore = new SessionStore(mockedDatastore);
+    app = request(initApp(config, users, games, session, store));
   });
 
   it('should redirect to login, if user is not logged in', (done) => {

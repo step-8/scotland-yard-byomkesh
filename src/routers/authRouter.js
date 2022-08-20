@@ -11,14 +11,14 @@ const authValidators = require('../middleware/authValidations.js');
 const { redirectToGame, redirectToLobby } = require('../middleware/blockInvalidAccess.js');
 const { credentialCheck, validateInput } = authValidators;
 
-const createAuthRouter = (users, userDb, views, writeFile) => {
+const createAuthRouter = (users, views, persistUser) => {
   const authRouter = express.Router();
   const authRoutes = ['/login', '/signup'];
 
   authRouter.use(authRoutes, protectedAuth)
 
   authRouter.get('/signup', serveSignupPage(views));
-  const signup = signupHandler(users, userDb, writeFile);
+  const signup = signupHandler(users, persistUser);
   authRouter.post('/signup', credentialCheck, signup);
 
   authRouter.get('/login', serveLoginPage(views));

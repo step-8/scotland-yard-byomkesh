@@ -16,7 +16,7 @@ const shuffle = (list) => {
 };
 
 const startGameHandler = (persistGames) => (req, res) => {
-  const game = req.session.game;
+  const { game, gameId } = req.session;
   if (!game || !game.canGameStart()) {
     res.json({ isStarted: false });
     return;
@@ -35,8 +35,9 @@ const startGameHandler = (persistGames) => (req, res) => {
   game.assignInitialPositions(shuffledPositions);
   game.changeGameStatus();
 
-  persistGames();
-  res.json({ isStarted: true, players: game.getPlayers() });
+  persistGames(gameId, () => {
+    res.json({ isStarted: true, players: game.getPlayers() });
+  });
 };
 
 module.exports = { startGameHandler };

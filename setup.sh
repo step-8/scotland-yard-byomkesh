@@ -10,19 +10,10 @@ echo "PORT=8000" >> .env
 
 mkdir 'db' 2> /dev/null
 
-
-DB_PATH='./db/users.json' 2> /dev/null
-echo '{}' > "${DB_PATH}" 
-echo "USERS_DB='${DB_PATH}'" >> .env
-
 STOPS_PATH='./data/stops.json'
 echo "STOPS='${STOPS_PATH}'" >> .env
 
-SESSION_FILE_PATH='./db/session.json'
-echo "SESSION_FILE='${SESSION_FILE_PATH}'" >> .env
-echo '{}' > $SESSION_FILE_PATH
-
-
-GAMES_PATH='./db/games.json'
-echo '{"games":[], "newGameId":1}' > "${GAMES_PATH}"
-echo "GAMES_DB='${GAMES_PATH}'" >> .env
+echo "REDIS_HOSTNAME=''">>.env
+echo "REDIS_USERNAME=''">>.env
+echo "REDIS_PASSWORD=''">>.env
+echo "REDIS_PORT=6379">>.env

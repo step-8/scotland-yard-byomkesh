@@ -5,6 +5,13 @@ const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
+const Datastore = require('../../src/models/datastore.js');
+
+
+const mockClient = () => {
+  const p = new Promise((res, rej) => res());
+  return { hGet: () => p, hSet: () => p, hDel: () => p };
+};
 
 describe('servePages', () => {
   let config, session, games;
@@ -18,7 +25,13 @@ describe('servePages', () => {
   describe('serveLandingPage', () => {
     it('Should redirect to login page on /, if user is not logged in', (done) => {
       const users = new Users({});
-      const app = request(initApp(config, users, games, session, () => { }));
+
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+
+      const app = request(initApp(config, users, games, session, stores));
       app.get('/')
         .expect('location', '/login')
         .expect(302, done);
@@ -27,7 +40,11 @@ describe('servePages', () => {
     it('Should serve landing page on /, if user is logged in', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session, () => { }));
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+      const app = request(initApp(config, users, games, session, stores));
       const body = 'username=root&password=root';
 
       app.post('/login')
@@ -50,7 +67,11 @@ describe('servePages', () => {
     let users, app;
     beforeEach(() => {
       users = new Users({});
-      app = request(initApp(config, users, games, session, () => { }));
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+      app = request(initApp(config, users, games, session, stores));
     });
     it('Should redirect on home page if not logged in', (done) => {
       app.get('/lobby')
@@ -77,7 +98,11 @@ describe('servePages', () => {
     it('Should serve lobby of game 1 on /lobby', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session, () => { }));
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+      const app = request(initApp(config, users, games, session, stores));
       const game = games.createGame();
       const gameId = game.gameId;
       const host = new Player('host');
@@ -100,7 +125,12 @@ describe('servePages', () => {
     it('Should block invalid access from lobby', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session, () => { }));
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+
+      const app = request(initApp(config, users, games, session, stores));
       const game = games.createGame();
       const gameId = game.gameId;
       const host = new Player('host');
@@ -130,7 +160,12 @@ describe('servePages', () => {
     it('Should block invalid access from game page', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
-      const app = request(initApp(config, users, games, session, () => { }));
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+
+      const app = request(initApp(config, users, games, session, stores));
       const game = games.createGame();
       const gameId = game.gameId;
       const host = new Player('host');
@@ -165,7 +200,11 @@ describe('servePages', () => {
   describe('serveErrorPage', () => {
     it('Should serve error page on invalid request', (done) => {
       const users = new Users({});
-      const app = request(initApp(config, users, games, session));
+      const stores = {
+        gamesStore: new Datastore('games', mockClient()),
+        usersStore: new Datastore('users', mockClient()),
+      };
+      const app = request(initApp(config, users, games, session, stores));
       app.get('/abc')
         .expect('content-type', /html/)
         .expect(404, done);

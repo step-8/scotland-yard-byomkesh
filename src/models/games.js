@@ -46,6 +46,9 @@ class Games {
 
     return gamesData;
   }
+  getNextGameId() {
+    return this.#index;
+  }
 }
 
 module.exports = { Games };

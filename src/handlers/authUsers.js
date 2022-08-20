@@ -6,7 +6,7 @@ const protectedAuth = (req, res, next) => {
   next();
 };
 
-const signupHandler = (users, userDb, writeFile) => (req, res) => {
+const signupHandler = (users, persistUser) => (req, res) => {
   const { username, password } = req.body;
   const isAdded = users.addUser(username, password);
   if (!isAdded) {
@@ -17,9 +17,10 @@ const signupHandler = (users, userDb, writeFile) => (req, res) => {
 
   req.session.username = username;
   const pathToRedirect = req.session.redirectTo || '/';
-  res.redirect(pathToRedirect);
+  persistUser(username, password, () => {
+    res.redirect(pathToRedirect);
+  });
 
-  writeFile(userDb, users.toJson(), 'utf8');
 };
 
 const loginHandler = (users) => (req, res) => {

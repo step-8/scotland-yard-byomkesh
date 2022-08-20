@@ -3,7 +3,13 @@ const expressSession = require('express-session');
 const { initApp } = require('./../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
+const Datastore = require('../../src/models/datastore.js');
 
+
+const mockClient = () => {
+  const p = new Promise((res, rej) => res());
+  return { hGet: () => p, hSet: () => p, hDel: () => p };
+};
 describe('serveLobbyStats', () => {
   let app, config, cookie;
   it('Should serve lobby stats of single player', (done) => {
@@ -13,7 +19,13 @@ describe('serveLobbyStats', () => {
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
-    app = request(initApp(config, users, games, session, () => { }));
+
+    const stores = {
+      gamesStore: new Datastore('games', mockClient()),
+      usersStore: new Datastore('users', mockClient()),
+    };
+
+    app = request(initApp(config, users, games, session, stores));
     const body = 'username=user1&password=user1';
 
     app.post('/signup')

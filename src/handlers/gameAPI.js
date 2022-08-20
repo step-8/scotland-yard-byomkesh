@@ -4,7 +4,7 @@ const validStops = (req, res) => {
 };
 
 const movePlayer = persistGames => (req, res) => {
-  const { username, game } = req.session;
+  const { username, game, gameId } = req.session;
   const { destination, ticket } = req.body;
 
   if (game.currentPlayer.username !== username) {
@@ -16,8 +16,9 @@ const movePlayer = persistGames => (req, res) => {
 
   if (allStops.includes(destination)) {
     game.playMove(destination, ticket);
-    persistGames();
-    res.json({ isMoved: true });
+    persistGames(gameId, () => {
+      res.json({ isMoved: true });
+    });
     return;
   }
 
@@ -25,11 +26,12 @@ const movePlayer = persistGames => (req, res) => {
 };
 
 const skipTurn = persistGames => (req, res) => {
-  const { game } = req.session;
+  const { game, gameId } = req.session;
   game.changeCurrentPlayer();
-  persistGames();
   const currentPlayer = game.currentPlayer;
-  res.json(currentPlayer);
+  persistGames(gameId, () => {
+    res.json(currentPlayer);
+  });
 };
 
 module.exports = { validStops, movePlayer, skipTurn };

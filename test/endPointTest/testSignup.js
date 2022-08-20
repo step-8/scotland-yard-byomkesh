@@ -5,6 +5,7 @@ const assert = require('assert');
 const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
+const Datastore = require('../../src/models/datastore.js');
 
 const mockWfs = (expectedFilename, expectedData, expectedEncoding) => {
   return (actualFilename, actualData, actualEncoding) => {
@@ -12,6 +13,11 @@ const mockWfs = (expectedFilename, expectedData, expectedEncoding) => {
     assert.strictEqual(actualData, expectedData);
     assert.strictEqual(actualEncoding, expectedEncoding);
   }
+};
+
+const mockClient = () => {
+  const p = new Promise((res, rej) => res());
+  return { hGet: () => p, hSet: () => p, hDel: () => p };
 };
 
 describe('signupHandler', () => {
@@ -27,8 +33,12 @@ describe('signupHandler', () => {
     session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
+    const stores = {
+      gamesStore: new Datastore('games', mockClient()),
+      usersStore: new Datastore('users', mockClient()),
+    };
 
-    app = request(initApp(config, users, games, session, () => { }));
+    app = request(initApp(config, users, games, session, stores));
   });
 
   it('Should respond with 302 when user is added ', (done) => {
@@ -39,10 +49,11 @@ describe('signupHandler', () => {
         password: 'user'
       }
     };
-
-    const userDb = './db/users.json';
-    const writeFile = mockWfs(userDb, JSON.stringify(updatedUsers), 'utf8');
-    const app = request(initApp(config, users, games, session, writeFile));
+    const stores = {
+      gamesStore: new Datastore('games', mockClient()),
+      usersStore: new Datastore('users', mockClient()),
+    };
+    const app = request(initApp(config, users, games, session, stores));
     const username = 'user';
     const password = 'user';
     const body = `username=${username}&password=${password}`;
@@ -130,10 +141,13 @@ describe('signupHandler', () => {
         password: 'pword1'
       }
     };
-
-    const userDb = './db/users.json';
-    const writeFile = mockWfs(userDb, JSON.stringify(updatedUsers), 'utf8');
-    const app = request(initApp(config, users, games, session, writeFile));
+    const stores = {
+      gamesStore: new Datastore('games', mockClient()),
+      usersStore: new Datastore('users', mockClient()),
+    };
+    // const userDb = './db/users.json';
+    // const writeFile = mockWfs(userDb, JSON.stringify(updatedUsers), 'utf8');
+    const app = request(initApp(config, users, games, session, stores));
 
     const username = 'user1';
     const password = 'pword1';

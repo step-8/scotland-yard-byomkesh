@@ -2,29 +2,31 @@ const session = require('express-session');
 const Store = session.Store;
 
 class SessionStore extends Store {
-  constructor(session, writeSession) {
+  #datastore;
+  constructor(datastore) {
     super();
-    this.session = session;
-    this.writeSession = writeSession;
+    this.#datastore = datastore;
   }
 
   destroy(sid, callback = () => { }) {
-    delete this.session[sid];
-    this.writeSession(this.session)
+    this.#datastore.delete(sid)
       .then(() => callback(null))
-      .catch(err => callback(err));
+      .catch(callback);
   }
 
-  get(sid, callback) {
-    const value = this.session[sid];
-    callback(null, value);
+  get(sid, callback = () => { }) {
+
+    this.#datastore
+      .get(sid)
+      .then(val => callback(null, JSON.parse(val)))
+      .catch(callback);
   }
 
-  set(sid, session, callback) {
-    this.session[sid] = session;
-    this.writeSession(this.session)
+  set(sid, session, callback = () => { }) {
+    this.#datastore
+      .set(sid, JSON.stringify(session))
       .then(() => callback(null))
-      .catch(err => callback(err));
+      .catch(callback);
   }
 }
 
