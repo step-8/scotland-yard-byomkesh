@@ -22,4 +22,14 @@ describe('Lobby', () => {
     assert.ok(res.redirect.calledOnce);
 
   });
+
+  it('should invoke next when player is not in lobby ', () => {
+    const req = { url: '/login', session: {} };
+    const res = {};
+    const next = sinon.stub();
+
+    redirectToLobby(req, res, next);
+    assert.ok(next.calledOnce);
+
+  });
 });

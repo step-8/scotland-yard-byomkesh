@@ -296,4 +296,14 @@ describe('game', () => {
     assert.ok(res.redirect.calledOnce);
 
   });
+
+  it('should invoke next when player is not in game ', () => {
+    const req = { url: '/login', session: {} };
+    const res = {};
+    const next = sinon.stub();
+
+    redirectToGame(req, res, next);
+    assert.ok(next.calledOnce);
+
+  });
 });
