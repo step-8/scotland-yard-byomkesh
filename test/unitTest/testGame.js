@@ -1,4 +1,7 @@
-const assert = require('assert');
+const { assert } = require('chai');
+const sinon = require('sinon');
+
+const { redirectToGame } = require('../../src/middleware/blockInvalidAccess.js');
 const { Game } = require('../../src/models/game.js');
 const { Player } = require('../../src/models/player.js');
 const { mrX, red } = require('../../src/utils/roles.js');
@@ -270,5 +273,27 @@ describe('Game', () => {
     const { winningStatus, gameOver } = game.getState();
     assert.deepStrictEqual(winningStatus, 5);
     assert.deepStrictEqual(gameOver, true);
+  });
+});
+
+describe('game', () => {
+  it('should redirect to /game from game', () => {
+    const req = { session: {} };
+    const res = {};
+    const next = sinon.stub();
+
+    redirectToGame(req, res, next);
+    assert.ok(next.calledOnce);
+
+  });
+
+  it('should redirect to /game from game on invalid request', () => {
+    const req = { session: { game: { isStarted: true } } };
+    const res = { redirect: sinon.stub() };
+    const next = () => { };
+
+    redirectToGame(req, res, next);
+    assert.ok(res.redirect.calledOnce);
+
   });
 });

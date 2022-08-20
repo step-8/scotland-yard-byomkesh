@@ -125,6 +125,41 @@ describe('servePages', () => {
             });
         });
     });
+
+
+    it('Should block invalid access from game page', (done) => {
+      const root = { root: { username: 'root', password: 'root' } };
+      const users = new Users(root);
+      const app = request(initApp(config, users, games, session, () => { }));
+      const game = games.createGame();
+      const gameId = game.gameId;
+      const host = new Player('host');
+      game.addPlayer(host);
+
+      app.post('/login')
+        .send('username=root&password=root')
+        .expect('location', '/')
+        .expect(302)
+        .end((err, res) => {
+          const cookie = res.header['set-cookie'];
+          app.get(`/join?gameId=${gameId}`)
+            .set('cookie', cookie)
+            .expect('location', '/lobby')
+            .expect(302)
+            .end((err, res) => {
+              game.changeGameStatus();
+              app.get('/')
+                .set('cookie', cookie)
+                .expect('location', '/game')
+                .expect(302)
+                .end(() => app.get('/logout')
+                  .set('cookie', cookie)
+                  .expect('location', '/game')
+                  .expect(302, done)
+                );
+            });
+        });
+    });
   });
 
   describe('serveErrorPage', () => {

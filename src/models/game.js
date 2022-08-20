@@ -266,6 +266,10 @@ class Game {
     this.#setMrXWinStatus();
   }
 
+  isInLobby() {
+    return !this.#isGameStarted;
+  }
+
   get gameId() {
     return this.#gameId;
   }

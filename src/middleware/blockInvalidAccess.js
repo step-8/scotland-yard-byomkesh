@@ -1,17 +1,29 @@
-const blockInvalidAccess = (req, res, next) => {
-  const validUrl = ['/lobby'];
-  if (!req.session.game || validUrl.includes(req.url)) {
+const redirectToLobby = (req, res, next) => {
+  const { game } = req.session;
+  if (!game || req.url === '/lobby') {
     next();
-    return;
+    return
   }
 
-  const { isGameStarted } = req.session.game.getStatus();
-
-  if (!isGameStarted) {
+  if (game.isInLobby()) {
     res.redirect('/lobby');
     return;
   }
   next();
-};
+}
 
-module.exports = { blockInvalidAccess };
+const redirectToGame = (req, res, next) => {
+  const { game } = req.session;
+  if (!game || req.url === '/game') {
+    next();
+    return
+  }
+
+  if (game.isStarted) {
+    res.redirect('/game');
+    return;
+  }
+  next();
+}
+
+module.exports = { redirectToLobby, redirectToGame };
