@@ -18,9 +18,16 @@ const createDummyPlayers = (role, position, tickets) => {
 
 describe('Skip Turn', () => {
   let games;
+  const buses = [], subways = [], ferries = [];
 
   beforeEach(() => {
-    games = new Games({});
+    const stops = {
+      19: { taxies: [1, 2, 32, 43], buses, subways, ferries },
+      43: { taxies: [1, 2, 19, 74], buses, subways: [74], ferries },
+      32: { taxies: [1, 2, 19], buses, subways, ferries },
+      74: { taxies: [1, 2, 43], buses, subways: [43], ferries },
+    };
+    games = new Games(stops);
   });
 
   it('Should pass the turn to next player', () => {

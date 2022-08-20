@@ -87,7 +87,9 @@ class Game {
   changeCurrentPlayer() {
     this.#currentPlayerIndex =
       (this.#currentPlayerIndex + 1) % this.#players.length;
+    this.#setGameOverStatus();
   }
+
   canGameStart() {
     return this.#players.length >= this.#limit.min;
   }
@@ -112,7 +114,6 @@ class Game {
     currentPlayer.reduceTicket(ticket);
 
     this.updateRound();
-    this.#setGameOverStatus();
     this.changeCurrentPlayer();
   }
 
@@ -144,7 +145,7 @@ class Game {
 
     this.#players.forEach(player => {
       players.push(player.info);
-    });
+    }); //change to map
     return { players, isGameStarted };
   }
 
@@ -202,7 +203,7 @@ class Game {
   }
 
   #isRoundOver() {
-    return this.#players.length - 1 === this.#currentPlayerIndex;
+    return this.#currentPlayerIndex === 0;
   }
 
   #setGameOverStatus() {

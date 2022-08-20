@@ -176,7 +176,7 @@ describe('Game', () => {
     };
 
     const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
-    const player2 = createDummyPlayers('b', red, 19, tickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
     const gameData = {
       isGameStarted: true,
       players: [player1, player2],
@@ -186,7 +186,7 @@ describe('Game', () => {
 
     const game = new Game(1, stops);
     game.init(gameData);
-    game.playMove(43, 'taxi');
+    game.changeCurrentPlayer();
     const { winningStatus, gameOver } = game.getState();
     assert.deepStrictEqual(winningStatus, 2);
     assert.deepStrictEqual(gameOver, true);

@@ -36,6 +36,10 @@ const main = () => {
       return;
     }
 
+    if (gameState.gameOver) {
+      return;
+    }
+
     reqValidStops(gameState)
       .then(skipStuckPlayer)
       .then(highlightStops)
