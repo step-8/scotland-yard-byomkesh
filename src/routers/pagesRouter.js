@@ -1,14 +1,15 @@
 const express = require('express');
 const { protectedAuth } = require('../handlers/authUsers');
-const { authenticateUser } = require('../middleware/authValidations');
-const { protectedGame } = require('../middleware/protectedGame');
-const { serveLandingPage, serveLobby } = require('../handlers/servePages');
-const { serveGamePage, serveLoginPage } = require('../handlers/servePages');
-const { serveNotFoundPage } = require('../handlers/servePages');
-
+const { authenticateUser } = require('../middleware/authValidations.js');
+const { protectedGame } = require('../middleware/protectedGame.js');
+const { serveLandingPage, serveLobby } = require('../handlers/servePages.js');
+const { serveGamePage, serveLoginPage } = require('../handlers/servePages.js');
+const { serveNotFoundPage } = require('../handlers/servePages.js');
+const { blockInvalidAccess } = require('../middleware/blockInvalidAccess.js')
 
 const createPagesRouter = (views) => {
   const pagesRouter = express.Router();
+  pagesRouter.use(blockInvalidAccess);
 
   pagesRouter.get('/', authenticateUser, serveLandingPage(views));
   pagesRouter.get('/lobby', protectedGame, serveLobby(views));
