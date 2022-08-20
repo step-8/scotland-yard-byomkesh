@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "mocha --recursive",
+    "test-c": "c8 -r html mocha --recursive; sleep 2; open coverage/index.html",
     "test-w": "mocha -w --recursive",
     "setup": "bash setup.sh",
     "start-w": "nodemon index.js"
@@ -21,6 +22,7 @@
   },
   "homepage": "https://github.com/step-8/scotland-yard-byomkesh#readme",
   "devDependencies": {
+    "c8": "^7.12.0",
     "chai": "^4.3.6",
     "mocha": "^10.0.0",
     "nodemon": "^2.0.19",
