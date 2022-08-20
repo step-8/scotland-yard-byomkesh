@@ -8,6 +8,7 @@ const pagesLib = require('../handlers/servePages.js');
 const { serveLoginPage, serveSignupPage } = pagesLib;
 
 const authValidators = require('../middleware/authValidations.js');
+const { blockInvalidAccess } = require('../middleware/blockInvalidAccess.js');
 const { credentialCheck, validateInput } = authValidators;
 
 const createAuthRouter = (users, userDb, views, writeFile) => {
@@ -22,7 +23,7 @@ const createAuthRouter = (users, userDb, views, writeFile) => {
 
   authRouter.get('/login', serveLoginPage(views));
   authRouter.post('/login', validateInput, loginHandler(users));
-  authRouter.get('/logout', logoutHandler);
+  authRouter.get('/logout', blockInvalidAccess, logoutHandler);
 
   return authRouter;
 };
