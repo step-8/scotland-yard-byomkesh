@@ -14,6 +14,20 @@ const isMrXStranded = strandedPlayers => {
   return strandedPlayers.some(player => player.role === mrX);
 };
 
+const areDetectivesStranded = (detectives, strandedPlayers) => {
+  return detectives.every(detective => {
+    return strandedPlayers.includes(detective);
+  });
+};
+
+const areDetectivesOutOfTickets = detectives => {
+  return detectives.every(({ tickets }) => {
+    const allTickets = Object.values(tickets);
+    const ticketSum = allTickets.reduce((a, b) => a + b);
+    return ticketSum <= 0;
+  });
+};
+
 const isStranded = validStops => {
   const stops = Object.values(validStops).flat();
   return stops.length <= 0;
@@ -206,10 +220,13 @@ class Game {
     return this.#currentPlayerIndex === 0;
   }
 
-  #setGameOverStatus() {
-    if (!this.#isRoundOver()) {
-      return;
-    }
+  #getDetectives() {
+    return this.getPlayers().filter(player => {
+      return player.role.includes('Detective');
+    });
+  }
+
+  #setDetectivesWinStatus() {
     if (isMrXStranded(this.#getStrandedPlayers())) {
       this.#gameOver = true;
       this.#winningStatus = 1;
@@ -220,6 +237,33 @@ class Game {
       this.#gameOver = true;
       this.#winningStatus = 2;
     }
+  }
+
+  #setMrXWinStatus() {
+    const detectives = this.#getDetectives();
+    if (areDetectivesStranded(detectives, this.#getStrandedPlayers())) {
+      this.#gameOver = true;
+      this.#winningStatus = 3;
+    }
+
+    if (areDetectivesOutOfTickets(detectives)) {
+      this.#gameOver = true;
+      this.#winningStatus = 4;
+    }
+
+    if (this.#round >= 24) {
+      this.#gameOver = true;
+      this.#winningStatus = 5;
+    }
+  }
+
+  #setGameOverStatus() {
+    if (!this.#isRoundOver()) {
+      return;
+    }
+
+    this.#setDetectivesWinStatus();
+    this.#setMrXWinStatus();
   }
 
   get gameId() {

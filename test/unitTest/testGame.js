@@ -191,4 +191,84 @@ describe('Game', () => {
     assert.deepStrictEqual(winningStatus, 2);
     assert.deepStrictEqual(gameOver, true);
   });
+
+  it('Should send game over and winning status for mrX in game state', () => {
+    const tickets = {
+      taxi: 0,
+      bus: 0,
+      subway: 0,
+      black: 0,
+      twoX: 0
+    };
+    const mrXTickets = {
+      taxi: 10,
+      bus: 4,
+      subway: 0,
+      black: 0,
+      twoX: 0
+    };
+    const buses = [], subways = [], ferries = [];
+    const stops = {
+      19: { taxies: [1, 2, 32, 43], buses, subways, ferries },
+      43: { taxies: [1, 2, 19, 74], buses, subways: [74], ferries },
+      32: { taxies: [1, 2, 19], buses, subways, ferries },
+      74: { taxies: [1, 2, 43], buses, subways: [43], ferries },
+    };
+
+    const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
+    const gameData = {
+      isGameStarted: true,
+      players: [player1, player2],
+      currentPlayerIndex: 1, round: 2, gameOver: false,
+      winningStatus: null
+    };
+
+    const game = new Game(1, stops);
+    game.init(gameData);
+    game.changeCurrentPlayer();
+    const { winningStatus, gameOver } = game.getState();
+    assert.deepStrictEqual(winningStatus, 4);
+    assert.deepStrictEqual(gameOver, true);
+  });
+
+  it('Should send game over and winning status when 24 rounds are over for mrX in game state', () => {
+    const tickets = {
+      taxi: 0,
+      bus: 0,
+      subway: 0,
+      black: 0,
+      twoX: 0
+    };
+    const mrXTickets = {
+      taxi: 10,
+      bus: 4,
+      subway: 0,
+      black: 0,
+      twoX: 0
+    };
+    const buses = [], subways = [], ferries = [];
+    const stops = {
+      19: { taxies: [1, 2, 32, 43], buses, subways, ferries },
+      43: { taxies: [1, 2, 19, 74], buses, subways: [74], ferries },
+      32: { taxies: [1, 2, 19], buses, subways, ferries },
+      74: { taxies: [1, 2, 43], buses, subways: [43], ferries },
+    };
+
+    const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
+    const gameData = {
+      isGameStarted: true,
+      players: [player1, player2],
+      currentPlayerIndex: 1, round: 24, gameOver: false,
+      winningStatus: null
+    };
+
+    const game = new Game(1, stops);
+    game.init(gameData);
+    game.changeCurrentPlayer();
+    const { winningStatus, gameOver } = game.getState();
+    assert.deepStrictEqual(winningStatus, 5);
+    assert.deepStrictEqual(gameOver, true);
+  });
 });

@@ -10,8 +10,6 @@ const movePlayer = persistGames => (req, res) => {
   if (game.currentPlayer.username !== username) {
     return res.json({ isMoved: false });
   }
-  // const currentPlayer = game.findPlayer(username);
-  // const stops = game.stopInfo(currentPlayer.position);
 
   const stops = game.getValidStops(username);
   const allStops = Object.values(stops).flat();
