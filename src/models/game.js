@@ -116,7 +116,6 @@ class Game {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
     if (currentPlayer.info.role === mrX) {
       this.#round += 1;
-      this.#setGameOverStatus();
     }
   }
 
@@ -128,6 +127,7 @@ class Game {
     currentPlayer.reduceTicket(ticket);
 
     this.updateRound();
+
     this.changeCurrentPlayer();
   }
 

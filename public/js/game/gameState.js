@@ -86,4 +86,8 @@ class GameState {
   get gameOver() {
     return this.#gameOver;
   }
+
+  get winningStatus() {
+    return this.#winningStatus;
+  }
 }

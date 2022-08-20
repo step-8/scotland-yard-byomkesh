@@ -13,7 +13,15 @@ const endGame = poller => gameState => {
     return;
   }
   poller.pause();
-  const banner = createBanner('Detectives Won!', 'blue');
+
+  let message = 'Detectives Won!';
+  let color = 'blue';
+  if (winningStatus >= 3) {
+    message = 'Mr. X Won!';
+    color = 'black';
+  }
+
+  const banner = createBanner(message, color);
   const homeLink = createHomeLink();
   banner.appendChild(homeLink);
   const map = query('.map');
