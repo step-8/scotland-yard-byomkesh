@@ -22,10 +22,6 @@ const setGameId = () =>
 
 const initiateLobby = (lobbyState) => {
   const updateLobbyPromise = new Promise((res, rej) => {
-    const { isHost } = lobbyState.myData();
-    if (!isHost) {
-      removePlayButton();
-    }
     res(lobbyState);
   })
 

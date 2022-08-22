@@ -51,7 +51,7 @@ describe('leave-lobby', () => {
       });
   };
 
-  it('Joinee should be able to leave lobby when game not started', (done) => {
+  it('Joinee should be able to leave lobby when game is not started', (done) => {
     const game = games.createGame();
     const gameId = game.gameId;
     const host = new Player('host');
@@ -67,5 +67,21 @@ describe('leave-lobby', () => {
     afterLogin((cookie) =>
       afterJoin(gameId, cookie, () =>
         leaveLobbyReq(cookie)));
+  });
+
+
+  it('Host should be able to leave lobby when game is not started', (done) => {
+    const leaveLobbyReq = (cookie) => {
+      appReq.post('/leave-lobby')
+        .set('cookie', cookie)
+        .expect('location', '/')
+        .expect(302, done);
+    };
+
+    afterLogin((cookie) => {
+      appReq.get('/host')
+        .set('cookie', cookie)
+        .end(() => leaveLobbyReq(cookie));
+    });
   });
 });

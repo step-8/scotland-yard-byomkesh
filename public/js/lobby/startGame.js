@@ -48,12 +48,12 @@ const updateLobbyOnStart = (poller) => (lobbyState) => {
 
 const activatePlayBtn = (lobbyState) => {
   const btn = byId('play');
-  if (!btn) {
-    return;
-  }
+  const playBtn = byId('play-button');
+  const { isHost } = lobbyState.myData();
 
-  if (lobbyState.canGameStart()) {
+  if (lobbyState.canGameStart() && isHost) {
     markVisible(btn);
+    markVisible(playBtn);
   }
 
   return lobbyState;

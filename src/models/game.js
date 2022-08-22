@@ -92,14 +92,29 @@ class Game {
     }
   }
 
+  isHost(username) {
+    const hostInfo = this.#host.info;
+    return username === hostInfo.username;
+  }
+
+  #assignHostToNext() {
+    if (!this.#players[1]) {
+      return;
+    }
+    this.#players[1].setHost();
+    this.#host = this.#players[1];
+  }
+
   removePlayer(username) {
+    if (this.isHost(username)) {
+      this.#assignHostToNext()
+    }
     this.#players = this.#players.filter(player =>
       !player.isSamePlayer(username));
   }
 
-  isHost(username) {
-    const hostInfo = this.#host.info;
-    return username === hostInfo.username;
+  canGameSustain() {
+    return this.#players.length > 0;
   }
 
   getPlayers() {

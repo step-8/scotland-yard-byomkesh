@@ -44,8 +44,9 @@ const initApp = (config, users, games, session, stores) => {
   app.use('/api', createApiRouter(persistGames));
   app.get('/end', endGame(games, gamesStore));
 
-  app.post('/leave-lobby', protectedLobby, leaveLobby(persistGames));
-  app.get('/end', (req, res) => {
+
+  app.post('/leave-lobby', protectedLobby, leaveLobby(games, persistGames, gamesStore));
+  app.get('/end', (req, res, next) => {
     const { gameId } = req.session;
     games.deleteGame(gameId);
 
