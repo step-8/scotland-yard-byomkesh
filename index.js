@@ -29,7 +29,9 @@ const startServer = (port, config) => {
 
   fsPromise.readFile(config.stops, 'utf8')
     .then(value => JSON.parse(value))
-    .then((stopsData) => games = new Games(stopsData))
+    .then((stopsData) => {
+      games = new Games(stopsData);
+    })
     .then(() => {
       client = createRedisClient();
     })
@@ -40,7 +42,9 @@ const startServer = (port, config) => {
     })
 
     .then(() => getUsers(stores.usersStore))
-    .then((usersData) => users = usersData)
+    .then((usersData) => {
+      users = usersData;
+    })
 
     .then(() => getGamesInfo(stores.gamesStore))
     .then((gamesData) => games.init(gamesData))

@@ -46,6 +46,10 @@ class GameState {
     return this.#playerName === this.#currentPlayer.username;
   }
 
+  isCurrentPlayer(username) {
+    return this.#currentPlayer.username === username;
+  }
+
   isTwoXAvailable() {
     if (this.#twoXTakenAt === null) {
       return true;
@@ -74,6 +78,34 @@ class GameState {
 
   isMrXTurn() {
     return this.#currentPlayer.role === 'Mr. X';
+  }
+
+  amIMrX() {
+    if (!this.isMrXTurn()) {
+      return false;
+    }
+
+    if (this.#currentPlayer.username !== this.#playerName) {
+      return false;
+    }
+
+    return true;
+  }
+
+  hasTaken2XInThisRound() {
+    return this.#round === this.#twoXTakenAt;
+  }
+
+  isPlayerStranded(player) {
+    return this.#strandedPlayers.some(strandedPlayer => {
+      return strandedPlayer.role === player.role;
+    });
+  }
+
+  getDetectives() {
+    return this.#players.filter(
+      player => player.role.includes('Detective')
+    );
   }
 
   #emit() {

@@ -11,6 +11,6 @@ const getGamesInfo = (gamesStore) => {
         return gamesData;
       }, { games: [], newGameId: 1 });
   });
-}
+};
 
 module.exports = { getGamesInfo };

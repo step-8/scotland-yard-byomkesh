@@ -23,12 +23,8 @@ const notifier = (message, color) => {
   setTimeout(removeBanner, 2000);
 };
 
-const isPlayerStranded = (strandedPlayers, currentPlayer) => {
-  return strandedPlayers.some(player => player.role === currentPlayer.role);
-};
-
 const roundNotifier = (gameState) => {
-  const { strandedPlayers, currentPlayer, gameOver } = gameState;
+  const { currentPlayer, gameOver } = gameState;
   const { role, color } = currentPlayer;
   let bannerColor = color;
   let message = `${role}'s turn`;
@@ -45,7 +41,7 @@ const roundNotifier = (gameState) => {
     message = 'Your turn';
   }
 
-  if (isPlayerStranded(strandedPlayers, currentPlayer)) {
+  if (gameState.isPlayerStranded(currentPlayer)) {
     message = `${role} is stranded`;
     bannerColor = 'grey';
   }

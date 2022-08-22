@@ -1,7 +1,3 @@
-const getDetectives = players => players.filter(
-  player => player.role.includes('Detective')
-);
-
 const getName = (role, detectiveName, playerName) => {
   const [, name] = role.split(' ');
   return detectiveName === playerName ? name + ' **' : name;
@@ -20,20 +16,22 @@ const createRow = (...columns) => {
   return row;
 };
 
-const createDetectivesLog = (detectives, user, currentPlayer, strandedPlayers) => {
+const createDetectivesLog = (gameState) => {
+  const detectives = gameState.getDetectives();
   return detectives.map(detective => {
     const { role, tickets, username } = detective;
     const { taxi, bus, subway } = tickets;
-    const name = getName(role, username, user);
+
+    const name = getName(role, username, gameState.playerName);
     const row = createRow(name, taxi, bus, subway);
 
-    if (isPlayerStranded(strandedPlayers, detective)) {
+    if (gameState.isPlayerStranded(detective)) {
       row.addClass('dark-grey');
       row.addClass('white-text');
       return row.html;
     }
 
-    if (currentPlayer === username) {
+    if (gameState.isCurrentPlayer(username)) {
       row.addClass('dark-' + detective.color);
       row.addClass('white-text');
     }
@@ -42,11 +40,7 @@ const createDetectivesLog = (detectives, user, currentPlayer, strandedPlayers) =
 };
 
 const updateDetectivesLog = (gameState) => {
-  const { players, playerName, currentPlayer, strandedPlayers } = gameState;
-  const currentPlayerName = currentPlayer.username;
-
-  const detectives = getDetectives(players);
-  const rows = createDetectivesLog(detectives, playerName, currentPlayerName, strandedPlayers);
+  const rows = createDetectivesLog(gameState);
   const tbody = query('.detectives-log tbody');
 
   tbody.replaceChildren(...rows);
