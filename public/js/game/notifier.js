@@ -33,6 +33,10 @@ const roundNotifier = (gameState) => {
   let bannerColor = color;
   let message = `${role}'s turn`;
 
+  if (gameState.isTwoXInAction()) {
+    return;
+  }
+
   if (gameOver) {
     return;
   }

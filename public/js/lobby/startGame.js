@@ -30,7 +30,6 @@ const removePlayButton = () => {
 
 const removeLeaveButton = () => {
   const leaveButton = byId('leave-lobby');
-  console.log(leaveButton);
   leaveButton.replaceChildren('');
 };
 

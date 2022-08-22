@@ -5,7 +5,8 @@ const ticketNameMapper = (pluralTicket) => {
     'buses': 'bus',
     'subways': 'subway',
     'taxies': 'taxi',
-    'ferries': 'ferry'
+    'ferries': 'ferry',
+    'twoX': 'twoX'
   };
 
   return obj[pluralTicket];
@@ -74,6 +75,10 @@ class Player {
   isTicketAvailable(rawTicket) {
     const ticket = ticketNameMapper(rawTicket);
     return this.#tickets[ticket] > 0;
+  }
+
+  isMrX() {
+    return this.#role === mrX;
   }
 
   get tickets() {

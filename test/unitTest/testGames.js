@@ -18,7 +18,8 @@ describe('games', () => {
           gameId: 1,
           isGameStarted: true,
           players: [playerData],
-          currentPlayerIndex: 1
+          currentPlayerIndex: 1,
+          twoXTakenAt: null
         }
       ],
       newGameId: 2
@@ -101,7 +102,8 @@ describe('games', () => {
           round: 0,
           strandedPlayers: [],
           gameOver: false,
-          winningStatus: null
+          winningStatus: null,
+          twoXTakenAt: null
         }
       ]
     };

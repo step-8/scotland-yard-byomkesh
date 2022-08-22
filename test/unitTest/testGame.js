@@ -160,7 +160,8 @@ describe('Game', () => {
 
     const gameData = {
       isGameStarted: true, players: [], currentPlayerIndex: 0, round: 0, gameOver: false,
-      winningStatus: null
+      winningStatus: null,
+      twoXTakenAt: null
     };
     const game = new Game(1, {});
     game.init(gameData);
@@ -172,6 +173,7 @@ describe('Game', () => {
       round: 0,
       strandedPlayers: [],
       gameOver: false,
+      twoXTakenAt: null,
       winningStatus: null
     };
 

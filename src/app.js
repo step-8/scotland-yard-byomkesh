@@ -8,8 +8,7 @@ const { protectedRouter } = require('./routers/protectedRouter.js');
 const { createPagesRouter } = require('./routers/pagesRouter.js');
 const { endGame } = require('./handlers/game.js');
 const { leaveLobby } = require('./handlers/leaveLobby.js');
-const { protectedLobby } = require('./middleware/protectedLobby.js')
-
+const { protectedLobby } = require('./middleware/protectedLobby.js');
 
 const createGamePersister = (games, gamesStore) => (gameId, callback) => {
   const game = games.findGame(gameId);
@@ -46,7 +45,7 @@ const initApp = (config, users, games, session, stores) => {
   app.get('/end', endGame(games, gamesStore));
 
   app.post('/leave-lobby', protectedLobby, leaveLobby(persistGames));
-  app.get('/end', (req, res, next) => {
+  app.get('/end', (req, res) => {
     const { gameId } = req.session;
     games.deleteGame(gameId);
 

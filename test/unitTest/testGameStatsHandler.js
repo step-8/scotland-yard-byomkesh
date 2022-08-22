@@ -70,8 +70,10 @@ describe('gameStats handler', () => {
       },
       strandedPlayers: [],
       robberLog: [],
+      round: 0,
       gameOver: false,
-      winningStatus: null
+      winningStatus: null,
+      twoXTakenAt: null
     };
     const mockedRequest = { session: { username: 'player0', game } };
     const mockedResponse = {
@@ -130,10 +132,13 @@ describe('gameStats handler', () => {
         tickets: MR_X_TICKETS
       },
       robberLog: [],
+      round: 0,
       strandedPlayers: [],
       gameOver: false,
-      winningStatus: null
+      winningStatus: null,
+      twoXTakenAt: null
     };
+
     const mockedRequest = { session: { username: 'player1', game } };
     const mockedResponse = {
       json: (actualData) => {

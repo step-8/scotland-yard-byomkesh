@@ -48,6 +48,7 @@ class Game {
   #round;
   #gameOver;
   #winningStatus;
+  #twoXTakenAt;
 
   constructor(gameId, stops = {}) {
     this.#gameId = gameId;
@@ -59,14 +60,16 @@ class Game {
     this.#round = 0;
     this.#gameOver = false;
     this.#winningStatus = null;
+    this.#twoXTakenAt = null;
   }
 
-  init({ isGameStarted, players, currentPlayerIndex, round, gameOver, winningStatus }) {
+  init({ isGameStarted, players, currentPlayerIndex, round, gameOver, winningStatus, twoXTakenAt }) {
     this.#isGameStarted = isGameStarted;
     this.#currentPlayerIndex = currentPlayerIndex;
     this.#round = round;
     this.#gameOver = gameOver;
     this.#winningStatus = winningStatus;
+    this.#twoXTakenAt = twoXTakenAt;
 
     players.forEach(({ username, isHost, ...playerData }) => {
 
@@ -135,14 +138,15 @@ class Game {
 
   playMove(destination, ticket) {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
-
     currentPlayer.updatePosition(destination);
     currentPlayer.updateLog(ticket);
     currentPlayer.reduceTicket(ticket);
 
     this.updateRound();
 
-    this.changeCurrentPlayer();
+    if (!this.isTwoXInAction()) {
+      this.changeCurrentPlayer();
+    }
   }
 
   getLocations() {
@@ -168,12 +172,8 @@ class Game {
   }
 
   getStatus() {
-    const players = [];
+    const players = this.#players.map(player => player.info);
     const isGameStarted = this.#isGameStarted;
-
-    this.#players.forEach(player => {
-      players.push(player.info);
-    }); //change to map
     return { players, isGameStarted };
   }
 
@@ -207,6 +207,12 @@ class Game {
         requestedPlayer.isTicketAvailable(route) ? availableStops : [];
     });
     return validStops;
+  }
+
+  isMovePossible(username, position) {
+    const stops = this.getValidStops(username);
+    const allStops = Object.values(stops).flat();
+    return allStops.includes(position);
   }
 
   #getStrandedPlayers() {
@@ -305,6 +311,38 @@ class Game {
     return revelationRounds.includes(this.#round);
   }
 
+  isTwoXAvailable() {
+    if (this.#twoXTakenAt === null) {
+      return true;
+    }
+
+    const currentPlayer = this.#players[this.#currentPlayerIndex];
+    if (!currentPlayer.isMrX()) {
+      return false;
+    }
+
+    if (!currentPlayer.isTicketAvailable('twoX')) {
+      return false;
+    }
+
+    const roundsAfterTwoX = this.round - this.#twoXTakenAt;
+    return roundsAfterTwoX > 2;
+  }
+
+  enableTwoX(round) {
+    this.#twoXTakenAt = round;
+    const currentPlayer = this.#players[this.#currentPlayerIndex];
+    currentPlayer.reduceTicket('twoX');
+  }
+
+  isTwoXInAction() {
+    if (this.#twoXTakenAt === null) {
+      return false;
+    }
+    const roundsAfterTwoX = this.round - this.#twoXTakenAt;
+    return roundsAfterTwoX === 1;
+  }
+
   getState() {
     const gameData = this.getStatus();
     gameData.gameId = this.#gameId;
@@ -314,6 +352,7 @@ class Game {
       this.#round > 0 ? this.#getStrandedPlayers() : [];
     gameData.gameOver = this.#gameOver;
     gameData.winningStatus = this.#winningStatus;
+    gameData.twoXTakenAt = this.#twoXTakenAt;
     return gameData;
   }
 }

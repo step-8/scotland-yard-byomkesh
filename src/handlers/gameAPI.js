@@ -11,18 +11,15 @@ const movePlayer = persistGames => (req, res) => {
     return res.json({ isMoved: false });
   }
 
-  const stops = game.getValidStops(username);
-  const allStops = Object.values(stops).flat();
-
-  if (allStops.includes(destination)) {
-    game.playMove(destination, ticket);
-    persistGames(gameId, () => {
-      res.json({ isMoved: true });
-    });
+  if (!game.isMovePossible(username, destination)) {
+    res.json({ isMoved: false });
     return;
   }
 
-  res.json({ isMoved: false });
+  game.playMove(destination, ticket);
+  persistGames(gameId, () => {
+    res.json({ isMoved: true });
+  });
 };
 
 const skipTurn = persistGames => (req, res) => {
@@ -34,4 +31,18 @@ const skipTurn = persistGames => (req, res) => {
   });
 };
 
-module.exports = { validStops, movePlayer, skipTurn };
+const enableTwoX = persistGames => (req, res) => {
+  const { game, gameId } = req.session;
+  const { round } = req.body;
+
+  if (!game.isTwoXAvailable()) {
+    return res.json({ twoXEnabled: false });
+  }
+
+  game.enableTwoX(round);
+  persistGames(gameId, () => {
+    res.json({ twoXEnabled: true });
+  });
+};
+
+module.exports = { validStops, movePlayer, skipTurn, enableTwoX };

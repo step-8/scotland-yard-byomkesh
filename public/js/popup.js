@@ -22,7 +22,7 @@ const createPopup = () => {
   const closePopup = new Element('button')
     .addClass('close-popup')
     .add('innerText', 'X')
-    .addEvent('click', (e) => { e.preventDefault() })
+    .addEvent('click', (e) => e.preventDefault())
     .addEvent('click', handleClosePopup);
 
   const h1 = new Element('h1')

@@ -125,6 +125,14 @@
       "rules": {
         "no-unused-vars": "off"
       }
+    },
+    {
+      "files": [
+        "public/js/game/svgLib.js"
+      ],
+      "rules": {
+        "no-mixed-operators": "off"
+      }
     }
   ]
 }

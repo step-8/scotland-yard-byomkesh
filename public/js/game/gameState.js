@@ -10,6 +10,8 @@ class GameState {
   #strandedPlayers;
   #gameOver;
   #winningStatus;
+  #round;
+  #twoXTakenAt;
 
   constructor() {
     this.#players = null;
@@ -20,9 +22,10 @@ class GameState {
     this.#strandedPlayers = [];
     this.#gameOver = false;
     this.#winningStatus = null;
+    this.#twoXTakenAt = null;
   }
 
-  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, gameOver, winningStatus }) {
+  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
     this.#players = players;
     this.#currentPlayer = currentPlayer;
     this.#playerName = playerName;
@@ -30,6 +33,8 @@ class GameState {
     this.#strandedPlayers = strandedPlayers;
     this.#gameOver = gameOver;
     this.#winningStatus = winningStatus;
+    this.#round = round;
+    this.#twoXTakenAt = twoXTakenAt;
     this.#emit();
   }
 
@@ -41,8 +46,34 @@ class GameState {
     return this.#playerName === this.#currentPlayer.username;
   }
 
+  isTwoXAvailable() {
+    if (this.#twoXTakenAt === null) {
+      return true;
+    }
+
+    const { twoX } = this.#currentPlayer.tickets;
+    if (twoX < 1) {
+      return false;
+    }
+
+    const roundsAfterTwoX = this.#round - this.#twoXTakenAt;
+    return roundsAfterTwoX > 2;
+  }
+
+  isTwoXInAction() {
+    if (this.#twoXTakenAt === null) {
+      return false;
+    }
+    const roundsAfterTwoX = this.round - this.#twoXTakenAt;
+    return roundsAfterTwoX < 2;
+  }
+
   addHandler(handler) {
     this.#handlers.push(handler);
+  }
+
+  isMrXTurn() {
+    return this.#currentPlayer.role === 'Mr. X';
   }
 
   #emit() {
@@ -89,5 +120,13 @@ class GameState {
 
   get winningStatus() {
     return this.#winningStatus;
+  }
+
+  get round() {
+    return this.#round;
+  }
+
+  get twoXTakenAt() {
+    return this.#twoXTakenAt;
   }
 }

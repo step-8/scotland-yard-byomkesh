@@ -1,10 +1,3 @@
-const addClickEvent = (stop, gameState) => {
-  const stopElem = byId(stop);
-  if (stopElem) {
-    stopElem.onclick = showTickets(stop, gameState);
-  }
-};
-
 const removeClickEvent = (stops) => {
   stops.forEach(stop => {
     const stopElem = byId(stop);
@@ -91,7 +84,28 @@ const sendMoveReq = (stop, gameState) => (pluralTicket) => {
     .catch((err) => alert(err.message));
 };
 
-const showTickets = (stop, gameState) => () => {
+const addClickEvent = (stop, gameState) => {
+  const stopElem = byId(stop);
+  if (stopElem) {
+    stopElem.onclick = selectStop(stop, gameState);
+  }
+};
+
+const removeTwoX = () => {
+  const twoX = byId('two-x-btn');
+  if (twoX) {
+    twoX.style.visibility = 'hidden';
+  }
+};
+
+const selectStop = (stop, gameState) => () => {
+  if (gameState.isMrXTurn()) {
+    removeTwoX();
+  }
+  showTickets(stop, gameState);
+};
+
+const showTickets = (stop, gameState) => {
   const validRoutes = gameState.possibleRoutes;
   const validStops = Object.values(validRoutes).flat();
 

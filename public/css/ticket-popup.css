@@ -1,7 +1,7 @@
 .ticket-popup {
   position: absolute;
   right: 21%;
-  top: 80px;
+  top: 2%;
   display: flex;
   flex-direction: column;
   background-color: hsl(0deg 0% 100% / 77%);
