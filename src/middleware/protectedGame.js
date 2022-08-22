@@ -5,7 +5,8 @@ const protectedGame = games => (req, res, next) => {
     return;
   }
 
-  if (req.session.game.isStarted && req.url === '/lobby') {
+  const { game } = req.session;
+  if (game.isStarted && req.url === '/lobby') {
     res.redirect('/game');
     return;
   }

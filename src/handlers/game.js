@@ -95,4 +95,16 @@ const gameStats = (req, res) => {
   res.json(stats);
 };
 
-module.exports = { hostGame, joinGame, getRobberLog, gameStats };
+const endGame = (games, gamesStore) => (req, res) => {
+  const { gameId } = req.session;
+
+  req.session.gameId = null;
+  req.session.game = null;
+
+  games.deleteGame(gameId);
+  gamesStore.delete(gameId)
+    .then(() => res.redirect('/'))
+    .catch((err) => res.redirect('/'))
+};
+
+module.exports = { hostGame, joinGame, getRobberLog, gameStats, endGame };

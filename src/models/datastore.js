@@ -1,5 +1,5 @@
 const rejectNull = () => new Promise((resolve, reject) => {
-  reject(new Error('key can not be null'));
+  reject(new Error('Key can not be null'));
 });
 
 class Datastore {
