@@ -3,7 +3,7 @@ const { mrX } = require("../utils/roles");
 const serveLobbyStats = (req, res) => {
   const { game, username } = req.session;
   if (!game) {
-    res.status(401).end();
+    return res.status(401).end();
   }
   const { players, isGameStarted } = game.getStatus();
   const currentPlayer = players.find(player =>
