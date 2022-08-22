@@ -8,7 +8,6 @@
 
 body {
   font-family: sans-serif;
-
   background-image: url('../images/scotland_map.jpeg');
   background-size: 110% 125%;
   background-position: center;
@@ -24,6 +23,20 @@ main {
   flex-flow: column wrap;
   align-items: center;
   justify-content: center;
+}
+
+#leave-lobby {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 4vh;
+  right: 2vw;
+  cursor: pointer;
+}
+
+#leave-lobby a i {
+  color: rgba(255, 255, 255, 0.719);
+  font-size: 2em;
 }
 
 #greet {
@@ -156,6 +169,7 @@ i {
 .gold {
   background-color: gold !important;
 }
+
 .black div {
   color: white !important;
 }

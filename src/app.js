@@ -7,6 +7,9 @@ const { createApiRouter } = require('./routers/apiRouter.js');
 const { protectedRouter } = require('./routers/protectedRouter.js');
 const { createPagesRouter } = require('./routers/pagesRouter.js');
 const { endGame } = require('./handlers/game.js');
+const { leaveLobby } = require('./handlers/leaveLobby.js');
+const { protectedLobby } = require('./middleware/protectedLobby.js')
+
 
 const createGamePersister = (games, gamesStore) => (gameId, callback) => {
   const game = games.findGame(gameId);
@@ -32,15 +35,29 @@ const initApp = (config, users, games, session, stores) => {
   if (mode === 'dev') {
     app.use(morgan('tiny'));
   }
+
   app.use(session);
   app.use(injectGame(games));
   app.use(express.urlencoded({ extended: true }));
 
   app.use(protectedRouter(games, persistGames));
   app.use(createAuthRouter(users, views, persistUser));
-
   app.use('/api', createApiRouter(persistGames));
   app.get('/end', endGame(games, gamesStore));
+
+  app.post('/leave-lobby', protectedLobby, leaveLobby(persistGames));
+  app.get('/end', (req, res, next) => {
+    const { gameId } = req.session;
+    games.deleteGame(gameId);
+
+    req.session.gameId = null;
+    req.session.game = null;
+
+    gamesStore.delete(gameId)
+      .then(() => res.redirect('/'))
+      .catch(() => res.redirect('/'));
+  });
+
   app.use(express.static('./public'));
   app.use(createPagesRouter(views, games));
 

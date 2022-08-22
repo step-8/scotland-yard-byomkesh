@@ -89,6 +89,16 @@ class Game {
     }
   }
 
+  removePlayer(username) {
+    this.#players = this.#players.filter(player =>
+      !player.isSamePlayer(username));
+  }
+
+  isHost(username) {
+    const hostInfo = this.#host.info;
+    return username === hostInfo.username;
+  }
+
   getPlayers() {
     return this.#players.map(player => player.info);
   }

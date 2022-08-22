@@ -28,6 +28,11 @@ const removePlayButton = () => {
   play.classList.add('hide');
 };
 
+const removeLeaveButton = () => {
+  const leaveButton = byId('leave-lobby');
+  console.log(leaveButton);
+  leaveButton.replaceChildren('');
+};
 
 const updateLobbyOnStart = (poller) => (lobbyState) => {
   if (!lobbyState.isStarted()) {
@@ -37,6 +42,7 @@ const updateLobbyOnStart = (poller) => (lobbyState) => {
   removePlayButton();
   removeGameLink();
   startCountDown();
+  removeLeaveButton();
 
   poller.pause();
 };

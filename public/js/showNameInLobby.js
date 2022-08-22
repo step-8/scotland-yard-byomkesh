@@ -20,3 +20,8 @@ const updateProfile = () => {
   const req = { method: 'GET', url: '/api/user-name' };
   sendRequest(req, showProfile);
 };
+
+const leaveLobby = () => {
+  const form = document.querySelector('form')
+  form.submit();
+};

@@ -44,6 +44,29 @@ describe('Game', () => {
     assert.deepStrictEqual(game.getStatus(), expected);
   });
 
+  it('Should remove player ', () => {
+    let currentPosition, role, color;
+    const player = new Player('host');
+    const player1 = new Player('joinee');
+    game.addPlayer(player);
+    game.addPlayer(player1);
+    game.removePlayer('joinee');
+    const expected = {
+      players: [
+        { currentPosition, isHost: true, log: [], role, username: 'host', color, tickets: undefined }
+      ],
+      isGameStarted: false
+    };
+    assert.deepStrictEqual(game.getStatus(), expected);
+  });
+
+  it('Should return true if the player is host', () => {
+    const player = new Player('host');
+    game.addPlayer(player);
+
+    assert.ok(game.isHost('host'));
+  });
+
   it('Should return false if game cannot started', () => {
     const host = new Player('host');
     game.addPlayer(host);
