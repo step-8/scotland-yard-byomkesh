@@ -39,18 +39,19 @@ const initApp = (config, users, games, session, stores) => {
   app.use(createAuthRouter(users, views, persistUser));
 
   app.use('/api', createApiRouter(persistGames));
-  app.get('/end', (req, res) => {
+  app.get('/end', (req, res, next) => {
     const { gameId } = req.session;
     games.deleteGame(gameId);
 
     req.session.gameId = null;
     req.session.game = null;
 
-    gamesStore.delete(gameId);
-    res.redirect('/');
+    gamesStore.delete(gameId)
+      .then(() => res.redirect('/'))
+      .catch(() => res.redirect('/'));
   });
   app.use(express.static('./public'));
-  app.use(createPagesRouter(views));
+  app.use(createPagesRouter(views, games));
 
   return app;
 };

@@ -57,6 +57,7 @@ const getUsers = (usersStore) => {
       return new Users(usersData);
     })
 };
+
 const getGamesInfo = (gamesStore) => {
   return gamesStore.getAll().then((rawGamesObj) => {
     return Object.entries(rawGamesObj)
@@ -84,10 +85,14 @@ const startServer = port => {
   fsPromise.readFile(config.stops, 'utf8')
     .then(value => JSON.parse(value))
     .then((stopsData) => games = new Games(stopsData))
-    .then(() => client = createRedisClient())
+    .then(() => {
+      client = createRedisClient();
+    })
     .then(() => client.connect())
 
-    .then(() => stores = createStores(client))
+    .then(() => {
+      stores = createStores(client);
+    })
 
     .then(() => getUsers(stores.usersStore))
     .then((usersData) => users = usersData)

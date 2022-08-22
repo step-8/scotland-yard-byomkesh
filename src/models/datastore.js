@@ -1,3 +1,7 @@
+const rejectNull = () => new Promise((resolve, reject) => {
+  reject(new Error('key can not be null'));
+});
+
 class Datastore {
   constructor(storeName, client) {
     this.storeName = storeName;
@@ -5,15 +9,21 @@ class Datastore {
   }
 
   get(key) {
-    return this.client.hGet(this.storeName, key);
+    if (key) {
+      return this.client.hGet(this.storeName, `${key}`);
+    }
+    return rejectNull();
   }
 
   set(key, value) {
-    return this.client.hSet(this.storeName, key, value);
+    return this.client.hSet(this.storeName, `${key}`, value);
   }
 
   delete(key) {
-    return this.client.hDel(this.storeName, key);
+    if (key) {
+      return this.client.hDel(this.storeName, `${key}`);
+    }
+    return rejectNull();
   }
 
   getAll() {
