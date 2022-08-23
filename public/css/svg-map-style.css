@@ -1,0 +1,29 @@
+.taxi-route {
+  fill: none;
+  stroke: gold;
+  stroke-width: 5;
+  stroke-miterlimit: 0.5;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 0.538983;
+}
+
+.bus-route {
+  fill: none;
+  stroke: #3d885e;
+  stroke-width: 5;
+  stroke-miterlimit: 0.5;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 1;
+}
+
+.subway-route {
+  fill: none;
+  stroke: #8e1010;
+  stroke-width: 5;
+  stroke-miterlimit: 0.5;
+  stroke-dasharray: 20;
+  stroke-dashoffset: 0;
+  stroke-opacity: 0.539152;
+}

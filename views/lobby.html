@@ -1,53 +1,53 @@
 <html>
 
-<head>
-  <title>Scotland Yard</title>
-  <link rel="stylesheet" href="/css/lobby.css">
-  <link rel="stylesheet" href="/css/header.css">
-  <script src="/js/functionAliases.js"></script>
-  <script src="/js/request.js"></script>
+  <head>
+    <title>Scotland Yard</title>
+    <link rel="stylesheet" href="/css/lobby.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="/js/functionAliases.js"></script>
+    <script src="/js/request.js"></script>
 
-  <script src="/js/showNameInLobby.js"></script>
-  <script src="/js/lobby/initiateLobby.js"></script>
-  <script src="/js/lobby/copyJoinLink.js"></script>
-  <script src="/js/lobby/showPlayerData.js"></script>
-  <script src="/js/lobby/startGame.js"></script>
-  <script src="/js/lobby/lobbyMain.js"></script>
-  <script src="/js/poller.js"></script>
-  <script src="/js/lobby/lobbyState.js"></script>
-  <script src="/js/roles.js"></script>
+    <script src="/js/showNameInLobby.js"></script>
+    <script src="/js/lobby/initiateLobby.js"></script>
+    <script src="/js/lobby/copyJoinLink.js"></script>
+    <script src="/js/lobby/showPlayerData.js"></script>
+    <script src="/js/lobby/startGame.js"></script>
+    <script src="/js/lobby/lobbyMain.js"></script>
+    <script src="/js/poller.js"></script>
+    <script src="/js/lobby/lobbyState.js"></script>
+    <script src="/js/roles.js"></script>
 
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-</head>
+  </head>
 
-<body>
-  <main>
-    <div id="leave-lobby">
-      <form action="/leave-lobby" method="post">
-        <a href="#" onclick="leaveLobby()"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
-      </form>
-    </div>
-    <div id="room-id"></div>
-    <div id="game-link">
-      <button class="btn small" onclick="copyToClipboard()" id="copy-btn">Copy game link</button>
-      <div class="small hide" id="copy-message">
-        <span class="material-symbols-outlined">
-          check
-        </span>
-        Link copied
+  <body>
+    <main>
+      <div id="leave-lobby">
+        <form action="/leave-lobby" method="post">
+          <a href="#" onclick="leaveLobby()"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+        </form>
       </div>
-    </div>
-    <div id="players-container">
-    </div>
-    <div id="message-container"></div>
-    <div id="play-button" class="hide">
-      <button type="submit" class="hide btn" id="play" onclick="sendStartRequest()">Start</button>
-    </div>
-  </main>
-</body>
+      <div id="room-id"></div>
+      <div id="game-link">
+        <button class="btn small" onclick="copyToClipboard()" id="copy-btn">Copy game link</button>
+        <div class="small hide" id="copy-message">
+          <span class="material-symbols-outlined">
+            check
+          </span>
+          Link copied
+        </div>
+      </div>
+      <div id="players-container">
+      </div>
+      <div id="message-container"></div>
+      <div id="play-button" class="hide">
+        <button type="submit" class="hide btn" id="play" onclick="sendStartRequest()">Start</button>
+      </div>
+    </main>
+  </body>
 
 </html>
