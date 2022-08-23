@@ -26,17 +26,45 @@ Read more about the Game - https://github.com/step-8/scotland-yard-byomkesh/wiki
 
 ```
   npm install
+  brew install redis
 ```
 
-### Start server
+## Test
+
+### Run test
+
+``` bash
+  npm test
+```
+
+### Run test in watcher mode
+
+``` bash
+  npm run test-w
+```
+
+### Run test with coverage
+
+``` bash
+  npm run test-c
+```
+
+## Start servers
+
+### Start redis server
+``` bash
+  brew services start redis
+```
+
+### Start http server
 
 ``` bash
   npm start 
-  # OR node . 
 ```
 
-### Visit homepage
+## Visit homepage
 
-```
-localhost:8000
-```
+You can see the home page by *[running the server](#start-server)* on local machine on 
+http://localhost:8000
+
+Or visit https://scotland-yard-byomkesh.herokuapp.com/ which is running on heroku
