@@ -21,11 +21,11 @@ const removeGameLink = () => {
 };
 
 const removePlayButton = () => {
-  const play = byId('play-button');
-  if (!play) {
+  const playButton = byId('play-button');
+  if (!playButton) {
     return;
   }
-  play.classList.add('hide');
+  playButton.style.display = 'none';
 };
 
 const removeLeaveButton = () => {
