@@ -107,7 +107,7 @@ class Game {
 
   removePlayer(username) {
     if (this.isHost(username)) {
-      this.#assignHostToNext()
+      this.#assignHostToNext();
     }
     this.#players = this.#players.filter(player =>
       !player.isSamePlayer(username));

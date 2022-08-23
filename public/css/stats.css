@@ -54,77 +54,70 @@
   height: 11%;
 }
 
-.special-tickets {
-  height: 10%;
-}
-
-.special-tickets>table {
-  height: 100%;
-}
-
-.special-tickets thead {
+.players-stat {
   height: 50%;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 3.6px;
 }
 
-.special-tickets tbody {
-  height: 50%;
-  width: 100%;
-}
-
-.special-tickets td {
-  width: 50%;
-  text-align: center;
-}
-
-.special-tickets tbody tr :first-child {
-  font-size: 1.5em;
-}
-
-.special-tickets th img {
-  width: 30%;
-  height: 100%;
-}
-
-.detectives-log {
-  border-top: 1px solid black;
-  height: 40%;
-}
-
-/* .detectives-log>table {
-} */
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.detectives-log thead {
-  height: 77px;
-}
-
-.detectives-log th img {
-  width: 50%;
-}
-
-.detectives-log tbody {
-  height: 85%;
-}
-
-.detectives-log tbody tr {
-  height: 59px;
-}
-
-.detectives-log td,
-.detectives-log th {
-  width: 25%;
-  text-align: center;
+.players-stat>:nth-child(n+1) {
   border-bottom: 1px solid black;
 }
 
-.detectives-log tbody tr :first-child {
-  border-right: 1px solid black;
-  height: 100%;
-  width: 20%;
-  border-left: 1px solid black;
+.player-stat {
+  height: 16%;
+  display: flex;
+  flex-flow: column;
+}
+
+.profile {
+  height: 30%;
+  display: flex;
+  column-gap: 10px;
+  padding: 0.2em 0.5em;
+}
+
+.name {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.ticket>img {
+  height: 25px;
+  aspect-ratio: 1;
+}
+
+.ticket-stat {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.count {
+  text-align: center;
+  font-size: 14px;
+}
+
+.black-text {
+  color: black;
+}
+
+.red-text {
+  color: red;
+}
+
+.green-text {
+  color: green;
+}
+
+.blue-text {
+  color: blue;
+}
+
+.yellow-text {
+  color: yellow;
+}
+
+.purple-text {
+  color: purple;
 }

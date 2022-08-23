@@ -156,12 +156,12 @@ describe('signupHandler', () => {
     app.get('/host')
       .expect(302)
       .expect('location', '/login')
-      .end((err, res) => {
+      .end((_, res) => {
         app
           .post('/signup')
           .send(body)
           .expect(302)
-          .expect('location', '/', done)
-      })
+          .expect('location', '/', done);
+      });
   });
 });

@@ -27,8 +27,7 @@ const main = () => {
   const poller = new Poller(API.getGameStat, initGame);
 
   gameState.addHandler(updateRobberLog);
-  gameState.addHandler(updateSpecialTickets);
-  gameState.addHandler(updateDetectivesLog);
+  gameState.addHandler(updatePlayersStats);
   gameState.addHandler(updatePins);
   gameState.addHandler(endGame(poller));
   gameState.addHandler(roundNotifier);

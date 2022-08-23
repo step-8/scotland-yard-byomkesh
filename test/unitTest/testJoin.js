@@ -24,7 +24,6 @@ describe('Join', () => {
       secret: 'test', resave: false, saveUninitialized: false
     });
 
-
     const store = {
       gamesStore: new Datastore('games', mockClient()),
     };
@@ -39,7 +38,7 @@ describe('Join', () => {
     game.addPlayer(host);
 
     app.get(`/join?gameId=${gameId}`)
-      .expect('location', `/login`)
+      .expect('location', '/login')
       .expect(302, done);
   });
 
