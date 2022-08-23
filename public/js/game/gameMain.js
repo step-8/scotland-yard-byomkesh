@@ -51,6 +51,7 @@ const main = () => {
   });
 
   poller.resume();
+  loadSvgEvents();
 };
 
 window.onload = main;
