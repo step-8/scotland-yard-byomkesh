@@ -25,8 +25,17 @@ const removePlayButton = () => {
   if (!playButton) {
     return;
   }
-  playButton.style.display = 'none';
+  playButton.classList.add('hide');
 };
+
+const removePlay = () => {
+  const playButton = byId('play-button');
+  if (!playButton) {
+    return;
+  }
+
+  playButton.style.display = 'none';
+}
 
 const removeLeaveButton = () => {
   const leaveButton = byId('leave-lobby');
@@ -38,7 +47,7 @@ const updateLobbyOnStart = (poller) => (lobbyState) => {
     return;
   }
 
-  removePlayButton();
+  removePlay();
   removeGameLink();
   startCountDown();
   removeLeaveButton();

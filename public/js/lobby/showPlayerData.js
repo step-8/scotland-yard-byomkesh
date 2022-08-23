@@ -131,3 +131,30 @@ const displayMessage = (lobbyState) => {
 
   return lobbyState;
 };
+
+const showLeftPlayer = (lobbyState) => {
+  const leftPlayerContainer = byId('left-player');
+  const leftPlayer = lobbyState.whoLeft();
+
+  if (!leftPlayer) {
+    return;
+  }
+
+  if (lobbyState.isStarted()) {
+    return;
+  }
+
+  leftPlayerContainer.innerText = leftPlayer + ' left the lobby';
+  leftPlayerContainer.classList.add('left-player-msg');
+
+  setTimeout(() => {
+    leftPlayerContainer.innerText = '';
+    leftPlayerContainer.classList.remove('left-player-msg');
+  }, 2000);
+
+  if (!lobbyState.canGameStart()) {
+    removePlayButton();
+  }
+
+  return lobbyState;
+}

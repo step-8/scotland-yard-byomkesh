@@ -22,6 +22,6 @@ const updateProfile = () => {
 };
 
 const leaveLobby = () => {
-  const form = document.querySelector('form')
+  const form = document.querySelector('form');
   form.submit();
 };

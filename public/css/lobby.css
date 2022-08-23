@@ -242,3 +242,16 @@ i {
   border: 1px solid rgb(12, 171, 234) !important;
   box-shadow: 0px 0px 15px 5px rgba(12, 171, 234, 0.2);
 }
+
+.left-player-msg {
+  position: fixed;
+  font-size: 1.1em;
+  bottom: 2vh;
+  right: 1vw;
+  color: #3d3c3c;
+  background-color: #cececee8;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #0faaea;
+  padding: 0.7em 0.8em;
+  width: 13%;
+}

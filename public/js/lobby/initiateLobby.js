@@ -28,5 +28,6 @@ const initiateLobby = (lobbyState) => {
   updateLobbyPromise
     .then(showPlayerCard)
     .then(displayMessage)
-    .then(activatePlayBtn);
+    .then(activatePlayBtn)
+    .then(showLeftPlayer);
 };
