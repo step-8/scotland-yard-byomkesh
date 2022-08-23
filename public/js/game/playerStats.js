@@ -49,7 +49,9 @@ const createTicketStat = ({ role, tickets }) => {
   return ticketStat.html;
 };
 
-const createHeader = ({ color, username }) => {
+const createHeader = ({ color, username }, isMyScreen) => {
+  const displayName = isMyScreen ? username + ' (you)' : username;
+
   const header = new Element('header')
     .addClass('profile');
 
@@ -61,7 +63,7 @@ const createHeader = ({ color, username }) => {
 
   const name = new Element('div')
     .addClass('name')
-    .add('innerText', username);
+    .add('innerText', displayName);
 
   header.append(marker.html)
     .append(name.html);
@@ -69,21 +71,34 @@ const createHeader = ({ color, username }) => {
   return header.html;
 };
 
-const createPlayerStat = (player) => {
+const createPlayerStat = (player, { isMyScreen, isCurrentPlayer, isStranded }) => {
   const div = new Element('div')
     .addClass('player-stat');
-  const header = createHeader(player);
+
+  const header = createHeader(player, isMyScreen);
   const ticketStats = createTicketStat(player);
 
   div.append(header)
     .append(ticketStats);
+
+  if (isCurrentPlayer) {
+    div.addClass('dark-' + player.color);
+  }
+
+  if (isStranded) {
+    div.addClass('stranded');
+  }
   return div.html;
 };
 
 const createPlayersStats = (gameState) => {
   const { players } = gameState;
   return players.map(player => {
-    return createPlayerStat(player);
+    const { username } = player;
+    const isMyScreen = gameState.isMyScreen(username);
+    const isStranded = gameState.isPlayerStranded(player);
+    const isCurrentPlayer = gameState.isCurrentPlayer(username);
+    return createPlayerStat(player, { isMyScreen, isCurrentPlayer, isStranded });
   });
 };
 

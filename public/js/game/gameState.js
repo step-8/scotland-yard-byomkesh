@@ -50,6 +50,10 @@ class GameState {
     return this.#currentPlayer.username === username;
   }
 
+  isMyScreen(username) {
+    return this.#playerName === username;
+  }
+
   isTwoXAvailable() {
     if (this.#twoXTakenAt === null) {
       return true;

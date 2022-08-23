@@ -58,7 +58,6 @@
   height: 50%;
   display: flex;
   flex-direction: column;
-  row-gap: 3.6px;
 }
 
 .players-stat>:nth-child(n+1) {
@@ -66,16 +65,16 @@
 }
 
 .player-stat {
-  height: 16%;
+  height: 16.7%;
   display: flex;
   flex-flow: column;
+  padding: 0.2em 0.5em;
 }
 
 .profile {
   height: 30%;
   display: flex;
   column-gap: 10px;
-  padding: 0.2em 0.5em;
 }
 
 .name {
