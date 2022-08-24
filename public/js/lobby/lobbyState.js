@@ -20,7 +20,7 @@ class LobbyState {
       isHost: this.#isHost,
       username: this.#username,
       isGameStarted: this.#isGameStarted
-    }
+    };
 
     const { players, isHost, username, isGameStarted } = newState;
     this.#players = players;

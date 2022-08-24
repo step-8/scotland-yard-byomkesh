@@ -86,7 +86,8 @@ const createPlayerStat = (player, { isMyScreen, isCurrentPlayer, isStranded }) =
   }
 
   if (isStranded) {
-    div.addClass('stranded');
+    div.addClass('stranded')
+      .addClass('linear-gradiant');
   }
   return div.html;
 };
