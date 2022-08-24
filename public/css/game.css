@@ -34,11 +34,7 @@
 }
 
 .game-end {
-  position: absolute;
-  top: 54%;
-  left: 47%;
-  width: 6%;
-  height: 3%;
+  padding: 0.5em 1em;
   border: 1px solid var(--font-white);
   text-align: var(--center);
   font-weight: var(--weight-100);
@@ -60,7 +56,7 @@
   border: 2px solid var(--two-x);
   visibility: hidden;
   position: absolute;
-  right: 21%;
+  right: 1%;
   top: 2%;
   width: 81px;
   font-size: var(--font-m);
@@ -109,31 +105,31 @@
 .dark-red {
   border: 1px solid rgba(255, 0, 0, 0.8) !important;
   background-color: hsla(0, 100%, 85%);
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px var(--font-black);
 }
 
 .dark-gold {
   border: 2px solid rgba(255, 217, 0) !important;
   background-color: hsla(51, 100%, 85%);
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px var(--font-black);
 }
 
 .dark-purple {
   border: 1px solid rgba(128, 0, 128, 0.8) !important;
   background-color: hsla(300, 100%, 85%);
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px var(--font-black);
 }
 
 .dark-green {
   border: 1px solid rgba(0, 128, 0, 0.8) !important;
   background-color: hsla(120, 100%, 85%);
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px var(--font-black);
 }
 
 .dark-blue {
   border: 1px solid rgba(0, 0, 255, 0.8) !important;
   background-color: hsla(240, 100%, 85%);
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px var(--font-black);
 }
 
 .dark-grey {
@@ -141,9 +137,9 @@
 }
 
 .dark-black {
-  border: 1px solid black !important;
+  border: 1px solid var(--font-black) !important;
   background-color: hsla(0, 0%, 85%);
-  box-shadow: 0px 0px 5px black;
+  box-shadow: 0px 0px 5px var(--font-black);
 }
 
 .white-text {
@@ -222,7 +218,7 @@
   height: 30px;
   border: none;
   background-color: var(--font-white);
-  color: #666666;
+  color: var(--font-input);
   box-shadow: 0px 0px 4px var(--font-black);
   border: 1px solid;
   font-size: var(--font-xs);
@@ -233,4 +229,37 @@
 .map-btns>button:hover {
   color: var(--font-black);
   box-shadow: 0px 0px 8px var(--font-grey);
+}
+
+/* game winning popup */
+.winning-popup {
+  box-shadow: 0px 0px 50px rgba(1, 9, 46, 0.761);
+  width: 60em;
+  height: 30em;
+  background-image: url('../images/endGame.gif');
+  background-repeat: no-repeat;
+  background-position: var(--center);
+  background-size: 100% 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.winning-popup-body {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  backdrop-filter: inherit;
+}
+
+.heading {
+  font-size: 5em;
+  color: var(--font-white);
+  font-family: fantasy;
+}
+
+.description {
+  font-size: var(--font-m);
+  color: var(--font-white);
+  padding-bottom: 1em;
 }
