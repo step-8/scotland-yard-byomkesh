@@ -18,6 +18,8 @@ const createCharacterCard = ({ username, currentPosition, color }, user) => {
   playerCard.className = classes;
 
   playerCard.classList.add('character-card');
+  playerCard.classList.add('vertical-flex');
+  playerCard.classList.add('both-middle');
 
   if (username === user.username) {
     playerCard.classList.add('me');
@@ -32,11 +34,12 @@ const createPlayerCard = ({ username, isHost }, user) => {
     playerCard.classList.add('me');
   }
 
-  username += isHost ? ' (host)' : '';
-  const name = createElem(username, 'name inline');
-  playerCard.appendChild(name);
+  const name = isHost ? username + ' (host)' : username;
+  const nameEle = createElem(name, 'name inline');
+  playerCard.appendChild(nameEle);
 
   playerCard.classList.add('player-card');
+  playerCard.classList.add('center-flex');
 
   return playerCard;
 };
@@ -75,15 +78,18 @@ const showPlayerCard = (lobbyState) => {
     playersContainer.replaceChildren(...playerCards);
   } else {
     const robberEle = new Element('div')
-      .addClass('robber-container');
+      .addClass('robber-container')
+      .addClass('center-flex');
 
-    const vsImg = '<img src="/images/versus.png" id="vs-img">';
+    const vsImg = '<img src="/images/versus.png" class="vs-img">';
     const vs = new Element('div')
       .addClass('vs')
       .add('innerHTML', vsImg);
 
     const detectivesEle = new Element('div')
-      .addClass('detectives-container');
+      .addClass('detectives-container')
+      .addClass('horizontal-flex')
+      .addClass('vertical-middle');
 
     players.forEach(player => {
       const playerCard = createCharacterCard(player, user);
@@ -109,11 +115,11 @@ const displayMessage = (lobbyState) => {
   let gif = '';
   let message = 'You can start the game or wait for other players';
   if (!isHost) {
-    gif = '<img src="/images/loading.gif" id="loading-gif">';
+    gif = '<img src="/images/loading.gif" class="loading-gif">';
     message = 'Waiting for host to start...';
   }
   if (totalPlayer < 3) {
-    gif = '<img src="/images/loading.gif" id="loading-gif">';
+    gif = '<img src="/images/loading.gif" class="loading-gif">';
     const playersNeeded = 3 - totalPlayer;
     message = `Waiting for atleast ${playersNeeded} `;
     message += playersNeeded === 1 ? 'player ...' : 'players ...';
@@ -153,4 +159,4 @@ const showLeftPlayer = (lobbyState) => {
   }
 
   return lobbyState;
-}
+};

@@ -2,6 +2,7 @@
 
   <head>
     <title>Scotland Yard</title>
+    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/index.css">
     <link rel="stylesheet" href="/css/header.css">
     <script src="/js/serveConnectionError.js"></script>
@@ -14,18 +15,18 @@
 
   <body>
     <!-- Header starts here -->
-    <header>
-      <h1 id="game-name">Scotland Yard</h1>
-      <nav id="auth">
+    <header class="horizontal-flex vertical-middle">
+      <h1 class="game-name">Scotland Yard</h1>
+      <nav id="auth" class="auth horizontal-flex vertical-middle">
       </nav>
     </header>
     <!-- Header ends here -->
-    <main>
+    <main class="vertical-flex vertical-middle">
 
-      <div id="heading">
+      <div class="heading">
         <p>Ready for challenge?</p>
       </div>
-      <div id="play-game">
+      <div class="play-game horizontal-flex">
         <a href="/host" id="host-game"><span>Host</span></a>
         <a href="#" id="join-game"><span>Join</span></a>
       </div>

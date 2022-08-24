@@ -5,6 +5,7 @@ const removeBanner = () => {
 const createBanner = (message, color) => {
   const bannerBody = new Element('div')
     .addClass('notification-banner')
+    .addClass('center-flex')
     .addClass(color)
     .add('innerText', message);
 

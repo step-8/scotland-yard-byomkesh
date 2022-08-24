@@ -27,7 +27,7 @@ const removePlay = () => {
     return;
   }
   playButton.classList.add('hide');
-}
+};
 
 const removeLeaveButton = () => {
   const leaveButton = byId('leave-lobby');

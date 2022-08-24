@@ -1,98 +1,59 @@
-:root {
-  --primary_color: #2b5495;
-  --secondary_color: #95a9c9;
-  --font_color: #2b5495;
-}
-
 body {
-  margin: 0;
-  font-size: 16px;
-  font-family: sans-serif;
-  color: white;
-  font-weight: 100;
+  font-weight: var(--weight-100);
 
   background-image: url('../images/scotland_map.jpeg');
   background-size: 110% 125%;
-  background-position: center;
+  background-position: var(--center);
   background-repeat: no-repeat;
 }
 
 input[type=submit],
 button {
-  cursor: pointer;
+  cursor: var(--pointer);
 }
 
 a {
   text-decoration: underline;
-  color: white;
+  color: var(--font-white);
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  font-weight: 300;
+h2 {
+  font-weight: var(--weight-300);
 }
 
 .main-container {
   height: 100%;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-#main-heading {
-  height: 15%;
-  background-color: var(--primary_color);
-  display: flex;
-  align-items: center;
-  padding: 0 2em;
-  color: white;
-}
-
-#game-name {
-  font-size: 3em;
 }
 
 main {
   flex: 1;
   height: 85%;
-  display: flex;
-  font-size: 18px;
-  justify-content: center;
-  align-items: center;
-  background: rgba(40, 40, 40, 0.75);
+  font-size: var(--font-s);
+  background: var(--transparent-bg-light);
 }
 
-.login {
-  background: rgba(15, 15, 15, 0.75);
+.login,
+.signup {
+  background: var(--transparent-bg-dark);
   height: 60%;
   width: 32%;
   letter-spacing: 1px;
   box-shadow: 0px 0px 25px 25px rgba(100, 100, 100, 0.2);
 }
 
-.login>.form-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.form-header {
   height: 20%;
-  font-size: 1.5em;
+  font-size: var(--font-m);
 }
 
-.login form {
+form {
   height: 60%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
   gap: 1em;
-  margin: 0;
 }
 
-.login .input-group {
+.input-group {
   width: 50%;
 }
 
@@ -103,31 +64,31 @@ main {
   margin: 0.5em 0;
   padding: 0.4em 0.5em;
   background: none;
-  border-bottom: 1px solid var(--secondary_color);
-  color: white;
-  font-size: 18px;
+  border-bottom: 1px solid var(--secondary-color);
+  color: var(--font-white);
+  font-size: var(--font-s);
 }
 
-#username:focus,
-#password:focus {
+.username:focus,
+.password:focus {
   outline: none;
-  caret-color: white;
+  caret-color: var(--font-white);
 }
 
-#login-btn,
-#signup-btn {
-  color: white;
-  border: 1px solid white;
-  background-color: var(--primary_color);
+input.login-btn,
+input.signup-btn {
+  color: var(--font-white);
+  border: 1px solid var(--font-white);
+  background-color: var(--primary-color);
   margin: 0 auto;
   width: 40%;
   padding: 0.5em 0;
-  cursor: pointer;
+  cursor: var(--pointer);
 }
 
-#msg-for-signup {
-  text-align: center;
-  font-size: 0.9em;
+.msg-for-signup {
+  text-align: var(--center);
+  font-size: var(--font-xs);
 }
 
 .error {
@@ -135,10 +96,10 @@ main {
   width: 100%;
 }
 
-#error-msg {
+.error-msg {
   width: 100%;
-  color: red;
+  color: var(--error-color);
   position: absolute;
-  text-align: center;
+  text-align: var(--center);
   top: -1em;
 }

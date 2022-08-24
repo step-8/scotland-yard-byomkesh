@@ -36,7 +36,8 @@ const createMrXTickets = (tickets) => {
 
 const createTicketStat = ({ role, tickets }) => {
   const ticketStat = new Element('div')
-    .addClass('ticket-stat');
+    .addClass('ticket-stat')
+    .addClass('horizontal-flex');
 
   let ticketElements = createMrXTickets(tickets);
   if (role !== 'Mr. X') {
@@ -53,7 +54,8 @@ const createHeader = ({ color, username }, isMyScreen) => {
   const displayName = isMyScreen ? username + ' (you)' : username;
 
   const header = new Element('header')
-    .addClass('profile');
+    .addClass('profile')
+    .addClass('horizontal-flex');
 
   const marker = new Element('div')
     .addClass('marker')
@@ -73,7 +75,8 @@ const createHeader = ({ color, username }, isMyScreen) => {
 
 const createPlayerStat = (player, { isMyScreen, isCurrentPlayer, isStranded }) => {
   const div = new Element('div')
-    .addClass('player-stat');
+    .addClass('player-stat')
+    .addClass('vertical-flex');
 
   const header = createHeader(player, isMyScreen);
   const ticketStats = createTicketStat(player);

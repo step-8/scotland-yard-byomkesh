@@ -3,41 +3,42 @@
   <head>
     <title>Login</title>
 
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" href="css/header.css">
-    <script src="js/login.js"></script>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <script src="/js/login.js"></script>
   </head>
 
   <body>
-    <div class="main-container">
-      <header>
-        <h1 id="game-name">Scotland Yard</h1>
+    <div class="main-container vertical-flex">
+      <header class="horizontal-flex vertical-middle">
+        <h1 class="game-name">Scotland Yard</h1>
       </header>
 
-      <main>
+      <main class="center-flex">
         <section class="login">
-          <div class="form-header">
+          <div class="form-header center-flex">
             <h2>Login</h2>
           </div>
 
-          <form action="/login" method="post">
+          <form action="/login" method="post" class="vertical-flex vertical-middle">
             <div class="input-group">
               <label for="username">Enter Username</label>
-              <input type="text" name="username" id="username" autofocus>
+              <input type="text" name="username" id="username" class="username" autofocus>
             </div>
             <div class="input-group">
               <label for="password">Enter Password</label>
-              <input type="password" name="password" id="password">
+              <input type="password" name="password" id="password" class="password">
             </div>
             <div class="error">
-              <div id="error-msg"></div>
+              <div class="error-msg"></div>
             </div>
             <div class="input-group">
-              <input type="submit" id="login-btn" value="Login">
+              <input type="submit" id="login-btn" class="login-btn" value="Login">
             </div>
           </form>
 
-          <div id="msg-for-signup">
+          <div class="msg-for-signup">
             <p>Don't you have account? <a href="/signup">Signup</a></p>
           </div>
         </section>

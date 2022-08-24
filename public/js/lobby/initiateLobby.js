@@ -1,3 +1,8 @@
+const leaveLobby = () => {
+  const form = document.querySelector('form');
+  form.submit();
+};
+
 const createRoomId = (gameId) => {
   const roomIdDes = createEl('span');
   roomIdDes.innerText = 'Game Id : ';
@@ -23,7 +28,7 @@ const setGameId = () =>
 const initiateLobby = (lobbyState) => {
   const updateLobbyPromise = new Promise((res, rej) => {
     res(lobbyState);
-  })
+  });
 
   updateLobbyPromise
     .then(showPlayerCard)

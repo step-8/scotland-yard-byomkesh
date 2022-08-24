@@ -1,9 +1,10 @@
 
 const createHomeLink = () => {
-  const link = new Element('a');
-  link.add('href', '/end');
-  link.addClass('game-end');
-  link.add('innerText', 'Home');
+  const link = new Element('a')
+    .add('href', '/end')
+    .addClass('game-end')
+    .addClass('center-flex')
+    .add('innerText', 'Home');
   return link.html;
 };
 

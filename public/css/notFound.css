@@ -1,47 +1,21 @@
-:root {
-  --primary_color: #2b5495;
-  --secondary_color: #95a9c9;
-  --nav_font_color: white;
-  --font_color: #2b5495;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  font-weight: 200;
-}
-
-body {
-  margin: 0;
-  font-size: 16px;
-  font-family: sans-serif;
-  color: var(--font_color);
-  font-weight: 100;
-}
-
-.user-name,
-a>span {
-  color: var(--nav_font_color);
-}
-
 main {
-  background-color: var(--secondary_color);
+  background-color: var(--secondary-color);
   height: 84%;
 }
 
 main>div {
   padding-top: 7em;
-  display: flex;
-  flex-flow: column wrap;
-  align-items: center;
-  row-gap: 3em;
+  flex-wrap: wrap;
+  align-items: var(--center);
+  row-gap: var(--font-xl);
 }
 
-#error {
-  font-size: 3em;
+.error {
+  font-size: var(--font-xl);
+  color: var(--font-blue);
 }
 
-#home-link {
-  font-size: 1.5em;
+.home-link>a {
+  font-size: var(--font-m);
+  color: var(--font-blue);
 }

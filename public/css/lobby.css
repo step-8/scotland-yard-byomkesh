@@ -1,13 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  color: white;
-  font-weight: 200;
-}
-
 body {
-  font-family: sans-serif;
   background-image: url('../images/scotland_map.jpeg');
   background-size: 110% 125%;
   background-position: center;
@@ -17,47 +8,34 @@ body {
 main {
   width: 100%;
   height: 100%;
-  background: rgba(40, 40, 40, 0.75);
-  display: flex;
+  background: var(--transparent-bg-light);
   gap: 1em;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
 }
 
-#leave-lobby {
-  display: flex;
-  align-items: center;
+.leave-lobby {
   position: absolute;
   top: 4vh;
   right: 2vw;
-  cursor: pointer;
+  cursor: var(--pointer);
 }
 
-#leave-lobby a i {
+.leave-lobby a i {
   color: rgba(255, 255, 255, 0.719);
-  font-size: 2em;
+  font-size: var(--font-l);
 }
 
-#greet {
-  font-size: 1.2em;
+.room-id {
+  font-size: var(--font-l);
 }
 
-#room-id {
-  font-size: 2em;
-}
-
-
-#players-container {
+.players-container {
   width: 50%;
   height: 60%;
   margin: 1.2em auto;
   padding: 1em 0;
-  display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   justify-content: space-evenly;
-  align-items: center;
-  background: rgba(40, 40, 40, 0.75);
+  background: var(--transparent-bg-light);
   box-sizing: border-box;
 }
 
@@ -68,52 +46,51 @@ main {
 }
 
 .player-card {
-  border: 1px solid white;
-  color: black;
-  font-size: 1.4em;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  border: 1px solid var(--font-white);
+  color: var(--font-black);
+  font-size: var(--font-m);
+  align-content: var(--center);
   row-gap: 0.5em;
-  box-shadow: 0px 0px 25px 25px rgba(100, 100, 100, 0.2);
+  box-shadow: 0px 0px 25px 25px var(--others-shadow);
 }
 
 .place-holder {
-  border: 1px dashed white;
+  border: 1px dashed var(--font-white);
 }
 
 .player-card>div {
   width: 100%;
-  text-align: center;
-  color: white;
+  text-align: var(--center);
 }
 
 i {
-  color: black;
+  color: var(--font-black);
+}
+
+.play-btn {
+  margin-top: 1em;
+}
+
+.play-btn>button {
+  font-size: var(--font-m);
 }
 
 .btn {
-  font-size: 1.4em;
+  font-size: var(--font-xs);
   padding: 0.4em 1.2em;
-  border: 1px solid white;
-  background-color: #2b5494;
-  cursor: pointer;
-  color: white;
+  border: 1px solid var(--font-white);
+  background-color: var(--primary-color);
+  cursor: var(--pointer);
+  color: var(--font-white);
 }
 
-#game-link {
-  height: 2em;
-  display: flex;
+.game-link {
+  height: var(--font-l);
 }
 
-#copy-message {
-  font-size: 1em;
+.copy-msg {
   padding: 0.6em 1.5em;
-  display: flex;
   gap: 5px;
-  align-items: center;
 }
 
 .inline {
@@ -131,15 +108,11 @@ i {
 .at,
 .position {
   width: 80%;
-  text-align: center;
-}
-
-.small {
-  font-size: 1em;
+  text-align: var(--center);
 }
 
 .black {
-  background-color: rgb(0, 0, 0) !important;
+  background-color: var(--font-black) !important;
 }
 
 .red {
@@ -167,52 +140,40 @@ i {
 }
 
 .black div {
-  color: white !important;
+  color: var(--font-white) !important;
 }
 
 .hide {
   display: none !important;
 }
 
-#message-container {
+.msg-container {
   width: 50%;
   height: 5%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .message {
-  font-size: 1.2em;
+  font-size: var(--font-s);
 }
 
 .robber-container {
   width: 20%;
   height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .detectives-container {
   width: 60%;
   height: 75%;
-  display: flex;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
 }
 
 .character-card {
-  font-size: 1.4em;
-  border: 1px solid white;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
+  font-size: var(--font-m);
+  border: 1px solid var(--font-white);
+  align-content: var(--center);
   row-gap: 0.5em;
-  box-shadow: 0px 0px 15px 5px rgba(100, 100, 100, 0.2);
+  box-shadow: 0px 0px 15px 5px var(--others-shadow);
 }
 
 .robber-card {
@@ -225,29 +186,29 @@ i {
   height: 40%;
 }
 
-#loading-gif {
+.loading-gif {
   width: 5%;
   aspect-ratio: 1;
 }
 
-#vs-img {
+.vs-img {
   height: 100%;
 }
 
 .me {
-  border: 1px solid rgb(12, 171, 234) !important;
-  box-shadow: 0px 0px 15px 5px rgba(12, 171, 234, 0.2);
+  border: 1px solid rgb(15, 170, 235) !important;
+  box-shadow: 0px 0px 15px 5px var(--my-shadow);
 }
 
 .left-player-msg {
   position: fixed;
-  font-size: 1.1em;
+  font-size: var(--font-s);
   bottom: 2vh;
   right: 1vw;
   color: #3d3c3c;
   background-color: #cececee8;
   border-radius: 5px;
-  box-shadow: 0px 0px 10px #0faaea;
+  box-shadow: 0px 0px 10px var(--my-shadow);
   padding: 0.7em 0.8em;
   width: 13%;
 }

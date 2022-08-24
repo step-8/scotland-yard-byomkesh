@@ -7,17 +7,21 @@ const removePopUp = () => {
 
 const createConfirmationPopup = (message, onYes, onNo) => {
   const backdrop = new Element('div')
-    .addClass('pop-up-backdrop');
+    .addClass('pop-up-backdrop')
+    .addClass('center-flex');
 
   const popUp = new Element('div')
-    .addClass('confirmation-pop-up');
+    .addClass('confirmation-pop-up')
+    .addClass('vertical-flex')
+    .addClass('vertical-middle');
 
   const popUpMessage = new Element('div')
     .addClass('confirmation-message')
     .add('innerText', message);
 
   const confirmation = new Element('div')
-    .addClass('options');
+    .addClass('options')
+    .addClass('horizontal-flex');
 
   const yesButton = new Element('div')
     .addClass('confirm')

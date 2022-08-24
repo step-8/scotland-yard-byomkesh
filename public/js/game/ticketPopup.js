@@ -32,7 +32,8 @@ const updateTickets = (tickets, fn) => {
 
 const createTicketPopup = (tickets, fn) => {
   const ticketPopup = new Element('div')
-    .addClass('ticket-popup');
+    .addClass('ticket-popup')
+    .addClass('vertical-flex');
 
   const ticketButtons = tickets.map((ticket) =>
     createTicket(ticket, fn));

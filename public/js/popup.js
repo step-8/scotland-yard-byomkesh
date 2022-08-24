@@ -11,13 +11,16 @@ const submitOnEnter = (event) => {
 
 const createPopup = () => {
   const backdrop = new Element('div')
-    .addClass('popup-backdrop');
+    .addClass('popup-backdrop')
+    .addClass('center-flex');
 
   const popup = new Element('form')
     .add('action', '/join')
     .add('method', 'get')
     .addEvent('keydown', submitOnEnter)
-    .addClass('popup');
+    .addClass('popup')
+    .addClass('vertical-flex')
+    .addClass('vertical-middle');
 
   const closePopup = new Element('button')
     .addClass('close-popup')

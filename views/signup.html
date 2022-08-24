@@ -3,6 +3,7 @@
   <head>
     <title>Signup</title>
 
+    <link rel="stylesheet" href="/css/common.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" href="/css/header.css">
 
@@ -22,35 +23,35 @@
   </head>
 
   <body>
-    <div class="main-container">
-      <header>
-        <h1 id="game-name">Scotland Yard</h1>
+    <div class="main-container vertical-flex">
+      <header class="horizontal-flex vertical-middle">
+        <h1 class="game-name">Scotland Yard</h1>
       </header>
 
-      <main>
-        <section class="login">
-          <div class="form-header">
+      <main class="center-flex">
+        <section class="signup">
+          <div class="form-header center-flex">
             <h2>Signup</h2>
           </div>
 
-          <form action="/signup" method="post">
+          <form action="/signup" method="post" class="vertical-flex vertical-middle">
             <div class="input-group">
               <label for="username">Enter Username</label>
-              <input type="text" name="username" id="username" autofocus>
+              <input type="text" name="username" id="username" class="username" autofocus>
             </div>
             <div class="input-group">
               <label for="password">Enter Password</label>
-              <input type="password" name="password" id="password">
+              <input type="password" name="password" id="password" class="password">
             </div>
             <div class="error">
-              <div id="error-msg"></div>
+              <div id="error-msg" class="error-msg"></div>
             </div>
             <div class="input-group">
-              <input type="submit" id="signup-btn" value="Signup">
+              <input type="submit" id="signup-btn" class="signup-btn" value="Signup">
             </div>
           </form>
 
-          <div id="msg-for-signup">
+          <div class="msg-for-signup">
             <p>Already have account? <a href="/login">Login</a></p>
           </div>
         </section>

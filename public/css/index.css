@@ -1,101 +1,80 @@
-* {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-  color: white;
-  font-weight: 200;
-}
-
 body {
-  font-family: sans-serif;
   background-image: url('../images/scotland_map.jpeg');
   background-size: 110% 125%;
-  background-position: center;
+  background-position: var(--center);
   background-repeat: no-repeat;
 }
 
 main {
   height: 84%;
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: flex-start;
-  align-items: center;
-  background: rgba(40, 40, 40, 0.75);
+  background: var(--transparent-bg-light);
 }
 
 main>div {
   width: 40%;
 }
 
-#heading {
+.heading {
   padding: 2.4em 0;
-  font-size: 4em;
-  text-align: center;
+  font-size: var(--font-xxl);
+  text-align: var(--center);
   letter-spacing: 1px;
 }
 
-#play-game {
-  display: flex;
-  flex-flow: row wrap;
+.play-game {
   justify-content: space-between;
 }
 
-#play-game>a {
-  border: 1px solid white;
-  padding: 0.6em 2em;
-  font-size: 1.8em;
-  background-color: #2b5494;
-  box-shadow: 1px 2px 5px #3f1c1c;
+.play-game>a {
+  border: 1px solid var(--font-white);
+  padding: 0.5em 1.8em;
+  font-size: var(--font-l);
+  background-color: var(--primary-color);
+  box-shadow: var(--header-shadow);
 }
 
 .popup-backdrop {
   width: 100%;
   height: 100%;
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   backdrop-filter: blur(2px);
 }
 
 .popup {
   height: 25%;
   width: 28%;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
+  background-color: var(--font-white);
   justify-content: space-between;
-  align-items: center;
-  padding: 3em;
+  padding: var(--font-xl);
   position: relative;
 }
 
 .popup>h1 {
-  color: black;
+  color: var(--font-black);
 }
 
 .popup>input {
   width: 80%;
   height: 2.5em;
   padding: 0.7em;
-  background-color: #d9d9d9;
-  color: #7f7f7f;
-  font-size: 1.2em;
-  font-weight: 200;
+  background-color: var(--input-bg);
+  color: var(--font-input);
+  font-size: var(--font-s);
   border: none;
 }
 
 .join-btn {
   padding: 0.7em;
   width: 25%;
-  background-color: #2b5494;
+  background-color: var(--primary-color);
   border: none;
-  cursor: pointer;
+  cursor: var(--pointer);
+  font-size: var(--font-s);
   box-shadow: 0px 0px 2px #000000;
 }
 
 .popup-error {
-  color: red;
+  color: var(--error-color);
   height: 0;
   margin: 0;
   position: absolute;
@@ -103,16 +82,15 @@ main>div {
 }
 
 .close-popup {
-  background-color: white;
+  background-color: var(--font-white);
   position: absolute;
   top: 2%;
   right: 2%;
   padding: 0.5em;
   border: none;
-  color: #2b5494;
-  cursor: pointer;
+  color: var(--primary-color);
+  cursor: var(--pointer);
 }
-
 
 .connection-error {
   width: 22%;
@@ -120,12 +98,9 @@ main>div {
   top: 80%;
   left: 39%;
   position: absolute;
-  background-color: white;
-  color: red;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.8em;
-  font-weight: 400;
+  background-color: var(--font-white);
+  color: var(--error-color);
+  font-size: var(--font-l);
+  font-weight: var(--weight-400);
   box-shadow: 0px 0px 5px rgba(255, 255, 255, 0.8);
 }
