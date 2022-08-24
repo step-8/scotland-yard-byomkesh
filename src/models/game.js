@@ -111,10 +111,6 @@ class Game {
     }
     this.#players = this.#players.filter(player =>
       !player.isSamePlayer(username));
-
-    if (this.canGameStart()) {
-      this.changeGameStatus();
-    }
   }
 
   canGameSustain() {
@@ -130,7 +126,7 @@ class Game {
   }
 
   changeGameStatus() {
-    this.#isGameStarted = !this.#isGameStarted;
+    this.#isGameStarted = true;
     this.#currentPlayerIndex = 0;
   }
 

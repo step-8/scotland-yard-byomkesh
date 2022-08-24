@@ -136,11 +136,7 @@ const showLeftPlayer = (lobbyState) => {
   const leftPlayerContainer = byId('left-player');
   const leftPlayer = lobbyState.whoLeft();
 
-  if (!leftPlayer) {
-    return;
-  }
-
-  if (lobbyState.isStarted()) {
+  if (!leftPlayer || lobbyState.isStarted()) {
     return;
   }
 
@@ -153,7 +149,7 @@ const showLeftPlayer = (lobbyState) => {
   }, 2000);
 
   if (!lobbyState.canGameStart()) {
-    removePlayButton();
+    removePlay();
   }
 
   return lobbyState;

@@ -20,21 +20,13 @@ const removeGameLink = () => {
   link.classList.add('hide');
 };
 
-const removePlayButton = () => {
-  const playButton = byId('play-button');
+const removePlay = () => {
+  const playButton = byId('play');
+
   if (!playButton) {
     return;
   }
   playButton.classList.add('hide');
-};
-
-const removePlay = () => {
-  const playButton = byId('play-button');
-  if (!playButton) {
-    return;
-  }
-
-  playButton.style.display = 'none';
 }
 
 const removeLeaveButton = () => {
@@ -47,7 +39,6 @@ const updateLobbyOnStart = (poller) => (lobbyState) => {
     return;
   }
 
-  removePlay();
   removeGameLink();
   startCountDown();
   removeLeaveButton();
@@ -56,13 +47,13 @@ const updateLobbyOnStart = (poller) => (lobbyState) => {
 };
 
 const activatePlayBtn = (lobbyState) => {
-  const btn = byId('play');
-  const playBtn = byId('play-button');
+  const playButton = byId('play');
   const { isHost } = lobbyState.myData();
 
-  if (lobbyState.canGameStart() && isHost) {
-    markVisible(btn);
-    markVisible(playBtn);
+  if (isHost && lobbyState.canGameStart() && !lobbyState.isStarted()) {
+    playButton.classList.remove('hide');
+  } else {
+    playButton.classList.add('hide');
   }
 
   return lobbyState;
@@ -70,5 +61,8 @@ const activatePlayBtn = (lobbyState) => {
 
 const markVisible = (button) =>
   button.classList.remove('hide');
+
+const markInVisible = (button) =>
+  button.classList.add('hide');
 
 const sendStartRequest = () => API.postStartReq();
