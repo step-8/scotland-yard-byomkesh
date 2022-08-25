@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: #2b5494;
+  color: white !important;
+  border: 1px solid white;
+  cursor: pointer;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1em;
+  width: 20%;
+}
+
+form>div {
+  width: 100%;
+}
+
+input,
+select,
+button {
+  margin-top: 1em;
+  width: 100%;
+  display: block;
+  padding: 0.5em 0.5em;
+  font-size: 1.2em;
+  text-align: center;
+  color: black;
+}
+
+label {
+  font-size: 1.2em;
+}
+
+
+.error {
+  color: red;
+}
+
+.success {
+  color: lime;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: white;
+}

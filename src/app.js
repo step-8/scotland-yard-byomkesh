@@ -9,6 +9,7 @@ const { createPagesRouter } = require('./routers/pagesRouter.js');
 const { endGame } = require('./handlers/game.js');
 const { leaveLobby } = require('./handlers/leaveLobby.js');
 const { protectedLobby } = require('./middleware/protectedLobby.js');
+const { loadGame, serveLoadGamePage } = require('./handlers/loadGameHandler.js');
 
 const createGamePersister = (games, gamesStore) => (gameId, callback) => {
   const game = games.findGame(gameId);
@@ -46,17 +47,9 @@ const initApp = (config, users, games, session, stores) => {
 
 
   app.post('/leave-lobby', protectedLobby, leaveLobby(games, persistGames, gamesStore));
-  app.get('/end', (req, res, next) => {
-    const { gameId } = req.session;
-    games.deleteGame(gameId);
 
-    req.session.gameId = null;
-    req.session.game = null;
-
-    gamesStore.delete(gameId)
-      .then(() => res.redirect('/'))
-      .catch(() => res.redirect('/'));
-  });
+  app.get('/load-game', serveLoadGamePage(views));
+  app.post('/load-game', loadGame(games, persistGames));
 
   app.use(express.static('./public'));
   app.use(createPagesRouter(views, games));

@@ -81,6 +81,7 @@ class Game {
     this.#gameOver = gameOver;
     this.#winningStatus = winningStatus;
     this.#twoXTakenAt = twoXTakenAt;
+    this.#players = [];
 
     players.forEach(({ username, isHost, ...playerData }) => {
 
@@ -148,7 +149,7 @@ class Game {
   }
 
   canGameStart() {
-    return this.#players.length >= this.#limit.min;
+    return this.#players.length >= this.#limit.min && !this.#isGameStarted;
   }
 
   isGameFull() {
