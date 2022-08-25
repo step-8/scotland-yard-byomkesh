@@ -113,8 +113,12 @@ const resetZoom = () => {
 
 const loadSvgEvents = () => {
   svg = document.querySelector('svg');
-  [initialX, initialY, maxWidth, maxHeight] = getSvgViewBox();
-
+  // [initialX, initialY, maxWidth, maxHeight] = getSvgViewBox();
+  const vb = getSvgViewBox();
+  initialX = vb[0];
+  initialY = vb[1];
+  maxWidth = vb[2];
+  maxHeight = vb[3];
   svg.addEventListener('wheel', handleZoom);
   svg.addEventListener('pointerdown', handlePan);
   svg.addEventListener('pointerup', removePointerUpEvent);

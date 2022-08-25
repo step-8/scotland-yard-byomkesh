@@ -47,6 +47,10 @@ const initApp = (config, users, games, session, stores) => {
   app.get('/end', endGame(games, gamesStore));
 
   app.post('/leave-lobby', protectedLobby, leaveLobby(games, persistGames, gamesStore));
+  app.get('/end', (req) => {
+    const { gameId } = req.session;
+    games.deleteGame(gameId);
+  });
 
   app.post('/leave-game', leaveGame(persistGames));
 
