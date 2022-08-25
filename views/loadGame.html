@@ -2,6 +2,7 @@
 
 <head>
   <title>Load Game</title>
+  <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/index.css">
   <link rel="stylesheet" href="/css/header.css">
   <link rel="stylesheet" href="css/load-game.css">
@@ -14,13 +15,13 @@
 
 <body>
   <!-- Header starts here -->
-  <header>
-    <h1 id="game-name">Scotland Yard</h1>
-    <nav id="auth">
+  <header class="horizontal-flex vertical-middle">
+    <h1 class="game-name">Scotland Yard</h1>
+    <nav id="auth" class="auth horizontal-flex vertical-middle">
     </nav>
   </header>
   <!-- Header ends here -->
-  <main>
+  <main class="horizontal-flex vertical-middle both-middle">
     <form action="/load-game" method="post">
       <div>
         <label for="gameId">Game ID</label><input type="number" name="gameId" id="gameId" placeholder="Enter game ID"

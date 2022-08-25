@@ -2,12 +2,6 @@ body {
   margin: 0;
 }
 
-main {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 button {
   background-color: #2b5494;
   color: white !important;
@@ -36,7 +30,6 @@ button {
   display: block;
   padding: 0.5em 0.5em;
   font-size: 1.2em;
-  text-align: center;
   color: black;
 }
 
