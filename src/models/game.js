@@ -10,6 +10,17 @@ const createEmptyStop = () => {
   };
 };
 
+const detectivesWinStatusLookup = (color) => {
+  const status = {
+    red: 2,
+    green: 3,
+    purple: 4,
+    blue: 5,
+    gold: 6
+  };
+  return status[color];
+};
+
 const isMrXStranded = strandedPlayers => {
   return strandedPlayers.some(player => player.role === mrX);
 };
@@ -261,6 +272,16 @@ class Game {
     });
   }
 
+  #setDetectiveWinStatus() {
+    const mrXLocation = this.#getMrXLocation();
+    const detectives = this.#getDetectives();
+
+    const winningDetective = detectives.find(({ currentPosition }) => {
+      return currentPosition === mrXLocation;
+    })
+    this.#winningStatus = detectivesWinStatusLookup(winningDetective.color);
+  }
+
   #setDetectivesWinStatus() {
     if (isMrXStranded(this.#getStrandedPlayers())) {
       this.#gameOver = true;
@@ -270,7 +291,7 @@ class Game {
     const mrXLocation = this.#getMrXLocation();
     if (this.#isStopOccupiedByDetective(mrXLocation)) {
       this.#gameOver = true;
-      this.#winningStatus = 2;
+      this.#setDetectiveWinStatus();
     }
   }
 
@@ -278,17 +299,17 @@ class Game {
     const detectives = this.#getDetectives();
     if (areDetectivesStranded(detectives, this.#getStrandedPlayers())) {
       this.#gameOver = true;
-      this.#winningStatus = 3;
+      this.#winningStatus = 7;
     }
 
     if (areDetectivesOutOfTickets(detectives)) {
       this.#gameOver = true;
-      this.#winningStatus = 4;
+      this.#winningStatus = 8;
     }
 
     if (this.#round >= 24) {
       this.#gameOver = true;
-      this.#winningStatus = 5;
+      this.#winningStatus = 9;
     }
   }
 
