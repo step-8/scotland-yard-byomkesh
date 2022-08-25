@@ -5,7 +5,8 @@ const { protectedGame } = require('../middleware/protectedGame.js');
 const { serveLandingPage, serveLobby } = require('../handlers/servePages.js');
 const { serveGamePage, serveLoginPage } = require('../handlers/servePages.js');
 const { serveNotFoundPage } = require('../handlers/servePages.js');
-const { redirectToGame, redirectToLobby } = require('../middleware/blockInvalidAccess.js')
+const { redirectToGame, redirectToLobby } =
+  require('../middleware/blockInvalidAccess.js');
 
 const createPagesRouter = (views, games) => {
   const pagesRouter = express.Router();
@@ -18,6 +19,6 @@ const createPagesRouter = (views, games) => {
   pagesRouter.use(serveNotFoundPage(views));
 
   return pagesRouter;
-}
+};
 
 module.exports = { createPagesRouter };

@@ -22,12 +22,10 @@ const startGameHandler = (persistGames) => (req, res) => {
     return;
   }
 
-  // const initalPositions = [
-  //   13, 26, 29, 91, 117, 34, 50, 53, 94, 103,
-  //   112, 123, 138, 141, 155, 174
-  // ];
-
-  const initialPositions = [13, 26, 29, 91, 34, 50, 53, 94];
+  const initialPositions = [
+    13, 26, 29, 91, 117, 34, 50, 53, 94, 103,
+    112, 123, 138, 141, 155, 174
+  ];
 
   const shuffledPositions = shuffle(initialPositions);
 

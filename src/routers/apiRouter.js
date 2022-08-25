@@ -1,10 +1,12 @@
 const express = require('express');
+const compression = require('compression');
 
 const { gameStats } = require('../handlers/game.js');
 const { validStops, movePlayer, skipTurn, enableTwoX } = require('../handlers/gameAPI.js');
 const { serveLobbyStats } = require('../handlers/serveLobbyStats.js');
 const { serveUsername } = require('../handlers/serveUsername.js');
 const { startGameHandler } = require('../handlers/startGameHandler.js');
+const { serveGameMap } = require('../handlers/servePages.js');
 
 const { authApi } = require('../middleware/authAPIs.js');
 
@@ -22,6 +24,7 @@ const createApiRouter = (persistGames) => {
   apiRouter.get('/user-name', serveUsername);
   apiRouter.post('/skip-turn', skipTurn(persistGames));
   apiRouter.post('/enable-two-x', enableTwoX(persistGames));
+  apiRouter.get('/game-map', compression({ level: 9 }), serveGameMap);
 
   return apiRouter;
 };

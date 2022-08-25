@@ -161,18 +161,6 @@
   background-color: var(--input-bg);
 }
 
-.copy {
-  display: inline;
-  fill: var(--font-white);
-  fill-opacity: 1;
-  stroke-width: 3.768px;
-  stroke: var(--font-black);
-  stroke-miterlimit: 0.5;
-  stroke-dasharray: none;
-  stroke-dashoffset: 0;
-  stroke-opacity: 0.538983;
-}
-
 .pointer {
   cursor: var(--pointer) !important;
 }

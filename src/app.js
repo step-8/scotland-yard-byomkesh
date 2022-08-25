@@ -45,7 +45,6 @@ const initApp = (config, users, games, session, stores) => {
   app.use('/api', createApiRouter(persistGames));
   app.get('/end', endGame(games, gamesStore));
 
-
   app.post('/leave-lobby', protectedLobby, leaveLobby(games, persistGames, gamesStore));
 
   app.get('/load-game', serveLoadGamePage(views));

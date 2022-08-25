@@ -5,7 +5,8 @@ const removeAllHighlight = () => {
   const ellipses = queryAll('.selected-stop, .possible-stop');
 
   ellipses.forEach(ellipse => {
-    ellipse.classList = '';
+    ellipse.classList.remove('selected-stop');
+    ellipse.classList.remove('possible-stop');
   });
 };
 

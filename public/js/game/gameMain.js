@@ -3,7 +3,8 @@ const API = {
   getValidStops: () => fetch('/api/valid-stops', { method: 'GET' }),
   postMoveReq: (reqDetails) => fetch('/api/move', reqDetails),
   skipTurnReq: () => fetch('/api/skip-turn', { method: 'POST' }),
-  enableTwoX: (reqDetails) => fetch('/api/enable-two-x', reqDetails)
+  enableTwoX: (reqDetails) => fetch('/api/enable-two-x', reqDetails),
+  getMap: () => fetch('/api/game-map').then((res) => res.text())
 };
 
 const skipStuckPlayer = gameState => {
@@ -49,8 +50,12 @@ const main = () => {
       .then(initiateMove);
   });
 
-  poller.resume();
-  loadSvgEvents();
+  API.getMap().then((res) => {
+    query('.map').innerHTML += res;
+  }).then(() => {
+    poller.resume();
+    loadSvgEvents();
+  });
 };
 
 window.onload = main;

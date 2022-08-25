@@ -1,16 +1,93 @@
-.taxi-route {
-  fill: none;
-  stroke: gold;
-  stroke-width: 5;
+.copy {
+  display: inline;
+  fill: transparent;
+  stroke-width: 3.768px;
+  stroke: var(--font-black);
   stroke-miterlimit: 0.5;
   stroke-dasharray: none;
   stroke-dashoffset: 0;
   stroke-opacity: 0.538983;
 }
 
+.station {
+  display: inline;
+  stroke: #000000;
+  stroke-width: 3.2;
+  stroke-miterlimit: 0.5;
+  stroke-dashoffset: 0;
+  stroke-opacity: 0.6;
+}
+
+.station~text {
+  font-size: 18.6667px;
+  font-family: sans-serif;
+  display: inline;
+  fill: #000000;
+}
+
+.highlight {
+  stroke: #000000;
+  stroke-width: 2.47278;
+  stroke-dasharray: none;
+  stroke-opacity: 0.6;
+}
+
+.garden {
+  fill: #63a833;
+  fill-opacity: 0.68;
+  stroke: none;
+  stroke-width: 10;
+  stroke-dasharray: none;
+  stroke-opacity: 0.63039;
+}
+
+.water-bodies {
+  fill: #58a4df;
+  fill-opacity: 0.740589;
+  stroke: #4f6cf3;
+  stroke-width: 1;
+  stroke-dasharray: none;
+  stroke-opacity: 0.63039;
+}
+
+.ferry {
+  fill: none;
+  fill-opacity: 0.511294;
+  stroke: #020202;
+  stroke-dasharray: none;
+}
+
+.ferry-route {
+  stroke-width: 4;
+}
+
+.bridge {
+  stroke-width: 10;
+  stroke-opacity: 0.7;
+}
+
+.route-backdrop {
+  fill: none;
+  stroke: #dbdde1;
+  stroke-dasharray: none;
+  stroke-opacity: 0.991791;
+  stroke-dashoffset: 0;
+  stroke-miterlimit: 0.5;
+}
+
+.taxi-route {
+  fill: none;
+  stroke: #fff41c;
+  stroke-width: 5;
+  stroke-miterlimit: 0.5;
+  stroke-dasharray: none;
+  stroke-dashoffset: 0;
+  stroke-opacity: 0.997947;
+}
+
 .bus-route {
   fill: none;
-  stroke: #3d885e;
+  stroke: #078b07;
   stroke-width: 5;
   stroke-miterlimit: 0.5;
   stroke-dasharray: none;
@@ -20,10 +97,26 @@
 
 .subway-route {
   fill: none;
-  stroke: #8e1010;
+  stroke: #c80101;
   stroke-width: 5;
   stroke-miterlimit: 0.5;
-  stroke-dasharray: 20;
+  stroke-dasharray: 15, 15;
   stroke-dashoffset: 0;
-  stroke-opacity: 0.539152;
+  stroke-opacity: 0.91;
+}
+
+.bus-color {
+  fill: #008000;
+}
+
+.taxi-color {
+  fill: #ffff00;
+}
+
+.subway-color {
+  fill: #c80101;
+}
+
+.subway-color~text {
+  fill: white;
 }
