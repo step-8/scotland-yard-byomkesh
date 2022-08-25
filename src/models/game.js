@@ -10,15 +10,15 @@ const createEmptyStop = () => {
   };
 };
 
-const detectivesWinStatusLookup = (color) => {
+const detectivesWinStatusLookup = (role) => {
   const status = {
-    red: 2,
-    green: 3,
-    purple: 4,
-    blue: 5,
-    gold: 6
+    'Detective Red': 2,
+    'Detective Green': 3,
+    'Detective Purple': 4,
+    'Detective Blue': 5,
+    'Detective Yellow': 6
   };
-  return status[color];
+  return status[role];
 };
 
 const isMrXStranded = strandedPlayers => {
@@ -279,7 +279,8 @@ class Game {
     const winningDetective = detectives.find(({ currentPosition }) => {
       return currentPosition === mrXLocation;
     })
-    this.#winningStatus = detectivesWinStatusLookup(winningDetective.color);
+    console.log(winningDetective.role)
+    this.#winningStatus = detectivesWinStatusLookup(winningDetective.role);
   }
 
   #setDetectivesWinStatus() {
