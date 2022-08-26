@@ -7,8 +7,7 @@ const removeClickEvent = (stops) => {
   });
 };
 
-const movePin = (stop) => (gameState) => {
-  const activePlayerColor = gameState.currentPlayer.color;
+const movePin = (stop, activePlayerColor) => (gameState) => {
   removePin(activePlayerColor);
   putPinInMap(stop, activePlayerColor);
 
@@ -82,6 +81,7 @@ const validateMove = (isMoved) => {
 };
 
 const sendMoveReq = (stop, gameState) => (pluralTicket) => {
+  const activePlayerColor = gameState.currentPlayer.color;
   const ticket = ticketNameMapper(pluralTicket);
   const body = JSON.stringify({ destination: stop, ticket });
   const reqDetails = {
@@ -96,7 +96,7 @@ const sendMoveReq = (stop, gameState) => (pluralTicket) => {
       validateMove(isMoved);
       return gameState;
     })
-    .then(movePin(stop))
+    .then(movePin(stop, activePlayerColor))
     .then(removeAllHighlight)
     .then(removeAllPointer)
     .then(removeTicketPopup)
