@@ -63,9 +63,9 @@ const createPin = (color) => {
   // pin.setAttribute('transform', 'scale(2)');
   pin.setAttribute('stroke', 'black');
   pin.setAttribute('fill', color);
-  pin.setAttribute('id', color);
   pin.setAttribute('d', pinVector);
   gElement.appendChild(pin);
+  gElement.setAttribute('id', color);
   return gElement;
 };
 
