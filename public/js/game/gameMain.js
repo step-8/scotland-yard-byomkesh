@@ -32,11 +32,12 @@ const skipStuckPlayer = gameState => {
   });
 };
 
+let gameState, poller;
 const main = () => {
-  const gameState = new GameState();
+  gameState = new GameState();
 
   const initGame = (data) => gameState.initialize(data);
-  const poller = new Poller(API.getGameStat, initGame);
+  poller = new Poller(API.getGameStat, initGame);
 
   gameState.addHandler(updateRobberLog);
   gameState.addHandler(updatePlayersStats);
