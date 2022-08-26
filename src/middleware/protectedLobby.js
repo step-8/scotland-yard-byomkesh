@@ -1,10 +1,10 @@
 const protectedLobby = (req, res, next) => {
-  const { gameId, game } = req.session;
-  if (!gameId) {
+  const { lobbyId, lobby } = req.session;
+  if (!lobbyId) {
     res.redirect('/');
     return;
   }
-  if (game.isStarted) {
+  if (lobby.isLobbyClosed) {
     res.redirect('/lobby');
     return;
   }

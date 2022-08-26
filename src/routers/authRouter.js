@@ -15,7 +15,7 @@ const createAuthRouter = (users, views, persistUser) => {
   const authRouter = express.Router();
   const authRoutes = ['/login', '/signup'];
 
-  authRouter.use(authRoutes, protectedAuth)
+  authRouter.use(authRoutes, protectedAuth);
 
   authRouter.get('/signup', serveSignupPage(views));
   const signup = signupHandler(users, persistUser);

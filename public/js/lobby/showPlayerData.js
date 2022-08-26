@@ -77,31 +77,31 @@ const showPlayerCard = (lobbyState) => {
     const playerCards = createPlayersContainer(players, user);
     playersContainer.replaceChildren(...playerCards);
   } else {
-    const robberEle = new Element('div')
-      .addClass('robber-container')
-      .addClass('center-flex');
+    //   const robberEle = new Element('div')
+    //     .addClass('robber-container')
+    //     .addClass('center-flex');
 
-    const vsImg = '<img src="/images/versus.png" class="vs-img">';
-    const vs = new Element('div')
-      .addClass('vs')
-      .add('innerHTML', vsImg);
+    //   const vsImg = '<img src="/images/versus.png" class="vs-img">';
+    //   const vs = new Element('div')
+    //     .addClass('vs')
+    //     .add('innerHTML', vsImg);
 
-    const detectivesEle = new Element('div')
-      .addClass('detectives-container')
-      .addClass('horizontal-flex')
-      .addClass('vertical-middle');
+    //   const detectivesEle = new Element('div')
+    //     .addClass('detectives-container')
+    //     .addClass('horizontal-flex')
+    //     .addClass('vertical-middle');
 
-    players.forEach(player => {
-      const playerCard = createCharacterCard(player, user);
-      if (player.role === 'Mr. X') {
-        playerCard.classList.add('robber-card');
-        robberEle.append(playerCard);
-        return;
-      }
-      playerCard.classList.add('detective-card');
-      detectivesEle.append(playerCard);
-    });
-    playersContainer.replaceChildren(robberEle.html, vs.html, detectivesEle.html);
+    //   players.forEach(player => {
+    //     const playerCard = createCharacterCard(player, user);
+    //     if (player.role === 'Mr. X') {
+    //       playerCard.classList.add('robber-card');
+    //       robberEle.append(playerCard);
+    //       return;
+    //     }
+    //     playerCard.classList.add('detective-card');
+    //     detectivesEle.append(playerCard);
+    //   });
+    //   playersContainer.replaceChildren(robberEle.html, vs.html, detectivesEle.html);
   }
 
   return lobbyState;
@@ -109,21 +109,25 @@ const showPlayerCard = (lobbyState) => {
 
 const displayMessage = (lobbyState) => {
   const { isHost } = lobbyState.myData();
-  const totalPlayer = lobbyState.getPlayers().length;
+  const totalPlayer = lobbyState.totalPlayers();
 
   const messageContainer = byId('message-container');
   let gif = '';
   let message = 'You can start the game or wait for other players';
+
   if (!isHost) {
     gif = '<img src="/images/loading.gif" class="loading-gif">';
     message = 'Waiting for host to start...';
   }
+
   if (totalPlayer < 3) {
-    gif = '<img src="/images/loading.gif" class="loading-gif">';
     const playersNeeded = 3 - totalPlayer;
+    gif = '<img src="/images/loading.gif" class="loading-gif">';
+
     message = `Waiting for atleast ${playersNeeded} `;
     message += playersNeeded === 1 ? 'player ...' : 'players ...';
   }
+
   if (totalPlayer === 6 && isHost) {
     message = 'Max players joined. Please start the Game.';
   }

@@ -1,25 +1,25 @@
-const removePlayer = (session) => {
-  const { username, game } = session;
-  game.removePlayer(username);
-  delete session.gameId;
-  delete session.game;
+const removeJoinee = (session) => {
+  const { username, lobby } = session;
+  lobby.leave(username);
+  delete session.lobbyId;
+  delete session.lobby;
 };
 
-const leaveLobby = (games, persistGames, gamesStore) => (req, res) => {
+const leaveLobby = (lobbies, persistLobbies) => (req, res) => {
   const { session } = req;
-  const { gameId, game } = session;
+  const { lobbyId, lobby } = session;
 
-  removePlayer(session, persistGames);
+  removeJoinee(session);
 
-  if (!game.canGameSustain()) {
-    games.deleteGame(gameId);
-    gamesStore.delete(gameId).then(() => {
-      res.redirect('/');
-    });
-    return;
+  if (!lobby.canLobbySustain()) {
+    lobbies.removeLobby(lobbyId);
+    // gamesStore.delete(lobbyId).then(() => {
+    //   res.redirect('/');
+    // });
+    // return;
   }
 
-  persistGames(gameId, () => {
+  persistLobbies(lobbyId, () => {
     res.redirect('/');
   });
 

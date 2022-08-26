@@ -1,29 +1,26 @@
 const redirectToLobby = (req, res, next) => {
-  const { game } = req.session;
-  if (!game || req.url === '/lobby') {
+  const { lobbyId } = req.session;
+
+  if (req.url === '/lobby') {
     next();
-    return
+    return;
   }
 
-  if (game.isInLobby()) {
+  if (lobbyId) {
     res.redirect('/lobby');
     return;
   }
   next();
-}
+};
 
 const redirectToGame = (req, res, next) => {
   const { game } = req.session;
   if (!game || req.url === '/game') {
     next();
-    return
-  }
-
-  if (game.isStarted) {
-    res.redirect('/game');
     return;
   }
-  next();
-}
+
+  res.redirect('/game');
+};
 
 module.exports = { redirectToLobby, redirectToGame };

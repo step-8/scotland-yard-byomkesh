@@ -30,6 +30,14 @@ class Lobbies {
     this.#nextLobbyId++;
   }
 
+  createLobby(host, limit) {
+    const id = this.#nextLobbyId;
+    const lobby = new Lobby(id, host, limit);
+    this.addLobby(lobby);
+
+    return lobby;
+  }
+
   findLobby(lobbyId) {
     return this.#lobbies.find(lobby => lobby.isMyLobbyId(lobbyId));
   }
@@ -46,6 +54,10 @@ class Lobbies {
 
   #getLobbies() {
     return this.#lobbies.map(lobby => lobby.getState());
+  }
+
+  isPlayerInLobby(username) {
+    return this.#lobbies.some(lobby => lobby.isMyJoinee(username));
   }
 
   getState() {

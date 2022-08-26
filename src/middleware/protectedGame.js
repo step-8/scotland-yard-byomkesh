@@ -1,3 +1,19 @@
+const protectedLobby = lobbies => (req, res, next) => {
+  const { username, lobbyId } = req.session;
+
+  if (!username || !lobbyId || !lobbies.findLobby(lobbyId)) {
+    res.redirect('/');
+    return;
+  }
+
+  const { lobby } = req.session;
+  if (lobby.isLobbyClosed && req.url === '/lobby') {
+    res.redirect('/game');
+    return;
+  }
+  next();
+};
+
 const protectedGame = games => (req, res, next) => {
   const { username, gameId } = req.session;
   if (!username || !gameId || !games.findGame(gameId)) {
@@ -13,4 +29,4 @@ const protectedGame = games => (req, res, next) => {
   next();
 };
 
-module.exports = { protectedGame };
+module.exports = { protectedGame, protectedLobby };

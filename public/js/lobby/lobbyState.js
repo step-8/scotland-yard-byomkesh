@@ -1,32 +1,32 @@
 const cloneObject = (obj) => JSON.parse(JSON.stringify(obj));
 
 class LobbyState {
-  #players;
+  #joinees;
   #handlers;
   #isHost;
   #username;
-  #isGameStarted;
+  #isLobbyClosed;
   #oldState;
 
   constructor() {
-    this.#players = null;
+    this.#joinees = null;
     this.#handlers = [];
     this.#oldState = {};
   }
 
   initialize(newState) {
     this.#oldState = {
-      players: this.#players,
+      joinees: this.#joinees,
       isHost: this.#isHost,
       username: this.#username,
-      isGameStarted: this.#isGameStarted
+      isGameStarted: this.#isLobbyClosed
     };
 
-    const { players, isHost, username, isGameStarted } = newState;
-    this.#players = players;
+    const { joinees, isHost, username, isLobbyClosed } = newState;
+    this.#joinees = joinees;
     this.#isHost = isHost;
     this.#username = username;
-    this.#isGameStarted = isGameStarted;
+    this.#isLobbyClosed = isLobbyClosed;
 
     this.#emit();
   }
@@ -40,11 +40,15 @@ class LobbyState {
   }
 
   getPlayers() {
-    return cloneObject(this.#players);
+    return cloneObject(this.#joinees);
+  }
+
+  totalPlayers() {
+    return this.#joinees.length;
   }
 
   myData() {
-    const currentUser = this.#players.find(player =>
+    const currentUser = this.#joinees.find(player =>
       player.username === this.#username
     );
 
@@ -52,20 +56,21 @@ class LobbyState {
   }
 
   isStarted() {
-    return this.#isGameStarted;
+    return this.#isLobbyClosed;
   }
 
   canGameStart() {
-    return this.#players.length > 2;
+    return this.#joinees.length > 2;
   }
 
   whoLeft() {
-    const oldPlayers = this.#oldState.players;
-    const currentPlayers = this.#players;
+    const oldPlayers = this.#oldState.joinees;
+    const currentPlayers = this.#joinees;
 
     if (!oldPlayers) {
       return;
     }
+
     const leftPlayer = oldPlayers.find((x, i) => {
       return !(x.username === currentPlayers[i]?.username);
     });

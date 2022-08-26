@@ -5,19 +5,22 @@ const { gameStats } = require('../handlers/game.js');
 const { validStops, movePlayer, skipTurn, enableTwoX } = require('../handlers/gameAPI.js');
 const { serveLobbyStats } = require('../handlers/serveLobbyStats.js');
 const { serveUsername } = require('../handlers/serveUsername.js');
-const { startGameHandler } = require('../handlers/startGameHandler.js');
 const { serveGameMap } = require('../handlers/servePages.js');
+const { startGameHandler, initalStats, enterGame } = require('../handlers/startGameHandler.js');
 
 const { authApi } = require('../middleware/authAPIs.js');
 
-const createApiRouter = (persistGames) => {
+const createApiRouter = (games, persistLobbies, persistGames) => {
   const apiRouter = express.Router();
 
   apiRouter.use(authApi);
   apiRouter.use(express.json());
 
   apiRouter.get('/lobby-stats', serveLobbyStats);
-  apiRouter.post('/start', startGameHandler(persistGames));
+  apiRouter.post('/start', startGameHandler(games, persistLobbies, persistGames));
+  apiRouter.put('/enter-game', enterGame);
+  apiRouter.get('/initial-stats', initalStats(persistGames));
+
   apiRouter.get('/game-stats', gameStats);
   apiRouter.get('/valid-stops', validStops);
   apiRouter.post('/move', movePlayer(persistGames));

@@ -1,15 +1,18 @@
 const request = require('supertest');
 const expressSession = require('express-session');
+const sinon = require('sinon');
+const { assert } = require('chai');
 
 const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
-const { Player } = require('../../src/models/player.js');
 const Datastore = require('../../src/models/datastore.js');
-
+const { Lobbies } = require('../../src/models/lobbies.js');
+const { Lobby } = require('../../src/models/lobby.js');
+const { redirectToGame } = require('../../src/middleware/blockInvalidAccess.js');
 
 const mockClient = () => {
-  const p = new Promise((res, rej) => res());
+  const p = new Promise((res) => res());
   return { hGet: () => p, hSet: () => p, hDel: () => p };
 };
 
@@ -24,17 +27,18 @@ describe('servePages', () => {
 
     const root = { root: { username: 'root', password: 'root' } };
     const users = new Users(root);
-    app = request(initApp(config, users, games, session, () => { }));
+    const lobbies = new Lobbies();
+    app = request(initApp(config, users, games, session, () => { }, lobbies));
   });
 
   const afterLogin = (postLoginAction) => {
     const body = 'username=root&password=root';
     app.post('/login')
       .send(body)
-      .end((err, res) => {
+      .end((_, res) => {
         const cookie = res.header['set-cookie'];
         postLoginAction(cookie);
-      })
+      });
   };
 
   describe('serveLandingPage', () => {
@@ -66,29 +70,30 @@ describe('servePages', () => {
         .send(body)
         .expect('location', '/')
         .expect(302)
-        .end((err, res) => {
+        .end((_, res) => {
           const cookie = res.header['set-cookie'];
           app.get('/')
             .set('cookie', cookie)
             .expect('content-type', /html/)
             .expect(/<title>Scotland Yard<\/title>/)
             .expect(200, done);
-        })
+        });
 
     });
   });
 
   describe('serveLobby', () => {
-    let users, app;
+    let users, app, lobbies;
     beforeEach(() => {
       const root = { root: { username: 'root', password: 'root' } };
       users = new Users(root);
+      lobbies = new Lobbies();
 
       const stores = {
         gamesStore: new Datastore('games', mockClient()),
         usersStore: new Datastore('users', mockClient()),
       };
-      app = request(initApp(config, users, games, session, stores));
+      app = request(initApp(config, users, games, session, stores, lobbies));
     });
 
     it('Should redirect on home page if not logged in', (done) => {
@@ -103,62 +108,36 @@ describe('servePages', () => {
           .set('cookie', cookie)
           .expect('location', '/')
           .expect(302, done);
-      })
+      });
     });
 
     it('Should serve lobby of game 1 on /lobby', (done) => {
-      const game = games.createGame();
-      const gameId = game.gameId;
-      const host = new Player('host');
-      game.addPlayer(host);
+      const lobby = new Lobby(1, 'rishabh', { min: 1, max: 2 });
+      lobbies.addLobby(lobby);
 
       afterLogin((cookie) => {
-        app.get(`/join?gameId=${gameId}`)
+        app.get('/join?gameId=1')
           .set('cookie', cookie)
-          .expect('location', `/lobby`)
+          .expect('location', '/lobby')
           .expect(302, done);
-      })
+      });
     });
 
-    it('Should block invalid access from lobby', (done) => {
-      const game = games.createGame();
-      const gameId = game.gameId;
-      const host = new Player('host');
-      game.addPlayer(host);
+    it('Should block invalid access from game page', () => {
 
-      afterLogin((cookie) => {
-        app.get(`/join?gameId=${gameId}`)
-          .set('cookie', cookie)
-          .expect('location', '/lobby')
-          .expect(302, done)
-      })
-    });
+      const mockReq = {
+        url: '',
+        session: {
+          game: {}
+        }
+      };
+      const redirect = sinon.stub();
+      const mockRes = { redirect };
+      const next = {};
 
-    it('Should block invalid access from game page', (done) => {
+      redirectToGame(mockReq, mockRes, next);
+      assert.ok(mockRes.redirect.calledOnce);
 
-      const game = games.createGame();
-      const gameId = game.gameId;
-      const host = new Player('host');
-      game.addPlayer(host);
-
-      afterLogin((cookie) => {
-        app.get(`/join?gameId=${gameId}`)
-          .set('cookie', cookie)
-          .expect('location', '/lobby')
-          .expect(302)
-          .end((err, res) => {
-            game.changeGameStatus();
-            app.get('/')
-              .set('cookie', cookie)
-              .expect('location', '/game')
-              .expect(302)
-              .end(() => app.get('/logout')
-                .set('cookie', cookie)
-                .expect('location', '/game')
-                .expect(302, done)
-              );
-          });
-      })
     });
 
     describe('serveErrorPage', () => {

@@ -11,12 +11,12 @@ class Lobby {
     this.#isLobbyClosed = false;
   }
 
-  #isLobbyFull() {
-    this.#joinees.length === this.#limit.max;
+  isLobbyFull() {
+    return this.#joinees.length === this.#limit.max;
   }
 
   addJoinee(joinee) {
-    if (this.#isLobbyFull()) {
+    if (this.isLobbyFull()) {
       return;
     }
 
@@ -31,7 +31,7 @@ class Lobby {
     return this.#joinees[0];
   }
 
-  #isHost(username) {
+  isHost(username) {
     return this.#getHost() === username;
   }
 
@@ -44,8 +44,8 @@ class Lobby {
     return this.#limit.min <= this.#joinees.length;
   }
 
-  #canLobbyClose(username) {
-    return !this.#isHost(username) || !this.haveMinPlayersJoined();
+  canLobbyClose(username) {
+    return this.isHost(username) && this.haveMinPlayersJoined();
   }
 
   getJoinees() {
@@ -61,15 +61,27 @@ class Lobby {
     return this.#lobbyId === lobbyId;
   }
 
+  isMyJoinee(username) {
+    return this.#joinees.includes(username);
+  }
+
   closeLobby(username) {
-    if (this.#canLobbyClose(username)) {
+    if (!this.canLobbyClose(username)) {
       return;
     }
     this.#isLobbyClosed = true;
   }
 
+  canLobbySustain() {
+    return this.#joinees.length > 0;
+  }
+
   get isLobbyClosed() {
     return this.#isLobbyClosed;
+  }
+
+  get lobbyId() {
+    return this.#lobbyId;
   }
 
   getState() {
@@ -77,6 +89,12 @@ class Lobby {
     const lobbyId = this.#lobbyId;
     const limit = this.#limit;
     return { joinees, lobbyId, limit };
+  }
+
+  forAPI() {
+    const joinees = this.getJoinees();
+    const isLobbyClosed = this.#isLobbyClosed;
+    return { joinees, isLobbyClosed };
   }
 }
 

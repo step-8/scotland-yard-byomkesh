@@ -27,6 +27,17 @@ class Games {
     });
   }
 
+  addGame(id, players) {
+    const game = new Game(id, this.#stops, players);
+    this.#games[id] = game;
+    return game;
+  }
+
+  isPlayerInGame(username) {
+    const allGames = this.getAllGames();
+    return allGames.some(game => game.isMyPlayer(username));
+  }
+
   findGame(gameId) {
     return this.#games[gameId];
   }

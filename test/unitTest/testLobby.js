@@ -14,7 +14,7 @@ describe('Lobby', () => {
   });
 
   it('should redirect to /lobby from lobby on invalid request', () => {
-    const req = { session: { game: { isInLobby: () => true } } };
+    const req = { session: { lobbyId: 1 } };
     const res = { redirect: sinon.stub() };
     const next = () => { };
 

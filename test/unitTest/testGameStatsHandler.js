@@ -34,7 +34,7 @@ describe('gameStats handler', () => {
           username: 'player0',
           role: mrX,
           currentPosition: 19,
-          isHost: true,
+          isHost: false,
           log: [],
           color: 'black',
           tickets: MR_X_TICKETS,
@@ -63,7 +63,7 @@ describe('gameStats handler', () => {
         username: 'player0',
         role: mrX,
         currentPosition: 19,
-        isHost: true,
+        isHost: false,
         log: [],
         color: 'black',
         tickets: MR_X_TICKETS
@@ -98,7 +98,7 @@ describe('gameStats handler', () => {
           username: 'player0',
           role: 'Mr. X',
           currentPosition: null,
-          isHost: true,
+          isHost: false,
           log: [],
           color: 'black',
           tickets: MR_X_TICKETS
@@ -127,7 +127,7 @@ describe('gameStats handler', () => {
         username: 'player0',
         role: mrX,
         currentPosition: null,
-        isHost: true,
+        isHost: false,
         log: [],
         color: 'black',
         tickets: MR_X_TICKETS

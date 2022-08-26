@@ -20,9 +20,9 @@ const setGameId = () =>
   fetch('/api/user-name', { method: 'GET' })
     .then((res) => res.json())
     .then((res) => {
-      createRoomId(res.gameId);
+      createRoomId(res.lobbyId);
       byId('copy-btn').onclick =
-        () => copyToClipboard(res.gameId);
+        () => copyToClipboard(res.lobbyId);
     });
 
 const initiateLobby = (lobbyState) => {

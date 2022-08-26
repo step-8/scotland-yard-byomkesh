@@ -9,6 +9,7 @@ const { Games } = require('./src/models/games.js');
 const Datastore = require('./src/models/datastore.js');
 const { createRedisClient } = require('./src/utils/redis.js');
 const { createExpressSession } = require('./src/utils/session.js');
+const { Lobbies } = require('./src/models/lobbies.js');
 
 const CONFIG = {
   mode: parsed.NODE_ENV,
@@ -26,6 +27,7 @@ const createStores = (client) => {
 
 const startServer = (port, config) => {
   let users, games, client, stores = {};
+  const lobbies = new Lobbies();
 
   fsPromise.readFile(config.stops, 'utf8')
     .then(value => JSON.parse(value))
@@ -54,7 +56,7 @@ const startServer = (port, config) => {
       return createExpressSession(sessionStore);
     })
 
-    .then((session) => initApp(config, users, games, session, stores))
+    .then((session) => initApp(config, users, games, session, stores, lobbies))
     .then((app) => {
       app.listen(port, () => console.log(`Listening on the Port : ${port}`));
     })

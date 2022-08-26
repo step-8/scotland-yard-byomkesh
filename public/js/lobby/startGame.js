@@ -34,17 +34,17 @@ const removeLeaveButton = () => {
   leaveButton.replaceChildren('');
 };
 
-const updateLobbyOnStart = (poller) => (lobbyState) => {
-  if (!lobbyState.isStarted()) {
-    return;
-  }
+// const updateLobbyOnStart = (poller) => (lobbyState) => {
+//   if (!lobbyState.isStarted()) {
+//     return;
+//   }
 
-  removeGameLink();
-  startCountDown();
-  removeLeaveButton();
+//   removeGameLink();
+//   startCountDown();
+//   removeLeaveButton();
 
-  poller.pause();
-};
+//   poller.pause();
+// };
 
 const activatePlayBtn = (lobbyState) => {
   const playButton = byId('play');

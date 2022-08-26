@@ -1,39 +1,54 @@
-const { Player } = require('../models/player.js');
+// const { Player } = require('../models/player.js');
 const { mrX } = require('../utils/roles.js');
 
 const isCurrentPlayerLeft = (leftPlayers, currentPlayer) => {
   const { username } = currentPlayer;
   return leftPlayers.some((player) => player.username === username);
 };
+const sendConnectionError = (req, res) => {
+  const message = 'You are already in a Game';
+  res.cookie('connError', message, { maxAge: 1000 });
+  res.redirect(302, '/');
+};
 
-const hostGame = (games, persistGames) => (req, res) => {
+const isInGame = (username, games, lobbies) => {
+  return games.isPlayerInGame(username) || lobbies.isPlayerInLobby(username);
+};
+
+const hostGame = (games, lobbies, persistLobbies) => (req, res) => {
   const { username } = req.session;
-  const player = new Player(username);
-  const game = games.createGame();
+  if (isInGame(username, games, lobbies)) {
+    sendConnectionError(req, res);
+    return;
+  }
+  const limit = { min: 3, max: 6 };
+  const lobby = lobbies.createLobby(username, limit);
+  const lobbyId = lobby.lobbyId;
 
-  game.addPlayer(player);
-  const gameId = game.gameId;
+  req.session.lobbyId = lobbyId;
+  req.session.lobby = lobby;
 
-  req.session.gameId = gameId;
-  req.session.game = game;
-
-  persistGames(gameId, () => {
+  persistLobbies(lobbyId, () => {
     res.redirect('/lobby');
   });
 };
 
-const joinGame = (games, persistGames) => (req, res) => {
+const joinGame = (games, lobbies, persistLobbies) => (req, res) => {
   const { username } = req.session;
+  if (isInGame(username, games, lobbies)) {
+    sendConnectionError(req, res);
+    return;
+  }
 
   const { gameId } = req.query;
-  req.session.gameId = gameId;
+  const lobbyId = +gameId;
+  const lobby = lobbies.findLobby(lobbyId);
+  lobby.addJoinee(username);
 
-  const game = games.findGame(gameId);
-  const player = new Player(username);
+  req.session.lobbyId = lobbyId;
+  req.session.lobby = lobby;
 
-  game.addPlayer(player);
-
-  persistGames(gameId, () => {
+  persistLobbies(lobbyId, () => {
     res.redirect('/lobby');
   });
 };
@@ -95,7 +110,7 @@ const endGame = (games, gamesStore) => (req, res) => {
   games.deleteGame(gameId);
   gamesStore.delete(gameId)
     .then(() => res.redirect('/'))
-    .catch((err) => res.redirect('/'))
+    .catch(() => res.redirect('/'));
 };
 
 module.exports = { hostGame, joinGame, getRobberLog, gameStats, endGame };

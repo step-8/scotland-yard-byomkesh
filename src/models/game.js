@@ -62,11 +62,11 @@ class Game {
   #twoXTakenAt;
   #leftPlayers;
 
-  constructor(gameId, stops = {}) {
+  constructor(gameId, stops = {}, players = []) {
     this.#gameId = gameId;
     this.#host = null;
     this.#isGameStarted = false;
-    this.#players = [];
+    this.#players = players;
     this.#stops = stops;
     this.#limit = { min: 3, max: 6 };
     this.#round = 0;
@@ -103,7 +103,6 @@ class Game {
     this.#players.push(player);
     if (!this.#host) {
       this.#host = player;
-      player.setHost();
     }
   }
 
@@ -398,6 +397,27 @@ class Game {
     }
     const roundsAfterTwoX = this.round - this.#twoXTakenAt;
     return roundsAfterTwoX === 1;
+  }
+
+  isMyPlayer(username) {
+    this.#players.some(player => player.isSamePlayer(username));
+  }
+
+  getInitialStats(username) {
+    const currentPlayer = this.findPlayer(username);
+    const players = this.getPlayers();
+
+    if (currentPlayer.isMrX()) {
+      return players;
+    }
+
+    players.forEach(player => {
+      if (player.role === 'Mr. X') {
+        player.currentPosition = 'XXX';
+      }
+    });
+
+    return players;
   }
 
   getState() {

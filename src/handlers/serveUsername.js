@@ -1,7 +1,7 @@
 const serveUsername = (req, res) => {
-  const { username, gameId } = req.session;
+  const { username, lobbyId } = req.session;
   if (username) {
-    res.json({ username, gameId });
+    res.json({ username, lobbyId });
     return;
   }
   res.status(200).json({});

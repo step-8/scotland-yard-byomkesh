@@ -1,20 +1,22 @@
-const authJoinRequest = games => (req, res, next) => {
-  const { gameId } = req.query;
-  const game = games.findGame(gameId);
+const authJoinRequest = lobbies => (req, res, next) => {
+  const { gameId } = req.query; // will change to lobby id in frontend later.
 
-  if (!game) {
+  const lobbyId = +gameId;
+  const lobby = lobbies.findLobby(lobbyId);
+
+  if (!lobby) {
     return res
       .cookie('joinError', 'Invalid room id !')
       .redirect('/');
   }
 
-  if (game.isGameFull()) {
+  if (lobby.isLobbyFull()) {
     return res
       .cookie('joinError', 'Room is already full')
       .redirect('/');
   }
 
-  if (game.isStarted) {
+  if (lobby.isLobbyClosed) {
     return res
       .cookie('joinError', 'Room is not available anymore')
       .redirect('/');

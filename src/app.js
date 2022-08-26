@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 
+const { injectLobby } = require('./middleware/injectLobby.js');
 const { injectGame } = require('./middleware/injectGame.js');
 const { createAuthRouter } = require('./routers/authRouter.js');
 const { createApiRouter } = require('./routers/apiRouter.js');
@@ -26,12 +27,17 @@ const createUserPersister = (usersStore) => (username, password, callback) => {
     .then(() => callback());
 };
 
-const initApp = (config, users, games, session, stores) => {
+const createLobbiesPersister = (lobbies, lobbyStore) => (lobbyId, callback) => {
+  callback();
+};
+
+const initApp = (config, users, games, session, stores, lobbies) => {
   const app = express();
   const { mode, views } = config;
-  const { gamesStore, usersStore } = stores;
+  const { gamesStore, usersStore, lobbyStore } = stores;
   const persistGames = createGamePersister(games, gamesStore);
   const persistUser = createUserPersister(usersStore);
+  const persistLobbies = createLobbiesPersister(lobbies, lobbyStore);
 
   if (mode === 'dev') {
     app.use(morgan('tiny'));
@@ -39,26 +45,21 @@ const initApp = (config, users, games, session, stores) => {
 
   app.use(session);
   app.use(injectGame(games));
+  app.use(injectLobby(lobbies));
   app.use(express.urlencoded({ extended: true }));
 
-  app.use(protectedRouter(games, persistGames));
+  app.use(protectedRouter(games, lobbies, persistLobbies));
   app.use(createAuthRouter(users, views, persistUser));
-  app.use('/api', createApiRouter(persistGames));
+  app.use('/api', createApiRouter(games, persistLobbies, persistGames));
   app.get('/end', endGame(games, gamesStore));
-
-  app.post('/leave-lobby', protectedLobby, leaveLobby(games, persistGames, gamesStore));
-  app.get('/end', (req) => {
-    const { gameId } = req.session;
-    games.deleteGame(gameId);
-  });
-
+  app.post('/leave-lobby', protectedLobby, leaveLobby(lobbies, persistLobbies));
   app.post('/leave-game', leaveGame(persistGames));
 
   app.get('/load-game', serveLoadGamePage(views));
   app.post('/load-game', loadGame(games, persistGames));
 
   app.use(express.static('./public'));
-  app.use(createPagesRouter(views, games));
+  app.use(createPagesRouter(views, games, lobbies));
 
   return app;
 };

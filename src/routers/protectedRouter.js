@@ -5,13 +5,13 @@ const { authJoinRequest } = require('../middleware/authJoinRequest.js');
 const { authenticateUser } = require('../middleware/authValidations.js');
 const { injectGameId } = require('../middleware/injectGame.js');
 
-const protectedRouter = (games, persistGames) => {
+const protectedRouter = (games, lobbies, persistLobbies) => {
   const router = express.Router();
   const routes = ['/host', '/join'];
   router.use(routes, authenticateUser, injectGameId(games));
 
-  router.get('/host', hostGame(games, persistGames));
-  router.get('/join', authJoinRequest(games), joinGame(games, persistGames));
+  router.get('/host', hostGame(games, lobbies, persistLobbies));
+  router.get('/join', authJoinRequest(lobbies), joinGame(games, lobbies, persistLobbies));
 
   return router;
 };

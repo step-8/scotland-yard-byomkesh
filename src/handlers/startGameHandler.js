@@ -1,3 +1,4 @@
+const { Player } = require('../models/player.js');
 const { roles } = require('../utils/roles.js');
 
 const randInt = (limit) => {
@@ -15,27 +16,62 @@ const shuffle = (list) => {
   return list;
 };
 
-const startGameHandler = (persistGames) => (req, res) => {
-  const { game, gameId } = req.session;
-  if (!game || !game.canGameStart()) {
-    res.json({ isStarted: false });
-    return;
-  }
-
-  const initialPositions = [
-    13, 26, 29, 91, 117, 34, 50, 53, 94, 103,
-    112, 123, 138, 141, 155, 174
-  ];
-
-  const shuffledPositions = shuffle(initialPositions);
-
-  game.assignRoles(roles, shuffle);
-  game.assignInitialPositions(shuffledPositions);
-  game.changeGameStatus();
+const initalStats = (persistGames) => (req, res) => {
+  const { game, gameId, username } = req.session;
+  const players = game.getInitialStats(username);
 
   persistGames(gameId, () => {
-    res.json({ isStarted: true, players: game.getPlayers() });
+    res.json({ players, user: { username } });
   });
 };
 
-module.exports = { startGameHandler };
+const enterGame = (req, res) => {
+  const { lobby, lobbyId } = req.session;
+  const gameId = lobbyId;
+  if (!lobby.isLobbyClosed) {
+    return;
+  }
+
+  delete req.session.lobbyId;
+  req.session.gameId = gameId;
+  res.json({ gameId });
+};
+
+const canGameStart = (lobby, username) => {
+  return lobby && lobby.canLobbyClose(username);
+};
+
+const initializeGame = (lobby, lobbyId, games) => {
+  const joinees = lobby.getJoinees();
+  const players = joinees.map(joinee => new Player(joinee.username));
+  return games.addGame(lobbyId, players);
+};
+
+const startGameHandler = (games, persistLobbies, persistGames) =>
+  (req, res) => {
+    const { lobby, lobbyId, username } = req.session;
+    if (!canGameStart(lobby, username)) {
+      res.json({ isStarted: false });
+      return;
+    }
+
+    const game = initializeGame(lobby, lobbyId, games);
+    lobby.closeLobby(username);
+
+    const initialPositions = [
+      13, 26, 29, 91, 117, 34, 50, 53, 94, 103,
+      112, 123, 138, 141, 155, 174
+    ];
+
+    const shuffledPositions = shuffle(initialPositions);
+
+    game.assignRoles(roles, shuffle);
+    game.assignInitialPositions(shuffledPositions);
+    game.changeGameStatus();
+
+    persistLobbies(lobbyId, () => {
+      persistGames(lobbyId, () => res.json({ isStarted: true }));
+    });
+  };
+
+module.exports = { startGameHandler, initalStats, enterGame };

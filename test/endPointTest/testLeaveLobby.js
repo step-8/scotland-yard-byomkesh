@@ -6,9 +6,10 @@ const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
 const Datastore = require('../../src/models/datastore.js');
+const { Lobbies } = require('../../src/models/lobbies.js');
 
 const mockClient = () => {
-  const p = new Promise((res, rej) => res());
+  const p = new Promise((res) => res());
   return { hGet: () => p, hSet: () => p, hDel: () => p };
 };
 
@@ -22,14 +23,15 @@ describe('leave-lobby', () => {
     });
 
     const root = { root: { username: 'root', password: 'root' } };
-    let users = new Users(root);
+    const users = new Users(root);
+    const lobbies = new Lobbies();
 
     const stores = {
       gamesStore: new Datastore('games', mockClient()),
       usersStore: new Datastore('users', mockClient()),
     };
 
-    const app = initApp(config, users, games, session, stores);
+    const app = initApp(config, users, games, session, stores, lobbies);
     appReq = request(app);
   });
 
@@ -37,7 +39,7 @@ describe('leave-lobby', () => {
     const body = 'username=root&password=root';
     appReq.post('/login')
       .send(body)
-      .end((err, res) => {
+      .end((_, res) => {
         const cookie = res.header['set-cookie'];
         postLoginAction(cookie);
       });
@@ -68,7 +70,6 @@ describe('leave-lobby', () => {
       afterJoin(gameId, cookie, () =>
         leaveLobbyReq(cookie)));
   });
-
 
   it('Host should be able to leave lobby when game is not started', (done) => {
     const leaveLobbyReq = (cookie) => {

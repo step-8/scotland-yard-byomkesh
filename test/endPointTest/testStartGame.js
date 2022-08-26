@@ -4,13 +4,13 @@ const expressSession = require('express-session');
 const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
-const { Player } = require('../../src/models/player.js');
 const Datastore = require('../../src/models/datastore.js');
+const { Lobbies } = require('../../src/models/lobbies.js');
 
-let app, sessionId, games;
+let app, sessionId, games, lobbies;
 
 const mockClient = () => {
-  const p = new Promise((res, rej) => res());
+  const p = new Promise((res) => res());
   return { hGet: () => p, hSet: () => p, hDel: () => p };
 };
 
@@ -18,6 +18,7 @@ const initTestApp = () => {
   const config = { mode: 'test', views: './views' };
   const root = { root: { username: 'root', password: 'root' } };
   const users = new Users(root);
+  lobbies = new Lobbies();
   games = new Games();
   const session = expressSession({
     secret: 'test', resave: false, saveUninitialized: false
@@ -27,14 +28,14 @@ const initTestApp = () => {
     gamesStore: new Datastore('games', mockClient()),
     usersStore: new Datastore('users', mockClient()),
   };
-  app = request(initApp(config, users, games, session, stores));
+  app = request(initApp(config, users, games, session, stores, lobbies));
   return app;
 };
 
 const captureLoginCookie = (done) => {
   app.post('/login')
     .send('username=root&password=root')
-    .end((err, res) => {
+    .end((_, res) => {
       sessionId = res.header['set-cookie'];
       done();
     });
@@ -65,10 +66,9 @@ describe('Start Game', () => {
   });
 
   it('should start', (done) => {
-    const game = games.findGame(1);
-    game.addPlayer(new Player('p1'));
-    game.addPlayer(new Player('p2'));
-    game.addPlayer(new Player('p3'));
+    const lobby = lobbies.findLobby(1);
+    lobby.addJoinee('rishabh');
+    lobby.addJoinee('subhash');
 
     app.post('/api/start')
       .set('cookie', sessionId)
