@@ -1,50 +1,46 @@
 <html>
 
-<head>
-  <title>Load Game</title>
-  <link rel="stylesheet" href="/css/common.css">
-  <link rel="stylesheet" href="/css/index.css">
-  <link rel="stylesheet" href="/css/header.css">
-  <link rel="stylesheet" href="css/load-game.css">
-  <!-- <link rel="stylesheet" href="css/confirmation-popup.css"> -->
-  <!-- <script src="js/confirmationPopup.js"></script> -->
-  <script src="js/loadGame.js"></script>
-  <!-- <script src="js/functionAliases.js"></script> -->
+  <head>
+    <title>Load Game</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="css/load-game.css">
+    <script src="js/loadGame.js"></script>
+  </head>
 
-</head>
-
-<body>
-  <!-- Header starts here -->
-  <header class="horizontal-flex vertical-middle">
-    <h1 class="game-name">Scotland Yard</h1>
-    <nav id="auth" class="auth horizontal-flex vertical-middle">
-    </nav>
-  </header>
-  <!-- Header ends here -->
-  <main class="horizontal-flex vertical-middle both-middle">
-    <form action="/load-game" method="post">
-      <div>
-        <label for="gameId">Game ID</label><input type="number" name="gameId" id="gameId" placeholder="Enter game ID"
-          required autofocus>
-      </div>
-      <div>
-        <label for="scenario">Scenario</label>
-        <select name="scenario" id="scenario">
-          <option value="">Select a scenario</option>
-          <option value="scenario 1">First detective stranded</option>
-          <option value="scenario 2">All detectives stranded</option>
-          <option value="scenario 3">Last round</option>
-          <option value="scenario 4">Detective left with one ticket</option>
-          <option value="scenario 5">Two X in revealation round</option>
-          <option value="scenario 6">Mr X on ferry stop</option>
-          <option value="scenario 7">Mr X stranded</option>
-          <option value="scenario 8">Detectives can win</option>
-        </select>
-      </div>
-      <button type="submit" class="btn">Load</button>
-      <div id="message"></div>
-    </form>
-  </main>
-</body>
+  <body>
+    <!-- Header starts here -->
+    <header class="horizontal-flex vertical-middle">
+      <h1 class="game-name">Scotland Yard</h1>
+      <nav id="auth" class="auth horizontal-flex vertical-middle">
+      </nav>
+    </header>
+    <!-- Header ends here -->
+    <main class="horizontal-flex vertical-middle both-middle">
+      <form action="/load-game" method="post">
+        <div>
+          <label for="gameId">Game ID</label><input type="number" name="gameId" id="gameId" placeholder="Enter game ID"
+            required autofocus>
+        </div>
+        <div>
+          <label for="scenario">Scenario</label>
+          <select name="scenario" id="scenario">
+            <option value="">Select a scenario</option>
+            <option value="scenario 1">First detective stranded</option>
+            <option value="scenario 2">All detectives stranded</option>
+            <option value="scenario 3">Last round</option>
+            <option value="scenario 4">Detective left with one ticket</option>
+            <option value="scenario 5">Two X in revealation round</option>
+            <option value="scenario 6">Mr X on ferry stop</option>
+            <option value="scenario 7">Mr X stranded</option>
+            <option value="scenario 8">Detectives can win</option>
+          </select>
+        </div>
+        <button type="submit" class="btn">Load</button>
+        <div id="message"></div>
+      </form>
+    </main>
+  </body>
 
 </html>

@@ -4,7 +4,7 @@ const createTicket = (ticket, fn) => {
     .add('id', ticket)
     .addEvent('click', () => fn(ticket));
 
-  const ext = ticket === 'ferries' ? '.jpeg' : '.svg';
+  const ext = '.svg';
 
   const icon = new Element('img')
     .add('src', `/images/${ticket}${ext}`);

@@ -3,7 +3,7 @@ const getImage = ticket => {
     'taxi': 'taxies.svg',
     'bus': 'buses.svg',
     'subway': 'subways.svg',
-    'black': 'ferries.jpeg',
+    'black': 'ferries.svg',
     'twoX': 'twoX.svg'
   };
   return filename[ticket];
@@ -12,8 +12,7 @@ const getImage = ticket => {
 const createImage = ticket => {
   const ticketImg = getImage(ticket);
   const icon = new Element('img')
-    .add('src', `/images/${ticketImg}`)
-    .addClass('transport');
+    .add('src', `/images/${ticketImg}`);
 
   return icon.html;
 };
@@ -26,6 +25,11 @@ const updateRobberLog = (gameState) => {
   robberLog.forEach((ticket, index) => {
     const image = createImage(ticket);
 
-    logsElement[index].replaceWith(image);
+    const div = new Element('div')
+      .addClass('transport')
+      .addClass('center-flex')
+      .append(image);
+
+    logsElement[index].replaceWith(div.html);
   });
 };

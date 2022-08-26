@@ -44,6 +44,11 @@
   height: 11%;
 }
 
+.transport>img {
+  height: 80%;
+  aspect-ratio: 1;
+}
+
 .players-stat {
   height: 50%;
 }
@@ -64,6 +69,7 @@
 
 .name {
   color: var(--transparent-bg-dark);
+  font-weight: var(--weight-400);
 }
 
 .ticket>img {
@@ -79,6 +85,7 @@
 .count {
   text-align: var(--center);
   font-size: var(--font-xs);
+  font-weight: var(--weight-600);
 }
 
 .black-text {
@@ -105,7 +112,6 @@
   color: purple;
 }
 
-/* Added leave game button*/
 .mrx-log {
   width: 90%;
 }
