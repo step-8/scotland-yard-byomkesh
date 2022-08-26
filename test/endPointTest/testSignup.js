@@ -12,7 +12,7 @@ const mockWfs = (expectedFilename, expectedData, expectedEncoding) => {
     assert.strictEqual(actualFilename, expectedFilename);
     assert.strictEqual(actualData, expectedData);
     assert.strictEqual(actualEncoding, expectedEncoding);
-  }
+  };
 };
 
 const mockClient = () => {
@@ -129,7 +129,7 @@ describe('signupHandler', () => {
         app.get('/signup')
           .set('cookie', cookie)
           .expect(302)
-          .expect('location', '/', done)
+          .expect('location', '/', done);
       });
   });
 

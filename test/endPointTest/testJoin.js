@@ -57,7 +57,7 @@ describe('Join', () => {
 
         app.get(`/join?gameId=${gameId}`)
           .set('cookie', cookie)
-          .expect('location', `/lobby`)
+          .expect('location', '/lobby')
           .expect(302, done);
       });
   });
@@ -89,7 +89,7 @@ describe('Join', () => {
 
         app.get(`/join?gameId=${gameId}`)
           .set('cookie', cookie)
-          .expect('location', `/`)
+          .expect('location', '/')
           .expect('set-cookie', /Room%20is%20already%20full/)
           .expect(302, done);
       });
@@ -107,7 +107,7 @@ describe('Join', () => {
 
         app.get(`/join?gameId=${gameId}`)
           .set('cookie', cookie)
-          .expect('location', `/`)
+          .expect('location', '/')
           .expect('set-cookie', /Invalid.*room.*id/)
           .expect(302, done);
       });
@@ -128,7 +128,7 @@ describe('Join', () => {
 
         app.get(`/join?gameId=${gameId}`)
           .set('cookie', cookie)
-          .expect('location', `/`)
+          .expect('location', '/')
           .expect('set-cookie', /Room.*is.*not.*available.*anymore/)
           .expect(302, done);
       });

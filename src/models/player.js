@@ -5,7 +5,7 @@ const ticketNameMapper = (pluralTicket) => {
     'buses': 'bus',
     'subways': 'subway',
     'taxies': 'taxi',
-    'ferries': 'ferry',
+    'ferries': 'black',
     'twoX': 'twoX'
   };
 
@@ -75,6 +75,15 @@ class Player {
   isTicketAvailable(rawTicket) {
     const ticket = ticketNameMapper(rawTicket);
     return this.#tickets[ticket] > 0;
+  }
+
+  notHideLast(rawTicket) {
+    const ticket = ticketNameMapper(rawTicket);
+    if (ticket === 'black') {
+      const lastUsed = this.#log[this.#log.length - 1];
+      return lastUsed !== 'black';
+    }
+    return true;
   }
 
   isMrX() {

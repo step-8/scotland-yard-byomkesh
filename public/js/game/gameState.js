@@ -26,7 +26,7 @@ class GameState {
     this.#gameOver = false;
     this.#winningStatus = null;
     this.#twoXTakenAt = null;
-    this.#oldData = {}
+    this.#oldData = {};
   }
 
   // initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
@@ -123,7 +123,7 @@ class GameState {
   isPlayerLeftTheGame(player) {
     return this.#leftPlayers.some(leftPlayer => {
       return leftPlayer.role === player.role;
-    })
+    });
   }
 
   isPlayerStranded(player) {

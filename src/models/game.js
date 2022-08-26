@@ -232,9 +232,13 @@ class Game {
       const availableStops = connectedStop[route].filter(x => {
         return !this.#isStopOccupiedByDetective(x);
       });
+      validStops[route] = [];
+      const isTicketAvailable = requestedPlayer.isTicketAvailable(route);
+      const notHideLast = requestedPlayer.notHideLast(route);
 
-      validStops[route] =
-        requestedPlayer.isTicketAvailable(route) ? availableStops : [];
+      if (isTicketAvailable && notHideLast) {
+        validStops[route] = availableStops;
+      }
     });
     return validStops;
   }
@@ -286,7 +290,7 @@ class Game {
 
     const winningDetective = detectives.find(({ currentPosition }) => {
       return currentPosition === mrXLocation;
-    })
+    });
     this.#winningStatus = detectivesWinStatusLookup(winningDetective.role);
   }
 
@@ -413,7 +417,7 @@ class Game {
   hasPlayerLeft(username) {
     return this.#leftPlayers.some((player) => {
       return player.username === username;
-    })
+    });
   }
 }
 

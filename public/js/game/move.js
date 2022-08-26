@@ -25,6 +25,26 @@ const isHidePossible = robberLog => {
   return robberLog[robberLog.length - 1] !== 'black';
 };
 
+const alreadyIncludesFerry = transports => {
+  return transports.includes('ferries');
+};
+
+const canAddBlack = (role, tickets, robberLog, transports) => {
+  if (role !== 'Mr. X') {
+    return false;
+  }
+  if (tickets.black <= 0) {
+    return false;
+  }
+  if (!isHidePossible(robberLog)) {
+    return false;
+  }
+  if (alreadyIncludesFerry(transports)) {
+    return false;
+  }
+  return true;
+};
+
 const getPossibleTickets = (stop, gameState) => {
   const routes = gameState.possibleRoutes;
   const robberLog = gameState.robberLog;
@@ -38,7 +58,7 @@ const getPossibleTickets = (stop, gameState) => {
     return transports;
   }, []);
 
-  if (role === 'Mr. X' && tickets.black > 0 && isHidePossible(robberLog)) {
+  if (canAddBlack(role, tickets, robberLog, transports)) {
     transports.push('ferries');
   }
   return transports;

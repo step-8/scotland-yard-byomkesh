@@ -68,8 +68,6 @@ const endGame = poller => gameState => {
 
   const description = winningMessagesLookup(winningStatus);
 
-  //Think about message var name
-
   const popup = createWinningPop(message, color, description);
   const map = query('.map');
 

@@ -66,7 +66,6 @@ class LobbyState {
     if (!oldPlayers) {
       return;
     }
-    //early check of oldplayers is greater than new players then only some one will left
     const leftPlayer = oldPlayers.find((x, i) => {
       return !(x.username === currentPlayers[i]?.username);
     });
