@@ -8,4 +8,29 @@ const injectGame = (games) => (req, res, next) => {
   next();
 };
 
-module.exports = { injectGame };
+const findGameOfPlayer = (games, username) => {
+  const allGames = games.getAllGames();
+
+  return allGames.find(game => {
+    const { players } = game.getStatus();
+    return players.some(
+      player => player.username === username
+        && !game.hasPlayerLeft(username)
+    );
+  });
+};
+
+const injectGameId = games => (req, res, next) => {
+  const { username } = req.session;
+  const currentPlayerGame = findGameOfPlayer(games, username)
+
+  if (currentPlayerGame) {
+    req.session.gameId = currentPlayerGame.gameId;
+
+    res.redirect('/game');
+    return;
+  }
+  next();
+}
+
+module.exports = { injectGame, injectGameId };

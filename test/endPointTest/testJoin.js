@@ -95,7 +95,6 @@ describe('Join', () => {
       });
   });
 
-
   it('should set error cookie when user enters non existent room id', (done) => {
     const gameId = 1;
 
@@ -132,6 +131,28 @@ describe('Join', () => {
           .expect('location', `/`)
           .expect('set-cookie', /Room.*is.*not.*available.*anymore/)
           .expect(302, done);
+      });
+  });
+
+  it('Should redirect me to /game if game is started', (done) => {
+    const game = games.createGame();
+    const gameId = game.gameId;
+
+    app.post('/login')
+      .send('username=root&password=root')
+      .end((err, res) => {
+        const cookie = res.header['set-cookie'];
+
+        app.get(`/join?gameId=${gameId}`)
+          .set('cookie', cookie)
+          .end(() => {
+
+            game.changeGameStatus();
+
+            app.get(`/join?gameId=${gameId}`)
+              .set('cookie', cookie)
+              .expect('location', '/game', done);
+          });
       });
   });
 });
