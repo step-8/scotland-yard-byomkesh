@@ -257,7 +257,7 @@ describe('Game', () => {
     game.init(gameData);
     game.changeCurrentPlayer();
     const { winningStatus, gameOver } = game.getState();
-    assert.deepStrictEqual(winningStatus, 8);
+    assert.deepStrictEqual(winningStatus, 9);
     assert.deepStrictEqual(gameOver, true);
   });
 
@@ -297,7 +297,7 @@ describe('Game', () => {
     game.init(gameData);
     game.changeCurrentPlayer();
     const { winningStatus, gameOver } = game.getState();
-    assert.deepStrictEqual(winningStatus, 9);
+    assert.deepStrictEqual(winningStatus, 10);
     assert.deepStrictEqual(gameOver, true);
   });
 

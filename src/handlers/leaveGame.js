@@ -5,7 +5,7 @@ const makeDetectiveLeft = (game, player) => {
   }
 };
 
-const leftPlayer = (game, username) => {
+const addPlayerAsLeft = (game, username) => {
   const leftPlayer = game.findPlayer(username);
   leftPlayer.isMrX() ? game.gameOver(7) : makeDetectiveLeft(game, leftPlayer);
 };
@@ -14,7 +14,7 @@ const leaveGame = (persistGames) => (req, res) => {
   const { session } = req;
   const { username, game, gameId } = session;
 
-  leftPlayer(game, username);
+  addPlayerAsLeft(game, username);
 
   delete session.gameId;
   delete session.game;
@@ -24,4 +24,4 @@ const leaveGame = (persistGames) => (req, res) => {
   });
 };
 
-module.exports = { leaveGame, makeDetectiveLeft, leftPlayer };
+module.exports = { leaveGame, makeDetectiveLeft, addPlayerAsLeft };

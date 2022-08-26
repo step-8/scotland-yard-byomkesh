@@ -1,6 +1,6 @@
 const { assert } = require('chai');
 const sinon = require('sinon');
-const { leaveGame, makeDetectiveLeft } = require('../../src/handlers/leaveGame');
+const { leaveGame, makeDetectiveLeft, addPlayerAsLeft } = require('../../src/handlers/leaveGame');
 
 
 describe('Game', () => {
@@ -25,6 +25,61 @@ describe('Game', () => {
     const player = {}
     makeDetectiveLeft(game, player);
     assert.ok(game.gameOver.calledOnce);
+
+  });
+
+  it('Should left the player from the game when player leave the game', () => {
+    const leftPlayer = { isMrX: sinon.stub() };
+
+    const game = {
+      areAllDetectivesLeft: sinon.stub(),
+      addAsLeft: () => { },
+      gameOver: () => { },
+      findPlayer: () => { return leftPlayer },
+    };
+    const player = {}
+    addPlayerAsLeft(game, player);
+    assert.ok(leftPlayer.isMrX.calledOnce);
+    assert.ok(game.areAllDetectivesLeft.calledOnce);
+  });
+
+  it('Should finish the game when Mr. X left the game', () => {
+    const leftPlayer = { isMrX: () => true };
+
+    const game = {
+      areAllDetectivesLeft: sinon.stub(),
+      addAsLeft: () => { },
+      gameOver: sinon.stub(),
+      findPlayer: () => { return leftPlayer },
+    };
+    const player = {}
+    addPlayerAsLeft(game, player);
+    assert.ok(game.gameOver.calledOnce);
+  });
+
+  it('Player should go to landing page when player leaves the game', () => {
+    const persistGames = sinon.stub();
+    const leftPlayer = { isMrX: sinon.stub() };
+
+    const req = {
+      session: {
+        username: 'a',
+        game: {
+          areAllDetectivesLeft: () => false,
+          addAsLeft: () => { },
+          gameOver: () => { },
+          findPlayer: () => { return leftPlayer },
+        },
+        gameId: 1
+      }
+    };
+
+    const res = {
+      redirect: sinon.stub()
+    };
+
+    leaveGame(persistGames)(req, res);
+    assert.ok(persistGames.calledOnce);
 
   });
 });
