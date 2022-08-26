@@ -25,11 +25,16 @@ const initalStats = (persistGames) => (req, res) => {
   });
 };
 
-const enterGame = (req, res) => {
+const enterGame = (lobbies, games) => (req, res) => {
   const { lobby, lobbyId } = req.session;
   const gameId = lobbyId;
+  const game = games.findGame(gameId);
   if (!lobby.isLobbyClosed) {
     return;
+  }
+
+  if (lobby.joineeCount === game.playerCount) {
+    lobbies.removeLobby(lobbyId);
   }
 
   delete req.session.lobbyId;

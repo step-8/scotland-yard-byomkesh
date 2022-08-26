@@ -10,7 +10,7 @@ const { startGameHandler, initalStats, enterGame } = require('../handlers/startG
 
 const { authApi } = require('../middleware/authAPIs.js');
 
-const createApiRouter = (games, persistLobbies, persistGames) => {
+const createApiRouter = (lobbies, games, persistLobbies, persistGames) => {
   const apiRouter = express.Router();
 
   apiRouter.use(authApi);
@@ -18,7 +18,7 @@ const createApiRouter = (games, persistLobbies, persistGames) => {
 
   apiRouter.get('/lobby-stats', serveLobbyStats);
   apiRouter.post('/start', startGameHandler(games, persistLobbies, persistGames));
-  apiRouter.put('/enter-game', enterGame);
+  apiRouter.put('/enter-game', enterGame(lobbies, games));
   apiRouter.get('/initial-stats', initalStats(persistGames));
 
   apiRouter.get('/game-stats', gameStats);

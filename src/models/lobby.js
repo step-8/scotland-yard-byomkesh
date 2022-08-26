@@ -84,6 +84,10 @@ class Lobby {
     return this.#lobbyId;
   }
 
+  get joineeCount() {
+    return this.#joinees;
+  }
+
   getState() {
     const joinees = this.#joinees.slice(0);
     const lobbyId = this.#lobbyId;

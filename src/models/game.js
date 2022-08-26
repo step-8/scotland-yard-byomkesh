@@ -353,6 +353,10 @@ class Game {
     return this.#round;
   }
 
+  get playerCount() {
+    return this.#players.length;
+  }
+
   gameOver(statusCode) {
     this.#gameOver = true;
     this.#winningStatus = statusCode;
