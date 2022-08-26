@@ -46,7 +46,7 @@ const roundNotifier = (gameState) => {
     message = `${role} is stranded`;
     bannerColor = 'grey';
   }
-  if (!gameState.isPlayerLeft()) {
+  if (!gameState.isPlayerLeft() && gameState.isTurnChanged()) {
     notifier(message, bannerColor);
   }
 };

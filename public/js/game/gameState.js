@@ -13,6 +13,7 @@ class GameState {
   #round;
   #twoXTakenAt;
   #leftPlayers;
+  #oldData;
 
   constructor() {
     this.#players = null;
@@ -25,9 +26,25 @@ class GameState {
     this.#gameOver = false;
     this.#winningStatus = null;
     this.#twoXTakenAt = null;
+    this.#oldData = {}
   }
 
-  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
+  // initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
+  initialize(newState) {
+    this.#oldData = {
+      players: this.#players,
+      currentPlayer: this.#currentPlayer,
+      playerName: this.#playerName,
+      robberLog: this.#robberLog,
+      strandedPlayers: this.#strandedPlayers,
+      leftPlayers: this.#leftPlayers,
+      gameOver: this.#gameOver,
+      winningStatus: this.#winningStatus,
+      round: this.#round,
+      twoXTakenAt: this.#twoXTakenAt,
+    };
+
+    const { players, currentPlayer, playerName, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt } = newState;
     this.#players = players;
     this.#currentPlayer = currentPlayer;
     this.#playerName = playerName;
@@ -130,6 +147,14 @@ class GameState {
 
   #emit() {
     this.#handlers.forEach(handler => handler(this));
+  }
+
+  #priorPlayer() {
+    return this.#oldData.currentPlayer;
+  }
+
+  isTurnChanged() {
+    return this.#currentPlayer.username !== this.#priorPlayer()?.username;
   }
 
   set possibleRoutes(stops) {
