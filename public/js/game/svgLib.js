@@ -59,7 +59,7 @@ const createPin = (color) => {
 
   const gElement = document.createElementNS(W3STD, 'g');
   const pin = document.createElementNS(W3STD, 'path');
-  pin.setAttribute('transform', 'scale(3)');
+  // pin.setAttribute('transform', 'scale(3)');
   // pin.setAttribute('transform', 'scale(2)');
   pin.setAttribute('stroke', 'black');
   pin.setAttribute('fill', color);

@@ -120,3 +120,26 @@
 .subway-color~text {
   fill: white;
 }
+
+#red>path,
+#black>path,
+#gold>path,
+#purple>path,
+#blue>path,
+#green>path {
+  transform: scale(3);
+  animation: bounce;
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0px) scale(3);
+  }
+
+  100% {
+    transform: translateY(-10px) scale(3);
+  }
+}
