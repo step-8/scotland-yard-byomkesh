@@ -409,6 +409,12 @@ class Game {
     gameData.leftPlayers = this.#leftPlayers;
     return gameData;
   }
+
+  hasPlayerLeft(username) {
+    return this.#leftPlayers.some((player) => {
+      return player.username === username;
+    })
+  }
 }
 
 module.exports = { Game };

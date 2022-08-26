@@ -6,7 +6,8 @@ const isPlayerInGame = (games, username) => {
 
   return allGames.some(game => {
     const { players } = game.getStatus();
-    return players.some(player => player.username === username);
+    return players.some(
+      player => player.username === username && !game.hasPlayerLeft(username));
   });
 };
 
@@ -82,6 +83,9 @@ const getRobberLog = (players) => {
 
 const gameStats = (req, res) => {
   const { game, username } = req.session;
+  if (!game) {
+    return res.status(404).json({ error: 'Game Does not exist.' });
+  }
   let players = game.getPlayers();
   const currentPlayer = game.currentPlayer;
   const {
