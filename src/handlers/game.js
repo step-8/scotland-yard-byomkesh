@@ -10,6 +10,11 @@ const isPlayerInGame = (games, username) => {
   });
 };
 
+const isCurrentPlayerLeft = (leftPlayers, currentPlayer) => {
+  const { username } = currentPlayer;
+  return leftPlayers.some((player) => player.username === username);
+};
+
 const sendConnectionError = (req, res) => {
   const message = 'You are already in a Game';
   res.cookie('connError', message, { maxAge: 1000 });
@@ -80,7 +85,7 @@ const gameStats = (req, res) => {
   let players = game.getPlayers();
   const currentPlayer = game.currentPlayer;
   const {
-    strandedPlayers, gameOver, winningStatus, round, twoXTakenAt
+    strandedPlayers, gameOver, winningStatus, round, twoXTakenAt, leftPlayers
   } = game.getState();
 
   if (!isMrX(players, username) && !game.isRevelationRound()) {
@@ -91,8 +96,12 @@ const gameStats = (req, res) => {
   const robberLog = getRobberLog(players);
 
   const stats = {
-    playerName: username, players, currentPlayer, robberLog, strandedPlayers, gameOver, winningStatus, round, twoXTakenAt
+    playerName: username, players, currentPlayer, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt
   };
+
+  if (isCurrentPlayerLeft(leftPlayers, currentPlayer)) {
+    game.changeCurrentPlayer();
+  }
 
   res.json(stats);
 };

@@ -73,7 +73,7 @@ const createHeader = ({ color, username }, isMyScreen) => {
   return header.html;
 };
 
-const createPlayerStat = (player, { isMyScreen, isCurrentPlayer, isStranded }) => {
+const createPlayerStat = (player, { isMyScreen, isCurrentPlayer, isStranded, isLeft }) => {
   const div = new Element('div')
     .addClass('player-stat')
     .addClass('vertical-flex');
@@ -88,7 +88,7 @@ const createPlayerStat = (player, { isMyScreen, isCurrentPlayer, isStranded }) =
     div.addClass('dark-' + player.color);
   }
 
-  if (isStranded) {
+  if (isStranded || isLeft) {
     div.addClass('stranded')
       .addClass('linear-gradiant');
   }
@@ -102,7 +102,8 @@ const createPlayersStats = (gameState) => {
     const isMyScreen = gameState.isMyScreen(username);
     const isStranded = gameState.isPlayerStranded(player);
     const isCurrentPlayer = gameState.isCurrentPlayer(username);
-    return createPlayerStat(player, { isMyScreen, isCurrentPlayer, isStranded });
+    const isLeft = gameState.isPlayerLeftTheGame(player);
+    return createPlayerStat(player, { isMyScreen, isCurrentPlayer, isStranded, isLeft });
   });
 };
 

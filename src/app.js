@@ -8,6 +8,7 @@ const { protectedRouter } = require('./routers/protectedRouter.js');
 const { createPagesRouter } = require('./routers/pagesRouter.js');
 const { endGame } = require('./handlers/game.js');
 const { leaveLobby } = require('./handlers/leaveLobby.js');
+const { leaveGame } = require('./handlers/leaveGame.js');
 const { protectedLobby } = require('./middleware/protectedLobby.js');
 const { loadGame, serveLoadGamePage } = require('./handlers/loadGameHandler.js');
 
@@ -46,6 +47,8 @@ const initApp = (config, users, games, session, stores) => {
   app.get('/end', endGame(games, gamesStore));
 
   app.post('/leave-lobby', protectedLobby, leaveLobby(games, persistGames, gamesStore));
+
+  app.post('/leave-game', leaveGame(persistGames));
 
   app.get('/load-game', serveLoadGamePage(views));
   app.post('/load-game', loadGame(games, persistGames));

@@ -60,6 +60,7 @@ class Game {
   #gameOver;
   #winningStatus;
   #twoXTakenAt;
+  #leftPlayers;
 
   constructor(gameId, stops = {}) {
     this.#gameId = gameId;
@@ -72,9 +73,10 @@ class Game {
     this.#gameOver = false;
     this.#winningStatus = null;
     this.#twoXTakenAt = null;
+    this.#leftPlayers = [];
   }
 
-  init({ isGameStarted, players, currentPlayerIndex, round, gameOver, winningStatus, twoXTakenAt }) {
+  init({ isGameStarted, players, currentPlayerIndex, round, gameOver, winningStatus, twoXTakenAt, leftPlayers }) {
     this.#isGameStarted = isGameStarted;
     this.#currentPlayerIndex = currentPlayerIndex;
     this.#round = round;
@@ -82,6 +84,7 @@ class Game {
     this.#winningStatus = winningStatus;
     this.#twoXTakenAt = twoXTakenAt;
     this.#players = [];
+    this.#leftPlayers = leftPlayers;
 
     players.forEach(({ username, isHost, ...playerData }) => {
 
@@ -242,6 +245,10 @@ class Game {
     return allStops.includes(position);
   }
 
+  addAsLeft(player) {
+    this.#leftPlayers.push(player.info);
+  }
+
   #getStrandedPlayers() {
     const strandedPlayers = [];
 
@@ -280,7 +287,6 @@ class Game {
     const winningDetective = detectives.find(({ currentPosition }) => {
       return currentPosition === mrXLocation;
     })
-    console.log(winningDetective.role)
     this.#winningStatus = detectivesWinStatusLookup(winningDetective.role);
   }
 
@@ -344,6 +350,15 @@ class Game {
     return this.#round;
   }
 
+  gameOver(statusCode) {
+    this.#gameOver = true;
+    this.#winningStatus = statusCode;
+  }
+
+  areAllDetectivesLeft() {
+    return this.#getDetectives().length === this.#leftPlayers.length;
+  }
+
   isRevelationRound() {
     const revelationRounds = [3, 8, 13, 18, 24];
     return revelationRounds.includes(this.#round);
@@ -386,11 +401,12 @@ class Game {
     gameData.gameId = this.#gameId;
     gameData.currentPlayerIndex = this.#currentPlayerIndex;
     gameData.round = this.#round;
-    gameData.strandedPlayers =
-      this.#round > 0 ? this.#getStrandedPlayers() : [];
+    gameData.strandedPlayers = this.#round > 0
+      ? this.#getStrandedPlayers() : [];
     gameData.gameOver = this.#gameOver;
     gameData.winningStatus = this.#winningStatus;
     gameData.twoXTakenAt = this.#twoXTakenAt;
+    gameData.leftPlayers = this.#leftPlayers;
     return gameData;
   }
 }

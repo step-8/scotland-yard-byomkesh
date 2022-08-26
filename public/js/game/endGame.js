@@ -6,9 +6,12 @@ const winningMessagesLookup = (winningStatus) => {
     4: 'Detective Purple caught Mr. X',
     5: 'Detective Blue caught Mr. X',
     6: 'Detective Yellow caught Mr. X',
-    7: 'All Detectives are stranded',
-    8: 'All Detectives ran out of tickets',
-    9: 'Mr. X escaped'
+    7: 'Mr. X Left the game',
+    8: 'All Detectives are stranded',
+    9: 'All Detectives ran out of tickets',
+    10: 'Mr. X escaped',
+    11: 'All Detectives left the game',
+
   };
 
   return lookup[winningStatus];
@@ -58,7 +61,7 @@ const endGame = poller => gameState => {
 
   let message = 'Detectives Won!';
   let color = 'black';
-  if (winningStatus >= 7) {
+  if (winningStatus > 7) {
     message = 'Mr. X Won!';
     color = 'black';
   }

@@ -1,79 +1,85 @@
 <html>
 
-  <head>
-    <title>Scotland Yard</title>
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/game.css">
-    <link rel="stylesheet" href="/css/ticket-popup.css">
-    <link rel="stylesheet" href="/css/stats.css">
-    <link rel="stylesheet" href="/css/confirmation-popup.css">
-    <link rel="stylesheet" href="/css/svg-map-style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
+<head>
+  <title>Scotland Yard</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/game.css">
+  <link rel="stylesheet" href="/css/ticket-popup.css">
+  <link rel="stylesheet" href="/css/stats.css">
+  <link rel="stylesheet" href="/css/confirmation-popup.css">
+  <link rel="stylesheet" href="/css/svg-map-style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css">
 
-    <script src="/js/functionAliases.js"></script>
-    <script src="/js/game/move.js"></script>
-    <script src="/js/game/svgLib.js"></script>
-    <script src="/js/game/notifier.js"></script>
-    <script src="/js/game/endGame.js"></script>
-    <script src="/js/game/ticketPopup.js"></script>
-    <script src="/js/game/robberLog.js"></script>
-    <script src="/js/game/playerStats.js"></script>
-    <script src="/js/poller.js"></script>
-    <script src="/js/game/gameState.js"></script>
-    <script src="/js/game/svgZoomAndPan.js"></script>
-    <script src="/js/game/enableTwoX.js"></script>
-    <script src="/js/confirmationPopUp.js"></script>
-    <script src="/js/game/gameMain.js"></script>
-  </head>
+  <script src="/js/functionAliases.js"></script>
+  <script src="/js/game/move.js"></script>
+  <script src="/js/game/svgLib.js"></script>
+  <script src="/js/game/notifier.js"></script>
+  <script src="/js/game/endGame.js"></script>
+  <script src="/js/game/ticketPopup.js"></script>
+  <script src="/js/game/robberLog.js"></script>
+  <script src="/js/game/playerStats.js"></script>
+  <script src="/js/poller.js"></script>
+  <script src="/js/game/gameState.js"></script>
+  <script src="/js/game/svgZoomAndPan.js"></script>
+  <script src="/js/game/enableTwoX.js"></script>
+  <script src="/js/confirmationPopUp.js"></script>
+  <script src="/js/game/gameMain.js"></script>
+</head>
 
-  <body>
-    <div class="main horizontal-flex">
-      <div class="map">
-        <div id="two-x-btn" class="two-x-btn center-flex">2X</div>
-        <div class="map-btns horizontal-flex">
-          <button id="zoom-in" class="center-flex">&#43;</button>
-          <button id="zoom-out" class="center-flex">&#8722;</button>
-          <button id="zoom-reset" class="center-flex">R</button>
-        </div>
-
-      </div>
-      <!-- Stats-board -->
-      <div class="stats vertical-flex">
-        <section class="robber-log vertical-flex">
-          <header class="center-flex">Mr. X's Log</header>
-          <div id="log-board" class="log-board vertical-flex vertical-middle">
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="rectangle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="rectangle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="rectangle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="rectangle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="circle horizontal-flex horizontal-middle"></div>
-            <div class="rectangle horizontal-flex horizontal-middle"></div>
-          </div>
-        </section>
-        <section id="players-stat" class="players-stat vertical-flex">
-        </section>
+<body>
+  <div class="main horizontal-flex">
+    <div class="map">
+      <div id="two-x-btn" class="two-x-btn center-flex">2X</div>
+      <div class="map-btns horizontal-flex">
+        <button id="zoom-in" class="center-flex">&#43;</button>
+        <button id="zoom-out" class="center-flex">&#8722;</button>
+        <button id="zoom-reset" class="center-flex">R</button>
       </div>
     </div>
+    <!-- Stats-board -->
+    <div class="stats vertical-flex">
+      <section class="robber-log vertical-flex">
+        <header class="log-header horizontal-flex">
+          <div class="mrx-log center-flex">Mr. X's Log</div>
+          <div id="leave-game" class="leave-game horizontal-flex vertical-middle">
+            <form action="/leave-game" method="post">
+              <a href="#" onclick="handleLeaveGame()"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+            </form>
+          </div>
+        </header>
+        <div id="log-board" class="log-board vertical-flex vertical-middle">
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="rectangle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="rectangle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="rectangle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="rectangle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="circle horizontal-flex horizontal-middle"></div>
+          <div class="rectangle horizontal-flex horizontal-middle"></div>
+        </div>
+      </section>
+      <section id="players-stat" class="players-stat vertical-flex">
+      </section>
+    </div>
+  </div>
 
 
-  </body>
+</body>
 
 </html>

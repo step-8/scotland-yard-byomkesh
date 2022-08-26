@@ -12,6 +12,7 @@ class GameState {
   #winningStatus;
   #round;
   #twoXTakenAt;
+  #leftPlayers;
 
   constructor() {
     this.#players = null;
@@ -20,17 +21,19 @@ class GameState {
     this.#robberLog = [];
     this.#handlers = [];
     this.#strandedPlayers = [];
+    this.#leftPlayers = [];
     this.#gameOver = false;
     this.#winningStatus = null;
     this.#twoXTakenAt = null;
   }
 
-  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
+  initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
     this.#players = players;
     this.#currentPlayer = currentPlayer;
     this.#playerName = playerName;
     this.#robberLog = robberLog;
     this.#strandedPlayers = strandedPlayers;
+    this.#leftPlayers = leftPlayers;
     this.#gameOver = gameOver;
     this.#winningStatus = winningStatus;
     this.#round = round;
@@ -100,9 +103,22 @@ class GameState {
     return this.#round === this.#twoXTakenAt;
   }
 
+  isPlayerLeftTheGame(player) {
+    return this.#leftPlayers.some(leftPlayer => {
+      return leftPlayer.role === player.role;
+    })
+  }
+
   isPlayerStranded(player) {
     return this.#strandedPlayers.some(strandedPlayer => {
       return strandedPlayer.role === player.role;
+    });
+  }
+
+  isPlayerLeft() {
+    const currentPlayer = this.#currentPlayer;
+    return this.#leftPlayers.some(({ username }) => {
+      return currentPlayer.username === username;
     });
   }
 
@@ -164,5 +180,9 @@ class GameState {
 
   get twoXTakenAt() {
     return this.#twoXTakenAt;
+  }
+
+  get leftPlayers() {
+    return this.#leftPlayers;
   }
 }

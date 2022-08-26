@@ -160,7 +160,7 @@ describe('Game', () => {
 
     const gameData = {
       isGameStarted: true, players: [], currentPlayerIndex: 0, round: 0, gameOver: false,
-      winningStatus: null,
+      winningStatus: null, leftPlayers: [],
       twoXTakenAt: null
     };
     const game = new Game(1, {});
@@ -174,7 +174,8 @@ describe('Game', () => {
       strandedPlayers: [],
       gameOver: false,
       twoXTakenAt: null,
-      winningStatus: null
+      winningStatus: null,
+      leftPlayers: []
     };
 
     assert.deepStrictEqual(game.getState(), expected);
@@ -299,6 +300,113 @@ describe('Game', () => {
     assert.deepStrictEqual(winningStatus, 9);
     assert.deepStrictEqual(gameOver, true);
   });
+
+  it('should left the player from game', () => {
+    const tickets = {};
+    const mrXTickets = {};
+    const stops = {
+      19: {},
+      43: {},
+    };
+
+
+    const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
+    const gameData = {
+      isGameStarted: true,
+      players: [player1, player2],
+      currentPlayerIndex: 1, round: 24, gameOver: false,
+      leftPlayers: [],
+      winningStatus: null
+    };
+
+    const game = new Game(1, stops);
+    game.init(gameData);
+    game.addAsLeft(player1);
+    const { leftPlayers } = game.getState();
+
+    assert.deepEqual(leftPlayers[0, player1]);
+  });
+
+  it('should end the game ', () => {
+    const tickets = {};
+    const mrXTickets = {};
+    const stops = {
+      19: {},
+      43: {},
+    };
+
+    const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
+    const gameData = {
+      isGameStarted: true,
+      players: [player1, player2],
+      currentPlayerIndex: 1, round: 24, gameOver: false,
+      leftPlayers: [],
+      winningStatus: null
+    };
+
+    const game = new Game(1, stops);
+    game.init(gameData);
+    game.gameOver(1);
+    const { gameOver, winningStatus } = game.getState();
+
+    assert.deepEqual(gameOver, true);
+    assert.deepEqual(winningStatus, 1);
+  });
+
+  it('should return true when all the detectives are left ', () => {
+    const tickets = {};
+    const mrXTickets = {};
+    const stops = {
+      19: {},
+      43: {},
+    };
+
+    const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
+    const gameData = {
+      isGameStarted: true,
+      players: [player1, player2],
+      currentPlayerIndex: 1, round: 24, gameOver: false,
+      leftPlayers: [player2],
+      winningStatus: null
+    };
+
+    const game = new Game(1, stops);
+    game.init(gameData);
+    const expected = game.areAllDetectivesLeft()
+
+
+    assert.ok(expected);
+  });
+
+  it('should return true when all the detectives are left ', () => {
+    const tickets = {};
+    const mrXTickets = {};
+    const stops = {
+      19: {},
+      43: {},
+    };
+
+    const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
+    const player2 = createDummyPlayers('b', red, 43, tickets);
+    const gameData = {
+      isGameStarted: true,
+      players: [player1, player2],
+      currentPlayerIndex: 1, round: 24, gameOver: false,
+      leftPlayers: [],
+      winningStatus: null
+    };
+
+    const game = new Game(1, stops);
+    game.init(gameData);
+    const expected = game.areAllDetectivesLeft()
+
+
+    assert.deepEqual(expected, false);
+  });
+
 });
 
 describe('game', () => {

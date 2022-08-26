@@ -104,3 +104,17 @@
 .purple-text {
   color: purple;
 }
+
+/* Added leave game button*/
+.mrx-log {
+  width: 90%;
+}
+
+.leave-game i {
+  padding: 0 6px;
+  color: var(--error-color);
+}
+
+.log-header>:nth-child(n+1) {
+  border-left: 1px solid var(--font-black);
+}

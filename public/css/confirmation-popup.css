@@ -41,9 +41,9 @@
 }
 
 .close-pop-up {
-  position: relative;
-  top: -180px;
-  right: -270px;
+  position: absolute;
+  top: 4%;
+  right: 2%;
   font-size: 1.3em;
   font-weight: var(--weight-100);
   cursor: var(--pointer);

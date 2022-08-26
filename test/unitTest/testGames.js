@@ -103,6 +103,7 @@ describe('games', () => {
           strandedPlayers: [],
           gameOver: false,
           winningStatus: null,
+          leftPlayers: [],
           twoXTakenAt: null
         }
       ]

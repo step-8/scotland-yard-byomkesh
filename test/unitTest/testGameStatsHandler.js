@@ -73,6 +73,7 @@ describe('gameStats handler', () => {
       round: 0,
       gameOver: false,
       winningStatus: null,
+      leftPlayers: [],
       twoXTakenAt: null
     };
     const mockedRequest = { session: { username: 'player0', game } };
@@ -136,6 +137,7 @@ describe('gameStats handler', () => {
       strandedPlayers: [],
       gameOver: false,
       winningStatus: null,
+      leftPlayers: [],
       twoXTakenAt: null
     };
 
