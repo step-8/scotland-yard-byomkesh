@@ -307,17 +307,17 @@ class Game {
     const detectives = this.#getDetectives();
     if (areDetectivesStranded(detectives, this.#getStrandedPlayers())) {
       this.#gameOver = true;
-      this.#winningStatus = 7;
+      this.#winningStatus = 8;
     }
 
     if (areDetectivesOutOfTickets(detectives)) {
       this.#gameOver = true;
-      this.#winningStatus = 8;
+      this.#winningStatus = 9;
     }
 
     if (this.#round >= 24) {
       this.#gameOver = true;
-      this.#winningStatus = 9;
+      this.#winningStatus = 10;
     }
   }
 

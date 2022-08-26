@@ -5,12 +5,16 @@ const makeDetectiveLeft = (game, player) => {
   }
 };
 
+const leftPlayer = (game, username) => {
+  const leftPlayer = game.findPlayer(username);
+  leftPlayer.isMrX() ? game.gameOver(7) : makeDetectiveLeft(game, leftPlayer);
+};
+
 const leaveGame = (persistGames) => (req, res) => {
   const { session } = req;
   const { username, game, gameId } = session;
 
-  const leftPlayer = game.findPlayer(username);
-  leftPlayer.isMrX() ? game.gameOver(7) : makeDetectiveLeft(game, leftPlayer);
+  leftPlayer(game, username);
 
   delete session.gameId;
   delete session.game;
@@ -20,4 +24,4 @@ const leaveGame = (persistGames) => (req, res) => {
   });
 };
 
-module.exports = { leaveGame, makeDetectiveLeft };
+module.exports = { leaveGame, makeDetectiveLeft, leftPlayer };
