@@ -181,7 +181,7 @@ class GameState {
     return cloneObject(this.#robberLog);
   }
 
-  get robber() {
+  get mrX() {
     const players = this.#players;
     const robber = players.find(({ role }) => role === 'Mr. X');
     return robber;

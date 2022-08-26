@@ -92,9 +92,33 @@ const putPinInMap = (currentPosition, color) => {
   byId('map').appendChild(newPin);
 };
 
+const movePinApart = (detectiveColor, mrXColor) => {
+  const detectivePin = query(`#${detectiveColor}`);
+  const mrXPin = query(`#${mrXColor}`);
+
+  const transform = window.getComputedStyle(detectivePin).transform;
+  const matrix = new WebKitCSSMatrix(transform);
+
+  const x = matrix.m41;
+  const y = matrix.m42;
+
+  detectivePin.setAttribute('transform', `translate(${x + 15}, ${y})`);
+  mrXPin.setAttribute('transform', `translate(${x - 15}, ${y})`);
+};
+
+const updateOverlap = (gameState) => {
+  const mrX = gameState.mrX;
+  const detectives = gameState.getDetectives();
+
+  detectives.forEach(detective => {
+    if (detective.currentPosition === mrX.currentPosition) {
+      movePinApart(detective.color, mrX.color);
+    }
+  });
+};
+
 const updatePins = (gameState) => {
   const locations = gameState.getLocations();
-  console.log(locations);
   locations.forEach(({ currentPosition, color }) => {
     if (currentPosition === null) {
       removePin(color);
@@ -103,6 +127,8 @@ const updatePins = (gameState) => {
     removePin(color);
     putPinInMap(currentPosition, color);
   });
+
+  updateOverlap(gameState);
 };
 
 const highlightStops = (gameState) => {
