@@ -6,3 +6,4 @@ const blue = 'Detective Blue';
 const yellow = 'Detective Yellow';
 
 const roles = [mrX, red, green, purple, blue, yellow];
+module.exports = { roles, mrX, red, green, purple, blue, yellow };

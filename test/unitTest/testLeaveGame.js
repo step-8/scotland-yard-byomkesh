@@ -1,6 +1,6 @@
 const { assert } = require('chai');
 const sinon = require('sinon');
-const { leaveGame, makeDetectiveLeft, addPlayerAsLeft } = require('../../src/handlers/leaveGame');
+const { leaveGame, makePlayerLeft, addPlayerAsLeft } = require('../../src/handlers/leaveGame.js');
 
 
 describe('Game', () => {
@@ -10,10 +10,10 @@ describe('Game', () => {
       areAllDetectivesLeft: () => false,
       gameOver: () => { }
     };
-    const player = {}
-    makeDetectiveLeft(game, player);
+    const player = { isMrX: sinon.stub() }
+    makePlayerLeft(game, player);
     assert.ok(game.addAsLeft.calledOnce);
-
+    assert.ok(player.isMrX.calledOnce);
   });
 
   it('Should finish the game when all the detectives are left', () => {
@@ -22,10 +22,10 @@ describe('Game', () => {
       areAllDetectivesLeft: () => true,
       gameOver: sinon.stub()
     };
-    const player = {}
-    makeDetectiveLeft(game, player);
+    const player = { isMrX: sinon.stub() }
+    makePlayerLeft(game, player);
     assert.ok(game.gameOver.calledOnce);
-
+    assert.ok(player.isMrX.calledOnce);
   });
 
   it('Should left the player from the game when player leave the game', () => {

@@ -1,13 +1,17 @@
-const makeDetectiveLeft = (game, player) => {
+const makePlayerLeft = (game, player) => {
   game.addAsLeft(player);
+  if (player.isMrX()) {
+    game.gameOver(7);
+    return;
+  }
   if (game.areAllDetectivesLeft()) {
-    game.gameOver(11)
+    game.gameOver(11);
   }
 };
 
 const addPlayerAsLeft = (game, username) => {
   const leftPlayer = game.findPlayer(username);
-  leftPlayer.isMrX() ? game.gameOver(7) : makeDetectiveLeft(game, leftPlayer);
+  makePlayerLeft(game, leftPlayer);
 };
 
 const leaveGame = (persistGames) => (req, res) => {
@@ -24,4 +28,4 @@ const leaveGame = (persistGames) => (req, res) => {
   });
 };
 
-module.exports = { leaveGame, makeDetectiveLeft, addPlayerAsLeft };
+module.exports = { leaveGame, makePlayerLeft, addPlayerAsLeft };
