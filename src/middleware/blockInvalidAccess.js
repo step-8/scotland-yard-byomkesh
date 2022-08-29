@@ -1,11 +1,15 @@
-const redirectToLobby = (req, res, next) => {
+const redirectToLobby = lobbies => (req, res, next) => {
   const { lobbyId } = req.session;
-
   if (req.url === '/lobby') {
     next();
     return;
   }
 
+  const lobby = lobbies.findLobby(lobbyId);
+  if (lobby && lobby.isLobbyClosed) {
+    next();
+    return;
+  }
   if (lobbyId) {
     res.redirect('/lobby');
     return;

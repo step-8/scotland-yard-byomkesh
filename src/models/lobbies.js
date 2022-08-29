@@ -2,7 +2,7 @@ const { Lobby } = require('./lobby');
 
 const createLobby = ({ lobbyId, joinees, limit }) => {
   const [host, ...restOfJoinees] = joinees;
-  const lobby = new Lobby(lobbyId, host, limit);
+  const lobby = new Lobby(+lobbyId, host, limit);
   restOfJoinees.forEach(joinee => {
     lobby.addJoinee(joinee);
   });
@@ -58,6 +58,10 @@ class Lobbies {
 
   isPlayerInLobby(username) {
     return this.#lobbies.some(lobby => lobby.isMyJoinee(username));
+  }
+
+  get nextLobbyId() {
+    return this.#nextLobbyId;
   }
 
   getState() {

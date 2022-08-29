@@ -28,9 +28,8 @@ describe('Join', () => {
     });
 
     const store = {
-      gamesStore: new Datastore('games', mockClient()),
+      lobbiesStore: new Datastore('lobbies', mockClient()),
     };
-    // const sessionStore = new SessionStore(mockedDatastore);
     app = request(initApp(config, users, games, session, store, lobbies));
   });
 
@@ -54,7 +53,7 @@ describe('Join', () => {
       .end((_, res) => {
         const cookie = res.header['set-cookie'];
 
-        app.get('/join?gameId=1')
+        app.get('/join?lobbyId=1')
           .set('cookie', cookie)
           .expect('location', '/lobby')
           .expect(302, done);
@@ -70,7 +69,7 @@ describe('Join', () => {
       .end((_, res) => {
         const cookie = res.header['set-cookie'];
 
-        app.get('/join?gameId=1')
+        app.get('/join?lobbyId=1')
           .set('cookie', cookie)
           .expect('location', '/')
           .expect('set-cookie', /Room%20is%20already%20full/)
@@ -102,7 +101,7 @@ describe('Join', () => {
         const cookie = res.header['set-cookie'];
         // game.changeGameStatus();
 
-        app.get('/join?gameId=1')
+        app.get('/join?lobbyId=1')
           .set('cookie', cookie)
           .expect('location', '/')
           .expect('set-cookie', /Room.*is.*not.*available.*anymore/)

@@ -27,7 +27,7 @@ describe('Host', () => {
     });
 
     const store = {
-      gamesStore: new Datastore('games', mockClient()),
+      lobbiesStore: new Datastore('games', mockClient()),
     };
     app = request(initApp(config, users, games, session, store, lobbies));
   });
@@ -38,7 +38,7 @@ describe('Host', () => {
       .expect(302, done);
   });
 
-  it('should host a game and send user to lobby, when user is logged in and enter valid room id', (done) => {
+  it('should host a game and send user to lobby, when user is logged in.', (done) => {
     app.post('/login')
       .send('username=root&password=root')
       .end((_, res) => {
@@ -61,7 +61,7 @@ describe('Host', () => {
       .end((_, res) => {
         const cookie = res.header['set-cookie'];
 
-        app.get(`/join?gameId=${gameId}`)
+        app.get(`/join?lobbyId=${gameId}`)
           .set('cookie', cookie)
           .end(() => {
 

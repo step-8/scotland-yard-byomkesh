@@ -16,31 +16,38 @@ const shuffle = (list) => {
   return list;
 };
 
-const initalStats = (persistGames) => (req, res) => {
-  const { game, gameId, username } = req.session;
+const initialStats = (games) => (req, res) => {
+  const { gameId, username, lobbyId } = req.session;
+  if (lobbyId) {
+    delete req.session.lobbyId;
+  }
+
+  const game = games.findGame(gameId);
   const players = game.getInitialStats(username);
 
-  persistGames(gameId, () => {
-    res.json({ players, user: { username } });
-  });
+  res.json({ players, user: { username } });
 };
 
-const enterGame = (lobbies, games) => (req, res) => {
-  const { lobby, lobbyId } = req.session;
-  const gameId = lobbyId;
-  const game = games.findGame(gameId);
-  if (!lobby.isLobbyClosed) {
-    return;
-  }
+// const enterGame = (lobbies, games) => (req, res) => {
+//   const { lobby, lobbyId } = req.session;
+//   const gameId = lobbyId;
+//   // const game = games.findGame(gameId);
+//   if (!lobby.isLobbyClosed) {
+//     return;
+//   }
 
-  if (lobby.joineeCount === game.playerCount) {
-    lobbies.removeLobby(lobbyId);
-  }
+//   if (lobbies.find(lobbyId)) {
+//     lobbies.removeLobby(lobbyId);
+//   }
 
-  delete req.session.lobbyId;
-  req.session.gameId = gameId;
-  res.json({ gameId });
-};
+//   // if (lobby.joineeCount === game.playerCount) {
+//   //   lobbies.removeLobby(lobbyId);
+//   // }
+
+//   delete req.session.lobbyId;
+//   req.session.gameId = gameId;
+//   res.json({ gameId });
+// };
 
 const canGameStart = (lobby, username) => {
   return lobby && lobby.canLobbyClose(username);
@@ -52,7 +59,7 @@ const initializeGame = (lobby, lobbyId, games) => {
   return games.addGame(lobbyId, players);
 };
 
-const startGameHandler = (games, persistLobbies, persistGames) =>
+const startGameHandler = (lobbies, games, persistLobbies, persistGames) =>
   (req, res) => {
     const { lobby, lobbyId, username } = req.session;
     if (!canGameStart(lobby, username)) {
@@ -62,6 +69,7 @@ const startGameHandler = (games, persistLobbies, persistGames) =>
 
     const game = initializeGame(lobby, lobbyId, games);
     lobby.closeLobby(username);
+    // lobbies.removeLobby(lobbyId);
 
     const initialPositions = [
       13, 26, 29, 91, 117, 34, 50, 53, 94, 103,
@@ -79,4 +87,4 @@ const startGameHandler = (games, persistLobbies, persistGames) =>
     });
   };
 
-module.exports = { startGameHandler, initalStats, enterGame };
+module.exports = { startGameHandler, initialStats };

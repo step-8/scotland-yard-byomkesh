@@ -5,14 +5,15 @@ const removeJoinee = (session) => {
   delete session.lobby;
 };
 
-const leaveLobby = (lobbies, persistLobbies) => (req, res) => {
+const leaveLobby = (persistLobbies) => (req, res) => {
   const { session } = req;
-  const { lobbyId, lobby } = session;
+  const { lobbyId, lobby, username } = session;
 
   removeJoinee(session);
 
   if (!lobby.canLobbySustain()) {
-    lobbies.removeLobby(lobbyId);
+    lobby.closeLobby(username);
+    // lobbies.removeLobby(lobbyId);
     // gamesStore.delete(lobbyId).then(() => {
     //   res.redirect('/');
     // });

@@ -1,8 +1,7 @@
 const authJoinRequest = lobbies => (req, res, next) => {
-  const { gameId } = req.query; // will change to lobby id in frontend later.
+  const { lobbyId } = req.query; // will change to lobby id in frontend later.
 
-  const lobbyId = +gameId;
-  const lobby = lobbies.findLobby(lobbyId);
+  const lobby = lobbies.findLobby(+lobbyId);
 
   if (!lobby) {
     return res

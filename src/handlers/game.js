@@ -5,54 +5,6 @@ const isCurrentPlayerLeft = (leftPlayers, currentPlayer) => {
   const { username } = currentPlayer;
   return leftPlayers.some((player) => player.username === username);
 };
-const sendConnectionError = (req, res) => {
-  const message = 'You are already in a Game';
-  res.cookie('connError', message, { maxAge: 1000 });
-  res.redirect(302, '/');
-};
-
-const isInGame = (username, games, lobbies) => {
-  return games.isPlayerInGame(username) || lobbies.isPlayerInLobby(username);
-};
-
-const hostGame = (games, lobbies, persistLobbies) => (req, res) => {
-  const { username } = req.session;
-  if (isInGame(username, games, lobbies)) {
-    sendConnectionError(req, res);
-    return;
-  }
-  const limit = { min: 3, max: 6 };
-  const lobby = lobbies.createLobby(username, limit);
-  const lobbyId = lobby.lobbyId;
-
-  req.session.lobbyId = lobbyId;
-  req.session.lobby = lobby;
-
-  persistLobbies(lobbyId, () => {
-    res.redirect('/lobby');
-  });
-};
-
-const joinGame = (games, lobbies, persistLobbies) => (req, res) => {
-  const { username } = req.session;
-  if (isInGame(username, games, lobbies)) {
-    sendConnectionError(req, res);
-    return;
-  }
-
-  const { gameId } = req.query;
-  const lobbyId = +gameId;
-  const lobby = lobbies.findLobby(lobbyId);
-  lobby.addJoinee(username);
-
-  req.session.lobbyId = lobbyId;
-  req.session.lobby = lobby;
-
-  persistLobbies(lobbyId, () => {
-    res.redirect('/lobby');
-  });
-};
-
 const isMrX = (players, playerName) => {
   const me = players.find(({ username }) => username === playerName);
   return me.color === 'black';
@@ -113,4 +65,4 @@ const endGame = (games, gamesStore) => (req, res) => {
     .catch(() => res.redirect('/'));
 };
 
-module.exports = { hostGame, joinGame, getRobberLog, gameStats, endGame };
+module.exports = { getRobberLog, gameStats, endGame };

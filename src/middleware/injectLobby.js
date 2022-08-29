@@ -3,9 +3,23 @@ const injectLobby = (lobbies) => (req, res, next) => {
   if (!lobbyId) {
     return next();
   }
+
   const lobby = lobbies.findLobby(lobbyId);
   req.session.lobby = lobby;
   next();
 };
 
-module.exports = { injectLobby };
+const cleanLobby = (lobbies) => (req, res, next) => {
+  const { lobbyId } = req.session;
+  if (!lobbyId) {
+    return next();
+  }
+
+  const lobby = lobbies.findLobby(lobbyId);
+  if (!lobby) {
+    delete req.session.lobbyId;
+  }
+  next();
+};
+
+module.exports = { injectLobby, cleanLobby };

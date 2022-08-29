@@ -1,12 +1,11 @@
 const protectedLobby = lobbies => (req, res, next) => {
-  const { username, lobbyId } = req.session;
+  const { username, lobbyId, lobby } = req.session;
 
   if (!username || !lobbyId || !lobbies.findLobby(lobbyId)) {
     res.redirect('/');
     return;
   }
 
-  const { lobby } = req.session;
   if (lobby.isLobbyClosed && req.url === '/lobby') {
     res.redirect('/game');
     return;

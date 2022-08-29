@@ -7,14 +7,13 @@ const { serveGamePage, serveLoginPage } = require('../handlers/servePages.js');
 const { serveNotFoundPage } = require('../handlers/servePages.js');
 const { redirectToGame, redirectToLobby } =
   require('../middleware/blockInvalidAccess.js');
-const { injectGameId } = require('../middleware/injectGame');
+// const { injectGameId } = require('../middleware/injectGame');
 
 const createPagesRouter = (views, games, lobbies) => {
   const pagesRouter = express.Router();
-  pagesRouter.use([redirectToGame, redirectToLobby]);
+  pagesRouter.use([redirectToGame, redirectToLobby(lobbies)]);
 
-  pagesRouter.get('/',
-    injectGameId(games), authenticateUser, serveLandingPage(views));
+  pagesRouter.get('/', authenticateUser, serveLandingPage(views));
   pagesRouter.get('/lobby', protectedLobby(lobbies), serveLobby(views));
   pagesRouter.get('/game', protectedGame(games), serveGamePage(views));
   pagesRouter.get('/login', protectedAuth, serveLoginPage(views));

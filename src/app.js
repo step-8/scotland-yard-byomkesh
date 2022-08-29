@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 
 const { injectLobby } = require('./middleware/injectLobby.js');
-const { injectGame } = require('./middleware/injectGame.js');
+const { injectGame, injectGameId } = require('./middleware/injectGame.js');
 const { createAuthRouter } = require('./routers/authRouter.js');
 const { createApiRouter } = require('./routers/apiRouter.js');
 const { protectedRouter } = require('./routers/protectedRouter.js');
@@ -28,31 +28,39 @@ const createUserPersister = (usersStore) => (username, password, callback) => {
 };
 
 const createLobbiesPersister = (lobbies, lobbyStore) => (lobbyId, callback) => {
-  callback();
+  const lobby = lobbies.findLobby(lobbyId);
+  const lobbyState = lobby.getState();
+
+  lobbyStore.set(lobbyId, JSON.stringify(lobbyState))
+    .then(() => {
+      lobbyStore.set('nextLobbyId', lobbies.nextLobbyId);
+    })
+    .then(() => {
+      callback();
+    });
 };
 
 const initApp = (config, users, games, session, stores, lobbies) => {
   const app = express();
   const { mode, views } = config;
-  const { gamesStore, usersStore, lobbyStore } = stores;
+  const { gamesStore, usersStore, lobbiesStore } = stores;
   const persistGames = createGamePersister(games, gamesStore);
   const persistUser = createUserPersister(usersStore);
-  const persistLobbies = createLobbiesPersister(lobbies, lobbyStore);
+  const persistLobbies = createLobbiesPersister(lobbies, lobbiesStore);
 
   if (mode === 'dev') {
     app.use(morgan('tiny'));
   }
 
   app.use(session);
-  app.use(injectGame(games));
-  app.use(injectLobby(lobbies));
+  app.use([injectGameId(games), injectGame(games), injectLobby(lobbies)]);
   app.use(express.urlencoded({ extended: true }));
 
   app.use(protectedRouter(games, lobbies, persistLobbies));
-  app.use(createAuthRouter(users, views, persistUser));
+  app.use(createAuthRouter(users, views, persistUser, lobbies));
   app.use('/api', createApiRouter(lobbies, games, persistLobbies, persistGames));
   app.get('/end', endGame(games, gamesStore));
-  app.post('/leave-lobby', protectedLobby, leaveLobby(lobbies, persistLobbies));
+  app.post('/leave-lobby', protectedLobby, leaveLobby(persistLobbies));
   app.post('/leave-game', leaveGame(persistGames));
 
   app.get('/load-game', serveLoadGamePage(views));

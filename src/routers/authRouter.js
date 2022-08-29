@@ -11,7 +11,7 @@ const authValidators = require('../middleware/authValidations.js');
 const { redirectToGame, redirectToLobby } = require('../middleware/blockInvalidAccess.js');
 const { credentialCheck, validateInput } = authValidators;
 
-const createAuthRouter = (users, views, persistUser) => {
+const createAuthRouter = (users, views, persistUser, lobbies) => {
   const authRouter = express.Router();
   const authRoutes = ['/login', '/signup'];
 
@@ -23,7 +23,7 @@ const createAuthRouter = (users, views, persistUser) => {
 
   authRouter.get('/login', serveLoginPage(views));
   authRouter.post('/login', validateInput, loginHandler(users));
-  authRouter.get('/logout', redirectToGame, redirectToLobby, logoutHandler);
+  authRouter.get('/logout', redirectToGame, redirectToLobby(lobbies), logoutHandler);
 
   return authRouter;
 };

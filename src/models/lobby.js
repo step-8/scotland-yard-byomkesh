@@ -62,6 +62,9 @@ class Lobby {
   }
 
   isMyJoinee(username) {
+    if (this.#isLobbyClosed) {
+      return false;
+    }
     return this.#joinees.includes(username);
   }
 
@@ -85,7 +88,7 @@ class Lobby {
   }
 
   get joineeCount() {
-    return this.#joinees;
+    return this.#joinees.length;
   }
 
   getState() {

@@ -404,7 +404,11 @@ class Game {
   }
 
   isMyPlayer(username) {
-    this.#players.some(player => player.isSamePlayer(username));
+    if (this.#gameOver) {
+      return false;
+    }
+
+    return this.#players.some(player => player.isSamePlayer(username));
   }
 
   getInitialStats(username) {

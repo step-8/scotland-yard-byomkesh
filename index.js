@@ -3,7 +3,7 @@ const fsPromise = require('fs/promises');
 const { initApp } = require('./src/app.js');
 const { parsed } = require('dotenv').config();
 
-const { getGamesInfo } = require('./src/utils/createGames.js');
+const { getGamesInfo, getLobbiesInfo } = require('./src/utils/createGames.js');
 const { getUsers } = require('./src/utils/createUsers.js');
 const { Games } = require('./src/models/games.js');
 const Datastore = require('./src/models/datastore.js');
@@ -21,13 +21,12 @@ const CONFIG = {
 const createStores = (client) => {
   const usersStore = new Datastore('users', client);
   const gamesStore = new Datastore('games', client);
-
-  return { usersStore, gamesStore };
+  const lobbiesStore = new Datastore('lobbies', client);
+  return { usersStore, gamesStore, lobbiesStore };
 };
 
 const startServer = (port, config) => {
-  let users, games, client, stores = {};
-  const lobbies = new Lobbies();
+  let users, games, client, lobbies, stores = {};
 
   fsPromise.readFile(config.stops, 'utf8')
     .then(value => JSON.parse(value))
@@ -50,6 +49,11 @@ const startServer = (port, config) => {
 
     .then(() => getGamesInfo(stores.gamesStore))
     .then((gamesData) => games.init(gamesData))
+
+    .then(() => getLobbiesInfo(stores.lobbiesStore))
+    .then((lobbiesData) => {
+      lobbies = Lobbies.init(lobbiesData);
+    })
 
     .then(() => {
       const sessionStore = new Datastore('session', client);

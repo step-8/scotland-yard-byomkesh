@@ -25,6 +25,7 @@ const initTestApp = () => {
   });
 
   const stores = {
+    lobbiesStore: new Datastore('lobbies', mockClient()),
     gamesStore: new Datastore('games', mockClient()),
     usersStore: new Datastore('users', mockClient()),
   };

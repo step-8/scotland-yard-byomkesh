@@ -22,7 +22,7 @@ describe('serveLobbyStats', () => {
     });
 
     const stores = {
-      gamesStore: new Datastore('games', mockClient()),
+      lobbiesStore: new Datastore('lobbies', mockClient()),
       usersStore: new Datastore('users', mockClient()),
     };
 

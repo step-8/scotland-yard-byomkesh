@@ -44,13 +44,14 @@ describe('servePages', () => {
   describe('serveLandingPage', () => {
     it('Should redirect to login page on /, if user is not logged in', (done) => {
       const users = new Users({});
+      const lobbies = new Lobbies();
 
       const stores = {
         gamesStore: new Datastore('games', mockClient()),
         usersStore: new Datastore('users', mockClient()),
       };
 
-      const app = request(initApp(config, users, games, session, stores));
+      const app = request(initApp(config, users, games, session, stores, lobbies));
       app.get('/')
         .expect('location', '/login')
         .expect(302, done);
@@ -59,11 +60,12 @@ describe('servePages', () => {
     it('Should serve landing page on /, if user is logged in', (done) => {
       const root = { root: { username: 'root', password: 'root' } };
       const users = new Users(root);
+      const lobbies = new Lobbies();
       const stores = {
         gamesStore: new Datastore('games', mockClient()),
         usersStore: new Datastore('users', mockClient()),
       };
-      const app = request(initApp(config, users, games, session, stores));
+      const app = request(initApp(config, users, games, session, stores, lobbies));
       const body = 'username=root&password=root';
 
       app.post('/login')
@@ -90,7 +92,7 @@ describe('servePages', () => {
       lobbies = new Lobbies();
 
       const stores = {
-        gamesStore: new Datastore('games', mockClient()),
+        lobbiesStore: new Datastore('lobbies', mockClient()),
         usersStore: new Datastore('users', mockClient()),
       };
       app = request(initApp(config, users, games, session, stores, lobbies));
@@ -116,7 +118,7 @@ describe('servePages', () => {
       lobbies.addLobby(lobby);
 
       afterLogin((cookie) => {
-        app.get('/join?gameId=1')
+        app.get('/join?lobbyId=1')
           .set('cookie', cookie)
           .expect('location', '/lobby')
           .expect(302, done);

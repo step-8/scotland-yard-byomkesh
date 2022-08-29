@@ -21,8 +21,8 @@ const validateInput = (req, res, next) => {
 
 const authenticateUser = (req, res, next) => {
   let refUrl = '';
-  if (req.query.gameId) {
-    refUrl = `/join?gameId=${req.query.gameId}`;
+  if (req.query.lobbyId) {
+    refUrl = `/join?lobbyId=${req.query.lobbyId}`;
   }
   const { username } = req.session;
   if (!username) {

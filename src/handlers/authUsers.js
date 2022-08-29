@@ -38,7 +38,7 @@ const loginHandler = (users) => (req, res) => {
 const logoutHandler = (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
-  })
+  });
 };
 
 module.exports = { signupHandler, protectedAuth, loginHandler, logoutHandler };

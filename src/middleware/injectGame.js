@@ -21,15 +21,16 @@ const findGameOfPlayer = (games, username) => {
   });
 };
 
-const injectGameId = games => (req, res, next) => {
+const injectGameId = games => (req, _, next) => {
   const { username } = req.session;
+  // const currentPlayerGame = findGameOfPlayer(games, username);
   const currentPlayerGame = findGameOfPlayer(games, username);
 
   if (currentPlayerGame) {
     req.session.gameId = currentPlayerGame.gameId;
 
-    res.redirect('/game');
-    return;
+    // res.redirect('/game');
+    // return;
   }
   next();
 };
