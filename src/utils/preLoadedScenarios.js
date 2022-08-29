@@ -1,37 +1,15 @@
 const { mrX } = require('./roles.js');
 
-const firstDetectiveStranded = (gameData) => {
-  const firstDetective = gameData.players[1];
-  firstDetective.tickets = { taxi: 0, bus: 0, subway: 0, black: 0, twoX: 0 };
-
-  return gameData;
-};
-
-const allPlayerStranded = (gameData) => {
-  gameData.players.forEach(player => {
-    if (player.role === mrX) {
-      return;
-    }
-    player.tickets = { taxi: 0, bus: 0, subway: 0, black: 0, twoX: 0 };
-  });
-
-  return gameData;
-};
-
 const lastRound = (gameData) => {
-  const mrX = gameData.players[0];
   const round = gameData.currentPlayerIndex === 0 ? 23 : 24;
-  mrX.log = Array(round).fill('taxi');
   gameData.round = round;
-  mrX.tickets.twoX = 0;
-  mrX.twoXTakenAt = null;
 
-  return gameData;
-};
-
-const detectiveLeftWithOneTicket = (gameData) => {
   gameData.players.forEach(player => {
     if (player.role === mrX) {
+      player.log = Array(round).fill('taxi');
+      player.tickets.twoX = 0;
+      player.twoXTakenAt = 20;
+      player.tickets.taxi -= round;
       return;
     }
     player.tickets = { taxi: 1, bus: 0, subway: 0, black: 0, twoX: 0 };
@@ -40,11 +18,37 @@ const detectiveLeftWithOneTicket = (gameData) => {
   return gameData;
 };
 
+const detectiveLeftWithOneTicket = (gameData) => {
+  const positions = [13, 66, 65, 68, 102, 51];
+  gameData.players.forEach((player, index) => {
+    player.currentPosition = positions[index];
+    if (player.role === mrX) {
+      player.log = Array(21).fill('taxi');
+      player.tickets = { ...player.tickets };
+      player.tickets.taxi = 3;
+      return;
+    }
+    player.tickets = { taxi: 1, bus: 0, subway: 0, black: 0, twoX: 0 };
+  });
+  gameData.currentPlayerIndex = 0;
+  gameData.round = 21;
+
+  return gameData;
+};
+
 const twoXRevealationRound = (gameData) => {
-  const mrX = gameData.players[0];
-  mrX.log = Array(2).fill('taxi');
   gameData.round = 2;
   gameData.currentPlayerIndex = 0;
+
+  gameData.players.forEach(player => {
+    if (player.role === mrX) {
+      player.log = Array(2).fill('taxi');
+      player.tickets = { ...player.tickets };
+      player.tickets.taxi = 22;
+      return;
+    }
+    player.tickets = { taxi: 8, bus: 8, subway: 4, black: 0, twoX: 0 };
+  });
 
   return gameData;
 };
@@ -57,44 +61,35 @@ const mrXOnFerryStop = (gameData) => {
 };
 
 const mrXStranded = (gameData) => {
-  const positions = [21, 33, 11, 46, 47, 34];
-
-  gameData.players.forEach((player, index) => {
-    player.currentPosition = positions[index];
-  });
-  gameData.currentPlayerIndex = 2;
-
-  return gameData;
-};
-
-const detectivesCanWin = (gameData) => {
-  const positions = [67, 66, 65, 68, 102, 51];
+  const positions = [21, 32, 11, 46, 47, 34];
 
   gameData.players.forEach((player, index) => {
     player.currentPosition = positions[index];
     if (player.role === mrX) {
+      player.log = Array(6).fill('taxi');
+      player.tickets = { ...player.tickets };
+      player.tickets.taxi = 18;
       return;
     }
-    player.tickets = { taxi: 1, bus: 1, subway: 1, twoX: 0, black: 0 }
+    player.tickets = { taxi: 5, bus: 8, subway: 4, black: 0, twoX: 0 };
+
   });
   gameData.currentPlayerIndex = 1;
+  gameData.round = 6;
 
   return gameData;
 };
 
 const scenarios = {
-  'scenario 1': firstDetectiveStranded,
-  'scenario 2': allPlayerStranded,
-  'scenario 3': lastRound,
-  'scenario 4': detectiveLeftWithOneTicket,
-  'scenario 5': twoXRevealationRound,
-  'scenario 6': mrXOnFerryStop,
-  'scenario 7': mrXStranded,
-  'scenario 8': detectivesCanWin,
+  'scenario 1': lastRound,
+  'scenario 2': detectiveLeftWithOneTicket,
+  'scenario 3': twoXRevealationRound,
+  'scenario 4': mrXOnFerryStop,
+  'scenario 5': mrXStranded
 };
 
 module.exports = {
-  scenarios, firstDetectiveStranded, allPlayerStranded, lastRound,
+  scenarios, lastRound,
   detectiveLeftWithOneTicket, twoXRevealationRound,
-  mrXOnFerryStop, mrXStranded, detectivesCanWin
+  mrXOnFerryStop, mrXStranded
 };

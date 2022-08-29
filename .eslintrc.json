@@ -18,10 +18,10 @@
       "error",
       2
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
+    // "quotes": [
+    //   "error",
+    //   "single"
+    // ],
     "linebreak-style": [
       "error",
       "unix"

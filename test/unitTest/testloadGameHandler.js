@@ -51,7 +51,7 @@ describe('loadGame', () => {
     const game = createGame();
     const games = {
       findGame: () => game
-    }
+    };
 
     const req = { body: { gameId: 1, scenario: 'scenario 1' } };
     const res = {
@@ -60,7 +60,7 @@ describe('loadGame', () => {
         assert.strictEqual(value, 'Loaded game.');
       },
       redirect: (url) => assert.strictEqual(url, '/load-game')
-    }
+    };
     const gameLoader = loadGame(games, (_, cb) => cb());
     gameLoader(req, res);
   });
@@ -69,7 +69,7 @@ describe('loadGame', () => {
     const game = createGame();
     const games = {
       findGame: () => game
-    }
+    };
 
     const req = { body: { gameId: 1 } };
     const res = {
@@ -78,7 +78,7 @@ describe('loadGame', () => {
         assert.strictEqual(value, 'Something went wrong. Try again.');
       },
       redirect: (url) => assert.strictEqual(url, '/load-game')
-    }
+    };
     const gameLoader = loadGame(games, (_, cb) => cb());
     gameLoader(req, res);
   });
@@ -87,19 +87,19 @@ describe('loadGame', () => {
     const game = createGame();
     const games = {
       findGame: () => game
-    }
+    };
 
     const req = { body: { gameId: 1, scenario: 'scenario 1' } };
     const res = {
       cookie: () => { },
       redirect: (url) => assert.strictEqual(url, '/load-game')
-    }
+    };
     const gameLoader = loadGame(games, (_, cb) => cb());
     gameLoader(req, res);
 
     assert.deepStrictEqual(
       game.getStatus().players[1].tickets,
-      { taxi: 0, bus: 0, subway: 0, black: 0, twoX: 0 }
+      { taxi: 1, bus: 0, subway: 0, black: 0, twoX: 0 }
     );
   });
 });
