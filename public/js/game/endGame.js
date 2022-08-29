@@ -65,6 +65,7 @@ const endGame = poller => gameState => {
     return;
   }
 
+  removePopUp();
   poller.pause();
   let description = winningMessagesLookup(winningStatus);
   let message = 'Mr. X Won!';
