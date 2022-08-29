@@ -1,3 +1,8 @@
+const exitGame = () => {
+  const form = document.querySelector('form');
+  form.submit();
+};
+
 const winningMessagesLookup = (winningStatus) => {
   const lookup = {
     1: 'Detectives blocked Mr. X',
@@ -19,7 +24,8 @@ const winningMessagesLookup = (winningStatus) => {
 
 const createHomeLink = () => {
   const link = new Element('a')
-    .add('href', '/end')
+    .add('href', '#')
+    .addEvent('click', exitGame)
     .addClass('game-end')
     .addClass('center-flex')
     .add('innerText', 'Home');
