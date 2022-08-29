@@ -21,6 +21,7 @@ const notifier = (message, color) => {
   const map = query('.map');
 
   map.append(banner);
+
   setTimeout(removeBanner, 2000);
 };
 

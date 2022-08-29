@@ -10,7 +10,7 @@ const winningMessagesLookup = (winningStatus) => {
     3: 'Detective Green caught Mr. X',
     4: 'Detective Purple caught Mr. X',
     5: 'Detective Blue caught Mr. X',
-    6: 'Detective Yellow caught Mr. X',
+    6: 'Detective Orange caught Mr. X',
     7: 'Mr. X left the game',
     8: 'All Detectives are stranded',
     9: 'All Detectives ran out of tickets',

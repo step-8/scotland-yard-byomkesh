@@ -34,7 +34,7 @@ const createPopup = () => {
   const roomId = new Element('input')
     .add('type', 'text')
     .add('name', 'lobbyId')
-    .add('placeholder', 'Game id');
+    .add('placeholder', 'Game ID');
 
   const popupError = new Element('div')
     .addClass('popup-error');

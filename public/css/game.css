@@ -31,6 +31,21 @@
   font-size: 4.5em;
   font-weight: var(--weight-100);
   color: var(--font-white);
+  animation: slide-in;
+  animation-direction: alternate;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+}
+
+@keyframes slide-in {
+  0% {
+    left: -110%;
+  }
+
+  100% {
+    left: 0;
+  }
 }
 
 .game-end {
@@ -72,36 +87,31 @@
 }
 
 .red {
-  background-color: rgba(255, 0, 0, 0.612);
+  background-color: rgba(255, 0, 0, 0.75);
 }
 
-.yellow {
-  background-color: rgba(255, 255, 0, 0.749);
-  color: var(--font-black);
+.orange {
+  background-color: rgba(255, 166, 0, 0.75);
 }
 
 .black {
-  background-color: rgba(0, 0, 0, 0.614);
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
 .purple {
-  background-color: rgba(128, 0, 128, 0.639);
+  background-color: rgba(128, 0, 128, 0.75);
 }
 
 .green {
-  background-color: rgba(0, 128, 0, 0.512);
+  background-color: rgba(0, 128, 0, 0.75);
 }
 
 .blue {
-  background-color: rgba(0, 0, 255, 0.653);
+  background-color: rgba(0, 0, 255, 0.75);
 }
 
 .grey {
-  background-color: rgba(128, 128, 128, 0.591);
-}
-
-.gold {
-  background-color: rgb(255, 217, 0);
+  background-color: rgba(128, 128, 128, 0.75);
 }
 
 .dark-red {
@@ -110,7 +120,7 @@
   box-shadow: 0px 0px 5px var(--font-black);
 }
 
-.dark-gold {
+.dark-orange {
   border: 2px solid rgba(255, 217, 0) !important;
   background-color: hsla(51, 100%, 85%);
   box-shadow: 0px 0px 5px var(--font-black);
@@ -156,9 +166,9 @@
 .linear-gradiant {
   background-image: repeating-linear-gradient(45deg,
       hsla(0, 100%, 80%, 0),
-      hsl(0deg 0% 100%) 10px,
-      hsl(0deg 0% 75%) 10px,
-      hsl(0deg 0% 75%) 20px);
+      hsla(0deg, 0%, 100%, 0.8) 10px,
+      hsla(0deg, 0%, 75%, 0.8) 10px,
+      hsla(0deg, 0%, 75%, 0.8) 20px) !important;
   background-color: var(--input-bg);
 }
 

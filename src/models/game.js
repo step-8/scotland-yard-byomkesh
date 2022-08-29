@@ -16,7 +16,7 @@ const detectivesWinStatusLookup = (role) => {
     'Detective Green': 3,
     'Detective Purple': 4,
     'Detective Blue': 5,
-    'Detective Yellow': 6
+    'Detective Orange': 6
   };
   return status[role];
 };
@@ -431,7 +431,7 @@ class Game {
 
     players.forEach(player => {
       if (player.role === 'Mr. X') {
-        player.currentPosition = 'XXX';
+        player.currentPosition = '###';
       }
     });
 

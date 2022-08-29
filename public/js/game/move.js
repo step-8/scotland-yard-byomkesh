@@ -101,7 +101,7 @@ const sendMoveReq = (stop, gameState) => (pluralTicket) => {
     .then(removeAllPointer)
     .then(removeTicketPopup)
     .then(removeEvent)
-    .catch((err) => alert(err.message));
+    .catch(() => { });
 };
 
 const addClickEvent = (stop, gameState) => {

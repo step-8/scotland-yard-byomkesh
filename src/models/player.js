@@ -117,7 +117,7 @@ const getColor = (role) => {
     'Detective Red': 'red',
     'Detective Green': 'green',
     'Detective Blue': 'blue',
-    'Detective Yellow': 'gold',
+    'Detective Orange': 'orange',
     'Detective Purple': 'purple'
   };
   return rolesColor[role];

@@ -20,7 +20,7 @@ main {
 }
 
 .leave-lobby a i {
-  color: rgba(255, 255, 255, 0.719);
+  color: rgba(255, 255, 255, 0.7);
   font-size: var(--font-l);
 }
 
@@ -111,6 +111,7 @@ i {
 .name {
   overflow: hidden;
   word-break: break-all;
+  font-weight: var(--weight-400);
 }
 
 .is,
@@ -119,38 +120,31 @@ i {
 .position {
   width: 80%;
   text-align: var(--center);
+  font-weight: var(--weight-400);
 }
 
 .black {
-  background-color: var(--font-black) !important;
+  background: linear-gradient(to bottom, hsl(0deg 0% 0%), hsl(0deg 0% 20%), hsl(0deg 0% 0%));
 }
 
 .red {
-  background-color: rgb(240, 5, 5, 0.7) !important;
+  background: linear-gradient(to bottom, hsl(10deg 66% 20%), hsl(5deg 80% 44%), hsl(10deg 66% 20%));
 }
 
 .blue {
-  background-color: rgb(5, 5, 175, 0.7) !important;
+  background: linear-gradient(to bottom, hsl(230deg 66% 20%), hsl(240deg 40% 60%), hsl(230deg 66% 20%));
 }
 
-.yellow {
-  background-color: rgba(215, 190, 15, 0.7) !important;
+.orange {
+  background: linear-gradient(to bottom, hsl(5deg 100% 40% / 80%), hsl(40deg 100% 60% / 80%), hsl(5deg 100% 40% / 80%));
 }
 
 .green {
-  background-color: rgb(0, 150, 0, 0.7) !important;
+  background: linear-gradient(to bottom, hsl(140deg 66% 20%), hsl(140deg 66% 50%), hsl(140deg 66% 20%));
 }
 
 .purple {
-  background-color: rgb(150, 0, 200, 0.7) !important;
-}
-
-.gold {
-  background-color: gold !important;
-}
-
-.black div {
-  color: var(--font-white) !important;
+  background: linear-gradient(to bottom, hsl(280deg 90% 30%), hsl(280deg 90% 60%), hsl(280deg 90% 30%));
 }
 
 .hide {
@@ -202,8 +196,18 @@ i {
   aspect-ratio: 1;
 }
 
-.vs-img {
+.vs {
   height: 100%;
+}
+
+.line {
+  border: 1px solid var(--font-white);
+  flex-grow: 1;
+}
+
+.vs-text {
+  padding: 10px;
+  font-size: var(--font-l);
 }
 
 .me {

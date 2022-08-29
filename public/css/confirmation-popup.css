@@ -14,6 +14,22 @@
   justify-content: space-between;
   padding: var(--font-xl);
   position: relative;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+  animation: cinema;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+}
+
+@keyframes cinema {
+  0% {
+    transform: scale(0.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .confirmation-message {

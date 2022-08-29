@@ -1,6 +1,7 @@
 .stats {
   width: 20%;
   border-left: 1px solid var(--font-white);
+  box-shadow: 0px 0px 15px var(--font-black);
 }
 
 .robber-log {
@@ -60,7 +61,7 @@
 
 .players-stat {
   height: 50%;
-  background-image: linear-gradient(to top, #E4E4E4, #B4B4B4, #808080)
+  background-image: radial-gradient(#949494, #B4B4B4, #808080)
 }
 
 .players-stat>:nth-child(n+1) {
@@ -114,8 +115,8 @@
   color: blue;
 }
 
-.gold-text {
-  color: gold;
+.orange-text {
+  color: orange;
 }
 
 .purple-text {

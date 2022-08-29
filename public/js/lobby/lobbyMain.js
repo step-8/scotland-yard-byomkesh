@@ -5,6 +5,28 @@ const API = {
   initialStatReq: () => fetch('/api/initial-stats', { method: 'GET' })
 };
 
+const createVs = () => {
+  const upperLine = new Element('div')
+    .addClass('line');
+
+  const lowerLine = new Element('div')
+    .addClass('line');
+
+  const vs = new Element('div')
+    .addClass('vs-text')
+    .add('innerText', 'VS');
+
+  const vsEle = new Element('div')
+    .addClass('vs')
+    .addClass('center-flex')
+    .addClass('vertical-flex')
+    .append(upperLine.html)
+    .append(vs.html)
+    .append(lowerLine.html);
+
+  return vsEle;
+};
+
 const showPlayerInitialStats = ({ players, user }) => {
   const playersContainer = byId('players-container');
 
@@ -12,10 +34,7 @@ const showPlayerInitialStats = ({ players, user }) => {
     .addClass('robber-container')
     .addClass('center-flex');
 
-  const vsImg = '<img src="/images/versus.png" class="vs-img">';
-  const vs = new Element('div')
-    .addClass('vs')
-    .add('innerHTML', vsImg);
+  const vsEle = createVs();
 
   const detectivesEle = new Element('div')
     .addClass('detectives-container')
@@ -32,7 +51,7 @@ const showPlayerInitialStats = ({ players, user }) => {
     playerCard.classList.add('detective-card');
     detectivesEle.append(playerCard);
   });
-  playersContainer.replaceChildren(robberEle.html, vs.html, detectivesEle.html);
+  playersContainer.replaceChildren(robberEle.html, vsEle.html, detectivesEle.html);
 };
 
 const updateLobbyOnStart = (poller) => (lobbyState) => {

@@ -3,9 +3,9 @@ const red = 'Detective Red';
 const green = 'Detective Green';
 const purple = 'Detective Purple';
 const blue = 'Detective Blue';
-const yellow = 'Detective Yellow';
+const orange = 'Detective Orange';
 
-const roles = [mrX, red, green, purple, blue, yellow];
+const roles = [mrX, red, green, purple, blue, orange];
 
 module.exports = {
   roles,
@@ -14,5 +14,5 @@ module.exports = {
   green,
   blue,
   purple,
-  yellow
+  orange
 };
