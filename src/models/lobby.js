@@ -37,6 +37,9 @@ class Lobby {
 
   leave(username) {
     const indexOfJoinee = this.#indexOfJoinee(username);
+    if (this.#joinees.length <= 1) {
+      this.#isLobbyClosed = true;
+    }
     this.#joinees.splice(indexOfJoinee, 1);
   }
 
