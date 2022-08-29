@@ -130,7 +130,7 @@ const showLeftPlayer = (lobbyState) => {
   setTimeout(() => {
     leftPlayerContainer.innerText = '';
     leftPlayerContainer.classList.remove('left-player-msg');
-  }, 2000);
+  }, 3000);
 
   if (!lobbyState.canGameStart()) {
     removePlay();

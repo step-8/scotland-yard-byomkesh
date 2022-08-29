@@ -5,7 +5,7 @@ const leaveLobby = () => {
 
 const createRoomId = (gameId) => {
   const roomIdDes = createEl('span');
-  roomIdDes.innerText = 'Game Id : ';
+  roomIdDes.innerText = 'Game ID : ';
 
   const roomId = createEl('span');
   roomId.id = 'game-id';
