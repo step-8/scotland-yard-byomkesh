@@ -9,7 +9,7 @@ const lastRound = (gameData) => {
       player.log = Array(round).fill('taxi');
       player.tickets.twoX = 0;
       player.twoXTakenAt = 20;
-      player.tickets.taxi -= round;
+      player.tickets.taxi = 24 - round;
       return;
     }
     player.tickets = { taxi: 1, bus: 0, subway: 0, black: 0, twoX: 0 };
