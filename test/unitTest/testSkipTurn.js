@@ -39,7 +39,8 @@ describe('Skip Turn', () => {
         players: [player1, player2],
         isGameStarted: true,
         gameId: 1,
-        currentPlayerIndex: 0
+        currentPlayerIndex: 0,
+        leftPlayers: []
       }]
     };
 

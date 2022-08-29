@@ -58,7 +58,7 @@ const initApp = (config, users, games, session, stores, lobbies) => {
 
   app.use(protectedRouter(games, lobbies, persistLobbies));
   app.use(createAuthRouter(users, views, persistUser, lobbies));
-  app.use('/api', createApiRouter(lobbies, games, persistLobbies, persistGames));
+  app.use('/api', createApiRouter(games, persistLobbies, persistGames));
   app.get('/end', endGame(games, gamesStore));
   app.post('/leave-lobby', protectedLobby, leaveLobby(persistLobbies));
   app.post('/leave-game', leaveGame(persistGames));

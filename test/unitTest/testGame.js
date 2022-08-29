@@ -210,7 +210,8 @@ describe('Game', () => {
       isGameStarted: true,
       players: [player1, player2],
       currentPlayerIndex: 1, round: 0, gameOver: false,
-      winningStatus: null
+      winningStatus: null,
+      leftPlayers: []
     };
 
     const game = new Game(1, stops);
@@ -250,7 +251,8 @@ describe('Game', () => {
       isGameStarted: true,
       players: [player1, player2],
       currentPlayerIndex: 1, round: 2, gameOver: false,
-      winningStatus: null
+      winningStatus: null,
+      leftPlayers: []
     };
 
     const game = new Game(1, stops);
@@ -290,7 +292,8 @@ describe('Game', () => {
       isGameStarted: true,
       players: [player1, player2],
       currentPlayerIndex: 1, round: 24, gameOver: false,
-      winningStatus: null
+      winningStatus: null,
+      leftPlayers: []
     };
 
     const game = new Game(1, stops);
@@ -309,20 +312,19 @@ describe('Game', () => {
       43: {},
     };
 
-
     const player1 = createDummyPlayers('a', mrX, 43, mrXTickets);
     const player2 = createDummyPlayers('b', red, 43, tickets);
     const gameData = {
       isGameStarted: true,
       players: [player1, player2],
       currentPlayerIndex: 1, round: 24, gameOver: false,
-      leftPlayers: [],
-      winningStatus: null
+      winningStatus: null,
+      leftPlayers: []
     };
 
     const game = new Game(1, stops);
     game.init(gameData);
-    game.addAsLeft(player1);
+    game.addToInactive('a');
     const { leftPlayers } = game.getState();
 
     assert.deepEqual(leftPlayers[0, player1]);
@@ -348,7 +350,7 @@ describe('Game', () => {
 
     const game = new Game(1, stops);
     game.init(gameData);
-    game.gameOver(1);
+    game.setGameOver(1);
     const { gameOver, winningStatus } = game.getState();
 
     assert.deepEqual(gameOver, true);
@@ -375,8 +377,7 @@ describe('Game', () => {
 
     const game = new Game(1, stops);
     game.init(gameData);
-    const expected = game.areAllDetectivesLeft()
-
+    const expected = game.haveAllDetectivesLeft();
 
     assert.ok(expected);
   });
@@ -401,8 +402,7 @@ describe('Game', () => {
 
     const game = new Game(1, stops);
     game.init(gameData);
-    const expected = game.areAllDetectivesLeft()
-
+    const expected = game.haveAllDetectivesLeft();
 
     assert.deepEqual(expected, false);
   });

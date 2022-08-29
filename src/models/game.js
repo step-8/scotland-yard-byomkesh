@@ -111,6 +111,21 @@ class Game {
     return username === hostInfo.username;
   }
 
+  isMrX(username) {
+    const player = this.findPlayer(username);
+    return player.isMrX();
+  }
+
+  mrXLog() {
+    const mrX = this.#players.find(player => player.isMrX());
+    return mrX.log;
+  }
+
+  isCurrentPlayer(username) {
+    const currentPlayer = this.#players[this.#currentPlayerIndex];
+    return currentPlayer.isSamePlayer(username);
+  }
+
   #assignHostToNext() {
     if (!this.#players[1]) {
       return;
@@ -147,6 +162,10 @@ class Game {
   changeCurrentPlayer() {
     this.#currentPlayerIndex =
       (this.#currentPlayerIndex + 1) % this.#players.length;
+    if (!this.isPlayerActive(this.currentPlayer.username)) {
+      this.#setGameOverStatus();
+      this.changeCurrentPlayer();
+    }
     this.#setGameOverStatus();
   }
 
@@ -248,8 +267,22 @@ class Game {
     return allStops.includes(position);
   }
 
-  addAsLeft(player) {
+  addToInactive(username) {
+    const player = this.findPlayer(username);
     this.#leftPlayers.push(player.info);
+
+    if (this.isCurrentPlayer(username)) {
+      this.changeCurrentPlayer();
+    }
+
+    if (player.isMrX()) {
+      this.setGameOver(7);
+      return;
+    }
+
+    if (this.haveAllDetectivesLeft()) {
+      this.setGameOver(11);
+    }
   }
 
   #getStrandedPlayers() {
@@ -360,12 +393,12 @@ class Game {
     return this.#players.length;
   }
 
-  gameOver(statusCode) {
+  setGameOver(statusCode) {
     this.#gameOver = true;
     this.#winningStatus = statusCode;
   }
 
-  areAllDetectivesLeft() {
+  haveAllDetectivesLeft() {
     return this.#getDetectives().length === this.#leftPlayers.length;
   }
 
@@ -438,6 +471,12 @@ class Game {
     return players;
   }
 
+  hasPlayerLeft(username) {
+    return this.#leftPlayers.some((player) => {
+      return player.username === username;
+    });
+  }
+
   getState() {
     const gameData = this.getStatus();
     gameData.gameId = this.#gameId;
@@ -450,12 +489,6 @@ class Game {
     gameData.twoXTakenAt = this.#twoXTakenAt;
     gameData.leftPlayers = this.#leftPlayers;
     return gameData;
-  }
-
-  hasPlayerLeft(username) {
-    return this.#leftPlayers.some((player) => {
-      return player.username === username;
-    });
   }
 }
 

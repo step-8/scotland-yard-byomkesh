@@ -11,14 +11,14 @@ const { startGameHandler, initialStats } = require('../handlers/startGameHandler
 const { authApi } = require('../middleware/authAPIs.js');
 const { injectGameId } = require('../middleware/injectGame.js');
 
-const createApiRouter = (lobbies, games, persistLobbies, persistGames) => {
+const createApiRouter = (games, persistLobbies, persistGames) => {
   const apiRouter = express.Router();
 
   apiRouter.use(authApi);
   apiRouter.use(express.json());
 
   apiRouter.get('/lobby-stats', serveLobbyStats);
-  apiRouter.post('/start', startGameHandler(lobbies, games, persistLobbies, persistGames));
+  apiRouter.post('/start', startGameHandler(games, persistLobbies, persistGames));
   apiRouter.get('/initial-stats', injectGameId(games), initialStats(games));
 
   apiRouter.get('/game-stats', gameStats);

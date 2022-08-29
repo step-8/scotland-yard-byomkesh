@@ -1,14 +1,3 @@
-const { mrX } = require('../utils/roles.js');
-
-const isCurrentPlayerLeft = (leftPlayers, currentPlayer) => {
-  const { username } = currentPlayer;
-  return leftPlayers.some((player) => player.username === username);
-};
-const isMrX = (players, playerName) => {
-  const me = players.find(({ username }) => username === playerName);
-  return me.color === 'black';
-};
-
 const removeMrXPosition = (players) => {
   return players.map((player) => {
     if (player.color === 'black') {
@@ -16,11 +5,6 @@ const removeMrXPosition = (players) => {
     }
     return player;
   });
-};
-
-const getRobberLog = (players) => {
-  const robber = players.find(({ role }) => role === mrX);
-  return robber ? robber.log : [];
 };
 
 const gameStats = (req, res) => {
@@ -34,21 +18,16 @@ const gameStats = (req, res) => {
     strandedPlayers, gameOver, winningStatus, round, twoXTakenAt, leftPlayers
   } = game.getState();
 
-  if (!isMrX(players, username) && !game.isRevelationRound() && !gameOver) {
+  if (!game.isMrX(username) && !game.isRevelationRound() && !gameOver) {
     players = removeMrXPosition(players);
     currentPlayer.currentPosition = null;
   }
 
-  const robberLog = getRobberLog(players);
+  const robberLog = game.mrXLog();
 
   const stats = {
     playerName: username, players, currentPlayer, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt
   };
-
-  if (isCurrentPlayerLeft(leftPlayers, currentPlayer)) {
-    game.changeCurrentPlayer();
-  }
-
   res.json(stats);
 };
 
@@ -64,4 +43,4 @@ const endGame = (games, gamesStore) => (req, res) => {
     .catch(() => res.redirect('/'));
 };
 
-module.exports = { getRobberLog, gameStats, endGame };
+module.exports = { gameStats, endGame };

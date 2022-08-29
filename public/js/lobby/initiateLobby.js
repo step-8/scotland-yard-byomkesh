@@ -12,18 +12,14 @@ const createRoomId = (gameId) => {
   roomId.innerText = gameId;
 
   const roomIdEle = byId('room-id');
-  roomIdEle.appendChild(roomIdDes);
-  roomIdEle.appendChild(roomId);
+  roomIdEle.replaceChildren(roomIdDes, roomId);
 };
 
-const setGameId = () =>
-  fetch('/api/user-name', { method: 'GET' })
-    .then((res) => res.json())
-    .then((res) => {
-      createRoomId(res.lobbyId);
-      byId('copy-btn').onclick =
-        () => copyToClipboard(res.lobbyId);
-    });
+const setGameId = (lobbyState) => {
+  const { lobbyId } = lobbyState;
+  createRoomId(lobbyId);
+  byId('copy-btn').onclick = () => copyToClipboard(lobbyId);
+};
 
 const initiateLobby = (lobbyState) => {
   const updateLobbyPromise = new Promise((res, rej) => {

@@ -94,6 +94,10 @@ class Player {
     return this.#tickets;
   }
 
+  get log() {
+    return this.#log;
+  }
+
   get position() {
     return this.#currentPosition;
   }

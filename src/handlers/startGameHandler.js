@@ -38,7 +38,7 @@ const initializeGame = (lobby, lobbyId, games) => {
   return games.addGame(lobbyId, players);
 };
 
-const startGameHandler = (lobbies, games, persistLobbies, persistGames) =>
+const startGameHandler = (games, persistLobbies, persistGames) =>
   (req, res) => {
     const { lobby, lobbyId, username } = req.session;
     if (!canGameStart(lobby, username)) {

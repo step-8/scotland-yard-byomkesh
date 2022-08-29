@@ -1,7 +1,6 @@
 const API = {
   getLobbyStats: () => fetch('/api/lobby-stats', { method: 'GET' }),
   postStartReq: () => fetch('/api/start', { method: 'POST' }),
-  enterGameReq: () => fetch('/api/enter-game', { method: 'PUT' }),
   initialStatReq: () => fetch('/api/initial-stats', { method: 'GET' })
 };
 
@@ -76,11 +75,12 @@ const main = () => {
   const poller = new Poller(API.getLobbyStats,
     (data) => lobbyState.initialize(data));
 
+  lobbyState.addHandler(setGameId);
   lobbyState.addHandler(initiateLobby);
   lobbyState.addHandler(updateLobbyOnStart(poller));
 
   poller.resume();
-  setGameId();
+  // setGameId();
 };
 
 window.onload = main;

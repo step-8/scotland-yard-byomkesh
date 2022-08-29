@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { getRobberLog, gameStats } = require('../../src/handlers/game.js');
+const { gameStats } = require('../../src/handlers/game.js');
 const { Games } = require('../../src/models/games.js');
 const { Player } = require('../../src/models/player.js');
 const { roles, mrX } = require('../../src/utils/roles.js');
@@ -149,36 +149,5 @@ describe('gameStats handler', () => {
     };
 
     gameStats(mockedRequest, mockedResponse);
-  });
-});
-
-describe('robberLog', () => {
-  it('Should return empty array before robber\'s first move', () => {
-    const players = [
-      { username: 'player0', role: 'Mr. X', log: [] },
-      { username: 'player1', role: 'Detective Red', log: [] },
-      { username: 'player2', role: 'Detective Green', log: [] }
-    ];
-    const expected = [];
-    assert.deepStrictEqual(getRobberLog(players), expected);
-  });
-
-  it('Should return taxi after robber used taxi in first move', () => {
-    const players = [
-      { username: 'player0', role: 'Mr. X', log: ['taxi'] },
-      { username: 'player1', role: 'Detective Red', log: [] },
-      { username: 'player2', role: 'Detective Green', log: [] }
-    ];
-    const expected = ['taxi'];
-    assert.deepStrictEqual(getRobberLog(players), expected);
-  });
-
-  it('Should return taxi after robber used taxi in first move', () => {
-    const players = [
-      { username: 'player1', role: 'Detective Red', log: [] },
-      { username: 'player2', role: 'Detective Green', log: [] }
-    ];
-    const expected = [];
-    assert.deepStrictEqual(getRobberLog(players), expected);
   });
 });

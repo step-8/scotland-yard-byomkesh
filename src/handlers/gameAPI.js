@@ -7,7 +7,7 @@ const movePlayer = persistGames => (req, res) => {
   const { username, game, gameId } = req.session;
   const { destination, ticket } = req.body;
 
-  if (game.currentPlayer.username !== username) {
+  if (!game.isCurrentPlayer(username)) {
     return res.json({ isMoved: false });
   }
 

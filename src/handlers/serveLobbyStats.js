@@ -5,9 +5,9 @@ const serveLobbyStats = (req, res) => {
     return res.status(401).end();
   }
 
-  const { joinees, isLobbyClosed } = lobby.forAPI();
+  const { joinees, isLobbyClosed, lobbyId } = lobby.forAPI();
   const isHost = lobby.isHost(username);
-  res.json({ joinees, isLobbyClosed, isHost, username });
+  res.json({ joinees, isLobbyClosed, isHost, username, lobbyId });
 };
 
 module.exports = { serveLobbyStats };

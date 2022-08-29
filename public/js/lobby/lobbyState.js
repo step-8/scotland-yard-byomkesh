@@ -1,6 +1,7 @@
 const cloneObject = (obj) => JSON.parse(JSON.stringify(obj));
 
 class LobbyState {
+  #lobbyId;
   #joinees;
   #handlers;
   #isHost;
@@ -12,17 +13,20 @@ class LobbyState {
     this.#joinees = null;
     this.#handlers = [];
     this.#oldState = {};
+    this.#lobbyId = null;
   }
 
   initialize(newState) {
     this.#oldState = {
+      lobbyId: this.#lobbyId,
       joinees: this.#joinees,
       isHost: this.#isHost,
       username: this.#username,
       isGameStarted: this.#isLobbyClosed
     };
 
-    const { joinees, isHost, username, isLobbyClosed } = newState;
+    const { joinees, isHost, username, isLobbyClosed, lobbyId } = newState;
+    this.#lobbyId = lobbyId;
     this.#joinees = joinees;
     this.#isHost = isHost;
     this.#username = username;
@@ -75,5 +79,9 @@ class LobbyState {
       return !(x.username === currentPlayers[i]?.username);
     });
     return leftPlayer?.username;
+  }
+
+  get lobbyId() {
+    return this.#lobbyId;
   }
 }

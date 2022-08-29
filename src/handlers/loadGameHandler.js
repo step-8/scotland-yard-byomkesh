@@ -16,7 +16,7 @@ const loadGame = (games, persistGames) => (req, res) => {
   const game = games.findGame(gameId);
 
   if (!scenario || !game) {
-    res.cookie('loadGameError', 'Something went wrong. Try again.')
+    res.cookie('loadGameError', 'Something went wrong. Try again.');
     return res.redirect('/load-game');
   }
 

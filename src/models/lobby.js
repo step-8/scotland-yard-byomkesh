@@ -99,10 +99,11 @@ class Lobby {
     return { joinees, lobbyId, limit, isLobbyClosed };
   }
 
-  forAPI() {
+  forAPI() { // Change this name because model doesn't care about api.
     const joinees = this.getJoinees();
     const isLobbyClosed = this.#isLobbyClosed;
-    return { joinees, isLobbyClosed };
+    const lobbyId = this.#lobbyId;
+    return { joinees, isLobbyClosed, lobbyId };
   }
 }
 
