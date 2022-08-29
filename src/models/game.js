@@ -411,6 +411,13 @@ class Game {
     return this.#players.some(player => player.isSamePlayer(username));
   }
 
+  isPlayerActive(username) {
+    if (!this.isMyPlayer(username)) {
+      return false;
+    }
+    return !this.hasPlayerLeft(username);
+  }
+
   getInitialStats(username) {
     const currentPlayer = this.findPlayer(username);
     const players = this.getPlayers();

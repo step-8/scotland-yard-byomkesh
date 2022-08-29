@@ -1,4 +1,3 @@
-// const { Player } = require('../models/player.js');
 const { mrX } = require('../utils/roles.js');
 
 const isCurrentPlayerLeft = (leftPlayers, currentPlayer) => {

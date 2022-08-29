@@ -8,29 +8,12 @@ const injectGame = (games) => (req, res, next) => {
   next();
 };
 
-const findGameOfPlayer = (games, username) => {
-  const allGames = games.getAllGames();
-  return allGames.find(game => {
-    const { players } = game.getStatus();
-    return players.some(
-      player => {
-        return player.username === username
-          && !game.hasPlayerLeft(username);
-      }
-    );
-  });
-};
-
 const injectGameId = games => (req, _, next) => {
   const { username } = req.session;
-  // const currentPlayerGame = findGameOfPlayer(games, username);
-  const currentPlayerGame = findGameOfPlayer(games, username);
+  const playerGameId = games.findPlayerGameId(username);
 
-  if (currentPlayerGame) {
-    req.session.gameId = currentPlayerGame.gameId;
-
-    // res.redirect('/game');
-    // return;
+  if (playerGameId) {
+    req.session.gameId = playerGameId;
   }
   next();
 };

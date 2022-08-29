@@ -4,7 +4,10 @@ const { Lobby } = require('../../src/models/lobby.js');
 describe('Lobby', () => {
   it('Should create new lobby instace.', () => {
     const lobby = new Lobby(1, 'rishabh', { min: 3, max: 6 });
-    const expected = { lobbyId: 1, joinees: ['rishabh'], limit: { min: 3, max: 6 } };
+    const expected = {
+      isLobbyClosed: false,
+      lobbyId: 1, joinees: ['rishabh'], limit: { min: 3, max: 6 }
+    };
 
     assert.deepStrictEqual(lobby.getState(), expected);
   });
@@ -14,6 +17,7 @@ describe('Lobby', () => {
     lobby.addJoinee('subhash');
 
     const expected = {
+      isLobbyClosed: false,
       lobbyId: 1,
       joinees: ['rishabh', 'subhash'],
       limit: { min: 3, max: 6 }
@@ -28,6 +32,7 @@ describe('Lobby', () => {
     lobby.leave('rishabh');
 
     const expected = {
+      isLobbyClosed: false,
       lobbyId: 1,
       joinees: ['subhash'],
       limit: { min: 3, max: 6 }

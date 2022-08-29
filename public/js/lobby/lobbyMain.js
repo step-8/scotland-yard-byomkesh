@@ -40,8 +40,6 @@ const updateLobbyOnStart = (poller) => (lobbyState) => {
     return;
   }
 
-  // API.enterGameReq()
-  // .then(() => API.initialStatReq())
   API.initialStatReq()
     .then((res) => res.json())
     .then((res) => {

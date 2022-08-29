@@ -19,7 +19,6 @@ const createApiRouter = (lobbies, games, persistLobbies, persistGames) => {
 
   apiRouter.get('/lobby-stats', serveLobbyStats);
   apiRouter.post('/start', startGameHandler(lobbies, games, persistLobbies, persistGames));
-  // apiRouter.put('/enter-game', enterGame(lobbies, games));
   apiRouter.get('/initial-stats', injectGameId(games), initialStats(games));
 
   apiRouter.get('/game-stats', gameStats);

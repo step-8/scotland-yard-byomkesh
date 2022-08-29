@@ -29,7 +29,6 @@ class GameState {
     this.#oldData = {};
   }
 
-  // initialize({ players, currentPlayer, playerName, robberLog, strandedPlayers, leftPlayers, gameOver, winningStatus, round, twoXTakenAt }) {
   initialize(newState) {
     this.#oldData = {
       players: this.#players,

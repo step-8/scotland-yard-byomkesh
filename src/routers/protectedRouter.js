@@ -4,7 +4,6 @@ const { hostGame, joinGame } = require('../handlers/enrollment.js');
 const { authJoinRequest } = require('../middleware/authJoinRequest.js');
 const { authenticateUser } = require('../middleware/authValidations.js');
 const { redirectToGame } = require('../middleware/blockInvalidAccess.js');
-// const { injectGameId } = require('../middleware/injectGame.js');
 
 const protectedRouter = (games, lobbies, persistLobbies) => {
   const router = express.Router();

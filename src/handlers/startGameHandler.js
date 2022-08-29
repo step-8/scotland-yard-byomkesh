@@ -28,27 +28,6 @@ const initialStats = (games) => (req, res) => {
   res.json({ players, user: { username } });
 };
 
-// const enterGame = (lobbies, games) => (req, res) => {
-//   const { lobby, lobbyId } = req.session;
-//   const gameId = lobbyId;
-//   // const game = games.findGame(gameId);
-//   if (!lobby.isLobbyClosed) {
-//     return;
-//   }
-
-//   if (lobbies.find(lobbyId)) {
-//     lobbies.removeLobby(lobbyId);
-//   }
-
-//   // if (lobby.joineeCount === game.playerCount) {
-//   //   lobbies.removeLobby(lobbyId);
-//   // }
-
-//   delete req.session.lobbyId;
-//   req.session.gameId = gameId;
-//   res.json({ gameId });
-// };
-
 const canGameStart = (lobby, username) => {
   return lobby && lobby.canLobbyClose(username);
 };
@@ -69,7 +48,6 @@ const startGameHandler = (lobbies, games, persistLobbies, persistGames) =>
 
     const game = initializeGame(lobby, lobbyId, games);
     lobby.closeLobby(username);
-    // lobbies.removeLobby(lobbyId);
 
     const initialPositions = [
       13, 26, 29, 91, 117, 34, 50, 53, 94, 103,

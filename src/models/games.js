@@ -35,7 +35,13 @@ class Games {
 
   isPlayerInGame(username) {
     const allGames = this.getAllGames();
-    return allGames.some(game => game.isMyPlayer(username));
+    return allGames.some(game => game.isPlayerActive(username));
+  }
+
+  findPlayerGameId(username) {
+    const allGames = this.getAllGames();
+    const playerGame = allGames.find(game => game.isPlayerActive(username));
+    return playerGame ? playerGame.gameId : null;
   }
 
   findGame(gameId) {

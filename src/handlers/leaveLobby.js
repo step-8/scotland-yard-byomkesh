@@ -13,11 +13,6 @@ const leaveLobby = (persistLobbies) => (req, res) => {
 
   if (!lobby.canLobbySustain()) {
     lobby.closeLobby(username);
-    // lobbies.removeLobby(lobbyId);
-    // gamesStore.delete(lobbyId).then(() => {
-    //   res.redirect('/');
-    // });
-    // return;
   }
 
   persistLobbies(lobbyId, () => {

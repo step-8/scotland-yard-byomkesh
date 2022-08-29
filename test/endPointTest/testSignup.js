@@ -1,27 +1,18 @@
 const request = require('supertest');
 const expressSession = require('express-session');
-const assert = require('assert');
-
 const { initApp } = require('../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 const Datastore = require('../../src/models/datastore.js');
-
-const mockWfs = (expectedFilename, expectedData, expectedEncoding) => {
-  return (actualFilename, actualData, actualEncoding) => {
-    assert.strictEqual(actualFilename, expectedFilename);
-    assert.strictEqual(actualData, expectedData);
-    assert.strictEqual(actualEncoding, expectedEncoding);
-  };
-};
+const { Lobbies } = require('../../src/models/lobbies.js');
 
 const mockClient = () => {
-  const p = new Promise((res, rej) => res());
+  const p = new Promise((res) => res());
   return { hGet: () => p, hSet: () => p, hDel: () => p };
 };
 
 describe('signupHandler', () => {
-  let app, config, usersObj, users, games, session;
+  let app, config, usersObj, users, games, session, lobbies;
   beforeEach(() => {
 
     config = {
@@ -30,6 +21,7 @@ describe('signupHandler', () => {
     usersObj = { root: { username: 'root', password: 'root' } };
     users = new Users(usersObj);
     games = new Games();
+    lobbies = new Lobbies();
     session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
@@ -38,22 +30,16 @@ describe('signupHandler', () => {
       usersStore: new Datastore('users', mockClient()),
     };
 
-    app = request(initApp(config, users, games, session, stores));
+    app = request(initApp(config, users, games, session, stores, lobbies));
   });
 
   it('Should respond with 302 when user is added ', (done) => {
-    const updatedUsers = {
-      ...usersObj,
-      user: {
-        username: 'user',
-        password: 'user'
-      }
-    };
+
     const stores = {
       gamesStore: new Datastore('games', mockClient()),
       usersStore: new Datastore('users', mockClient()),
     };
-    const app = request(initApp(config, users, games, session, stores));
+    const app = request(initApp(config, users, games, session, stores, lobbies));
     const username = 'user';
     const password = 'user';
     const body = `username=${username}&password=${password}`;
@@ -124,7 +110,7 @@ describe('signupHandler', () => {
       .send(body)
       .expect(302)
       .expect('location', '/')
-      .end((err, res) => {
+      .end((_, res) => {
         const cookie = res.headers['set-cookie'];
         app.get('/signup')
           .set('cookie', cookie)
@@ -134,20 +120,12 @@ describe('signupHandler', () => {
   });
 
   it('Should redirect to landing page if new user goes to /host.', (done) => {
-    const updatedUsers = {
-      ...usersObj,
-      user1: {
-        username: 'user1',
-        password: 'pword1'
-      }
-    };
     const stores = {
       gamesStore: new Datastore('games', mockClient()),
       usersStore: new Datastore('users', mockClient()),
     };
-    // const userDb = './db/users.json';
-    // const writeFile = mockWfs(userDb, JSON.stringify(updatedUsers), 'utf8');
-    const app = request(initApp(config, users, games, session, stores));
+
+    const app = request(initApp(config, users, games, session, stores, lobbies));
 
     const username = 'user1';
     const password = 'pword1';
@@ -156,7 +134,7 @@ describe('signupHandler', () => {
     app.get('/host')
       .expect(302)
       .expect('location', '/login')
-      .end((_, res) => {
+      .end(() => {
         app
           .post('/signup')
           .send(body)

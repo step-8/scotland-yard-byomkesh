@@ -1,7 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 
-const { injectLobby } = require('./middleware/injectLobby.js');
+const { injectLobby, injectLobbyId } = require('./middleware/injectLobby.js');
 const { injectGame, injectGameId } = require('./middleware/injectGame.js');
 const { createAuthRouter } = require('./routers/authRouter.js');
 const { createApiRouter } = require('./routers/apiRouter.js');
@@ -53,7 +53,7 @@ const initApp = (config, users, games, session, stores, lobbies) => {
   }
 
   app.use(session);
-  app.use([injectGameId(games), injectGame(games), injectLobby(lobbies)]);
+  app.use([injectLobbyId(lobbies), injectLobby(lobbies), injectGameId(games), injectGame(games)]);
   app.use(express.urlencoded({ extended: true }));
 
   app.use(protectedRouter(games, lobbies, persistLobbies));

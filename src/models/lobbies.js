@@ -1,8 +1,8 @@
 const { Lobby } = require('./lobby');
 
-const createLobby = ({ lobbyId, joinees, limit }) => {
+const createLobby = ({ lobbyId, joinees, limit, isLobbyClosed }) => {
   const [host, ...restOfJoinees] = joinees;
-  const lobby = new Lobby(+lobbyId, host, limit);
+  const lobby = new Lobby(+lobbyId, host, limit, isLobbyClosed);
   restOfJoinees.forEach(joinee => {
     lobby.addJoinee(joinee);
   });
@@ -57,7 +57,18 @@ class Lobbies {
   }
 
   isPlayerInLobby(username) {
-    return this.#lobbies.some(lobby => lobby.isMyJoinee(username));
+    return this.#lobbies.some(lobby => {
+      return lobby.isMyJoinee(username);
+    });
+  }
+
+  findJoineeLobbyId(username) {
+    if (!this.isPlayerInLobby(username)) {
+      return null;
+    }
+
+    const joineeLobby = this.#lobbies.find(lobby => lobby.isMyJoinee(username));
+    return joineeLobby.lobbyId;
   }
 
   get nextLobbyId() {

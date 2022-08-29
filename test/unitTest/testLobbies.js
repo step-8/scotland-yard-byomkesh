@@ -9,7 +9,7 @@ describe('Lobbies', () => {
     lobbies.addLobby(lobby);
 
     const expected = {
-      lobbies: [{ lobbyId: 1, joinees: ['rishabh'], limit: { min: 3, max: 6 } }],
+      lobbies: [{ isLobbyClosed: false, lobbyId: 1, joinees: ['rishabh'], limit: { min: 3, max: 6 } }],
       nextLobbyId: 2
     };
 

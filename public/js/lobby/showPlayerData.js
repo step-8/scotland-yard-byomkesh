@@ -76,32 +76,6 @@ const showPlayerCard = (lobbyState) => {
   if (!isGameStarted) {
     const playerCards = createPlayersContainer(players, user);
     playersContainer.replaceChildren(...playerCards);
-  } else {
-    //   const robberEle = new Element('div')
-    //     .addClass('robber-container')
-    //     .addClass('center-flex');
-
-    //   const vsImg = '<img src="/images/versus.png" class="vs-img">';
-    //   const vs = new Element('div')
-    //     .addClass('vs')
-    //     .add('innerHTML', vsImg);
-
-    //   const detectivesEle = new Element('div')
-    //     .addClass('detectives-container')
-    //     .addClass('horizontal-flex')
-    //     .addClass('vertical-middle');
-
-    //   players.forEach(player => {
-    //     const playerCard = createCharacterCard(player, user);
-    //     if (player.role === 'Mr. X') {
-    //       playerCard.classList.add('robber-card');
-    //       robberEle.append(playerCard);
-    //       return;
-    //     }
-    //     playerCard.classList.add('detective-card');
-    //     detectivesEle.append(playerCard);
-    //   });
-    //   playersContainer.replaceChildren(robberEle.html, vs.html, detectivesEle.html);
   }
 
   return lobbyState;

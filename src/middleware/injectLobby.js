@@ -9,17 +9,14 @@ const injectLobby = (lobbies) => (req, res, next) => {
   next();
 };
 
-const cleanLobby = (lobbies) => (req, res, next) => {
-  const { lobbyId } = req.session;
-  if (!lobbyId) {
-    return next();
-  }
+const injectLobbyId = lobbies => (req, _, next) => {
+  const { username } = req.session;
+  const playerLobbyId = lobbies.findJoineeLobbyId(username);
 
-  const lobby = lobbies.findLobby(lobbyId);
-  if (!lobby) {
-    delete req.session.lobbyId;
+  if (playerLobbyId) {
+    req.session.lobbyId = playerLobbyId;
   }
   next();
 };
 
-module.exports = { injectLobby, cleanLobby };
+module.exports = { injectLobby, injectLobbyId };

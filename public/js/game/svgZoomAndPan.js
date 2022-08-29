@@ -113,7 +113,6 @@ const resetZoom = () => {
 
 const loadSvgEvents = () => {
   svg = document.querySelector('svg');
-  // [initialX, initialY, maxWidth, maxHeight] = getSvgViewBox();
   const vb = getSvgViewBox();
   initialX = vb[0];
   initialY = vb[1];

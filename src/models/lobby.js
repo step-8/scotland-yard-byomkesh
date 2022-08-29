@@ -4,11 +4,11 @@ class Lobby {
   #limit;
   #isLobbyClosed;
 
-  constructor(lobbyId, host, limit) {
+  constructor(lobbyId, host, limit, isLobbyClosed = false) {
     this.#lobbyId = lobbyId;
     this.#joinees = [host];
     this.#limit = limit;
-    this.#isLobbyClosed = false;
+    this.#isLobbyClosed = isLobbyClosed;
   }
 
   isLobbyFull() {
@@ -95,7 +95,8 @@ class Lobby {
     const joinees = this.#joinees.slice(0);
     const lobbyId = this.#lobbyId;
     const limit = this.#limit;
-    return { joinees, lobbyId, limit };
+    const isLobbyClosed = this.#isLobbyClosed;
+    return { joinees, lobbyId, limit, isLobbyClosed };
   }
 
   forAPI() {

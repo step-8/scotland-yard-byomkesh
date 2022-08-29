@@ -4,10 +4,10 @@ const { initApp } = require('./../../src/app.js');
 const { Users } = require('../../src/models/users.js');
 const { Games } = require('../../src/models/games.js');
 const Datastore = require('../../src/models/datastore.js');
-
+const { Lobbies } = require('../../src/models/lobbies.js');
 
 const mockClient = () => {
-  const p = new Promise((res, rej) => res());
+  const p = new Promise((res) => res());
   return { hGet: () => p, hSet: () => p, hDel: () => p };
 };
 
@@ -19,6 +19,7 @@ describe('Login', () => {
       { root: { username: 'root', password: 'root' } }
     );
     const games = new Games();
+    const lobbies = new Lobbies();
     const session = expressSession({
       secret: 'test', resave: false, saveUninitialized: false
     });
@@ -26,7 +27,7 @@ describe('Login', () => {
       gamesStore: new Datastore('games', mockClient()),
       usersStore: new Datastore('users', mockClient()),
     };
-    app = request(initApp(config, users, games, session, stores));
+    app = request(initApp(config, users, games, session, stores, lobbies));
   });
 
   it('should serve the login page', (done) => {

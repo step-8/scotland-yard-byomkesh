@@ -99,7 +99,6 @@ describe('Join', () => {
       .send('username=root&password=root')
       .end((_, res) => {
         const cookie = res.header['set-cookie'];
-        // game.changeGameStatus();
 
         app.get('/join?lobbyId=1')
           .set('cookie', cookie)
