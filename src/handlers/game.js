@@ -35,7 +35,7 @@ const gameStats = (req, res) => {
     strandedPlayers, gameOver, winningStatus, round, twoXTakenAt, leftPlayers
   } = game.getState();
 
-  if (!isMrX(players, username) && !game.isRevelationRound()) {
+  if (!isMrX(players, username) && !game.isRevelationRound() && !gameOver) {
     players = removeMrXPosition(players);
     currentPlayer.currentPosition = null;
   }

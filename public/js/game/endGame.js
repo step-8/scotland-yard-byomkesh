@@ -6,7 +6,7 @@ const winningMessagesLookup = (winningStatus) => {
     4: 'Detective Purple caught Mr. X',
     5: 'Detective Blue caught Mr. X',
     6: 'Detective Yellow caught Mr. X',
-    7: 'Mr. X Left the game',
+    7: 'Mr. X left the game',
     8: 'All Detectives are stranded',
     9: 'All Detectives ran out of tickets',
     10: 'Mr. X escaped',
@@ -53,23 +53,27 @@ const createWinningPop = (message, color, description) => {
 };
 
 const endGame = poller => gameState => {
-  const { winningStatus, gameOver } = gameState;
+  const { winningStatus, gameOver, mrX } = gameState;
+
   if (!gameOver) {
     return;
   }
-  poller.pause();
 
-  let message = 'Detectives Won!';
-  let color = 'black';
-  if (winningStatus > 7) {
-    message = 'Mr. X Won!';
-    color = 'black';
+  poller.pause();
+  let description = winningMessagesLookup(winningStatus);
+  let message = 'Mr. X Won!';
+  const color = 'black';
+
+  if (winningStatus < 8) {
+    message = 'Detectives Won!';
   }
 
-  const description = winningMessagesLookup(winningStatus);
+  if (winningStatus < 7)
+    description += ` at ${mrX.currentPosition}`;
 
   const popup = createWinningPop(message, color, description);
   const map = query('.map');
 
   map.append(popup);
+  generateSparks(1);
 };

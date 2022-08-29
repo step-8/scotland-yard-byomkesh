@@ -35,10 +35,12 @@
 
 .game-end {
   padding: 0.5em 1em;
+  font-size: var(--font-m);
   border: 1px solid var(--font-white);
   text-align: var(--center);
   font-weight: var(--weight-100);
   color: var(--font-white);
+  background-color: var(--primary-color);
 }
 
 .banner {
@@ -148,7 +150,6 @@
 
 .stranded {
   width: 100%;
-  z-index: 10;
   height: 100%;
 }
 
@@ -222,32 +223,31 @@
 /* game winning popup */
 .winning-popup {
   box-shadow: 0px 0px 50px rgba(1, 9, 46, 0.761);
-  width: 60em;
-  height: 30em;
-  background-image: url('../images/endGame.gif');
+  width: 100vw;
+  height: 100vh;
   background-repeat: no-repeat;
   background-position: var(--center);
   background-size: 100% 100%;
   background-color: rgba(0, 0, 0, 0.7);
+  z-index: 1;
 }
 
 .winning-popup-body {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   backdrop-filter: inherit;
 }
 
 .heading {
-  font-size: 5em;
+  font-size: 7em;
   color: var(--font-white);
-  font-family: fantasy;
 }
 
 .description {
-  font-size: var(--font-m);
+  font-size: var(--font-l);
   color: var(--font-white);
-  padding-bottom: 1em;
+  padding: 1em 0em 1.5em 0em;
 }
