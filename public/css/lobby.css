@@ -163,9 +163,9 @@ i {
   font-size: var(--font-m);
 }
 
-.message {
+/* .message {
   font-size: var(--font-m);
-}
+} */
 
 .robber-container {
   width: 20%;

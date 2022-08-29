@@ -298,12 +298,6 @@ class Game {
       this.#gameOver = true;
       this.#winningStatus = 1;
     }
-
-    const mrXLocation = this.#getMrXLocation();
-    if (this.#isStopOccupiedByDetective(mrXLocation)) {
-      this.#gameOver = true;
-      this.#setDetectiveWinStatus();
-    }
   }
 
   #setMrXWinStatus() {
@@ -317,10 +311,18 @@ class Game {
       this.#gameOver = true;
       this.#winningStatus = 9;
     }
+  }
 
+  #setLastRoundWinStatus() {
     if (this.#round >= 24) {
       this.#gameOver = true;
       this.#winningStatus = 10;
+    }
+
+    const mrXLocation = this.#getMrXLocation();
+    if (this.#isStopOccupiedByDetective(mrXLocation)) {
+      this.#gameOver = true;
+      this.#setDetectiveWinStatus();
     }
   }
 
@@ -329,8 +331,9 @@ class Game {
       return;
     }
 
-    this.#setDetectivesWinStatus();
     this.#setMrXWinStatus();
+    this.#setDetectivesWinStatus();
+    this.#setLastRoundWinStatus();
   }
 
   isInLobby() {
