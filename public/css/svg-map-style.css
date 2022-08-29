@@ -44,8 +44,8 @@
 .water-bodies {
   fill: #58a4df;
   fill-opacity: 0.740589;
-  stroke: #4f6cf3;
-  stroke-width: 1;
+  /* stroke: #4f6cf3;
+  stroke-width: 1; */
   stroke-dasharray: none;
   stroke-opacity: 0.63039;
 }
@@ -70,19 +70,18 @@
   fill: none;
   stroke: #dbdde1;
   stroke-dasharray: none;
-  stroke-opacity: 0.991791;
   stroke-dashoffset: 0;
   stroke-miterlimit: 0.5;
 }
 
 .taxi-route {
   fill: none;
-  stroke: #fff41c;
+  stroke: gold;
   stroke-width: 5;
   stroke-miterlimit: 0.5;
   stroke-dasharray: none;
   stroke-dashoffset: 0;
-  stroke-opacity: 0.997947;
+  filter: drop-shadow(0px 0px 5px black);
 }
 
 .bus-route {
@@ -110,7 +109,7 @@
 }
 
 .taxi-color {
-  fill: #ffff00;
+  fill: gold;
 }
 
 .subway-color {
