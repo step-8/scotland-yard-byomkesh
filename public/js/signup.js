@@ -13,7 +13,6 @@ const handleSubmit = (event) => {
   const formData = new FormData(event.target);
   const username = formData.get('username');
   const password = formData.get('password');
-  console.log(username, password);
   let error = validateUsername(username);
   if (!error) {
     error = validatePassword(password);
