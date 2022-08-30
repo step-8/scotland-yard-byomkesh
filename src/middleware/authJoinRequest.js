@@ -5,19 +5,19 @@ const authJoinRequest = lobbies => (req, res, next) => {
 
   if (!lobby) {
     return res
-      .cookie('joinError', 'Invalid room id !')
-      .redirect('/');
-  }
-
-  if (lobby.isLobbyFull()) {
-    return res
-      .cookie('joinError', 'Room is already full')
+      .cookie('joinError', 'Invalid game ID !')
       .redirect('/');
   }
 
   if (lobby.isLobbyClosed) {
     return res
-      .cookie('joinError', 'Room is not available anymore')
+      .cookie('joinError', 'Game is not available anymore')
+      .redirect('/');
+  }
+
+  if (lobby.isLobbyFull()) {
+    return res
+      .cookie('joinError', 'Game is full')
       .redirect('/');
   }
 

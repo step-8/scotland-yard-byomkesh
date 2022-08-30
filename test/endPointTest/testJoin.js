@@ -72,7 +72,7 @@ describe('Join', () => {
         app.get('/join?lobbyId=1')
           .set('cookie', cookie)
           .expect('location', '/')
-          .expect('set-cookie', /Room%20is%20already%20full/)
+          .expect('set-cookie', /Game%20is%20full/)
           .expect(302, done);
       });
   });
@@ -85,7 +85,7 @@ describe('Join', () => {
         app.get('/join?gameId=1')
           .set('cookie', cookie)
           .expect('location', '/')
-          .expect('set-cookie', /Invalid.*room.*id/)
+          .expect('set-cookie', /Invalid.*game.*ID/)
           .expect(302, done);
       });
   });
@@ -103,7 +103,7 @@ describe('Join', () => {
         app.get('/join?lobbyId=1')
           .set('cookie', cookie)
           .expect('location', '/')
-          .expect('set-cookie', /Room.*is.*not.*available.*anymore/)
+          .expect('set-cookie', /Game.*is.*not.*available.*anymore/)
           .expect(302, done);
       });
   });
