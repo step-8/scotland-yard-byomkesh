@@ -10,15 +10,16 @@ describe('Users', () => {
     users = new Users(root)
   });
 
-  describe('haveUser', () => {
-    it('Should return true if username present', () => {
-      assert.ok(users.haveUser('root'));
+  describe('findUser', () => {
+    const expected = { username: 'root', password: 'root' };
+    it('Should return user if username present', () => {
+      assert.deepStrictEqual(users.findUser('root'), expected);
     });
-    it('Should return true if username present but have different case', () => {
-      assert.ok(users.haveUser('RoOt'));
+    it('Should return user if username present but have different case', () => {
+      assert.deepStrictEqual(users.findUser('RoOt'), expected);
     });
-    it('Should return false if username is not present', () => {
-      assert.ok(!users.haveUser('user'));
+    it('Should return undefined if username is not present', () => {
+      assert.ok(!users.findUser('user'));
     });
   });
   describe('addUser', () => {

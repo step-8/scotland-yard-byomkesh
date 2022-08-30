@@ -8,18 +8,8 @@
     <link rel="stylesheet" href="/css/header.css">
 
     <script src="/js/functionAliases.js"></script>
-    <script>
-      const main = () => {
-        const cookie = new URLSearchParams(document.cookie);
-        const error = cookie.get('signuperror');
-        if (error) {
-          byId('error-msg').innerText = error;
-          document.cookie = `signuperror=;expires=Thu, 01 Jan 1970 00:00:01 GMT`;
-        }
-      }
-
-      window.onload = main;
-    </script>
+    <script src="/js/authFormValidation.js"></script>
+    <script src="/js/signup.js"></script>
   </head>
 
   <body>
@@ -43,7 +33,7 @@
               <label for="password">Enter Password</label>
               <input type="password" name="password" id="password" class="password">
             </div>
-            <div class="error">
+            <div class="error center-flex">
               <div id="error-msg" class="error-msg"></div>
             </div>
             <div class="input-group">

@@ -5,16 +5,18 @@ class Users {
     this.#users = users;
   }
 
-  haveUser(uname) {
+  findUser(uname) {
     const username = uname.toLowerCase();
 
-    return Object.keys(this.#users).includes(username);
+    return Object.values(this.#users).find(user => {
+      return user.username.toLowerCase() === username;
+    });
   }
 
   addUser(uname, password) {
-    const username = uname.toLowerCase();
+    const username = uname;
 
-    if (!this.haveUser(username)) {
+    if (!this.findUser(username)) {
       this.#users[username] = { username, password };
       return true;
     }
@@ -22,9 +24,13 @@ class Users {
   }
 
   authUser(uname, password) {
-    const username = uname.toLowerCase();
-
-    return this.#users[username] && this.#users[username].password === password;
+    const user = this.findUser(uname);
+    if (!user) {
+      return false;
+    }
+    return password === user.password;
+    // const username = uname;
+    // return this.#users[username] && this.#users[username].password === password;
   }
 
   toJson() {

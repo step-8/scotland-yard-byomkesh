@@ -49,7 +49,7 @@ main {
 }
 
 form {
-  height: 60%;
+  height: 65%;
   gap: 1em;
 }
 
@@ -92,14 +92,12 @@ input.signup-btn {
 }
 
 .error {
-  position: relative;
-  width: 100%;
+  width: 50%;
+  height: 10%;
 }
 
 .error-msg {
   width: 100%;
   color: var(--error-color);
-  position: absolute;
   text-align: var(--center);
-  top: -1em;
 }
