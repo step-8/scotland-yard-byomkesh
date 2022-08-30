@@ -61,7 +61,7 @@
 
 .players-stat {
   height: 50%;
-  background-image: radial-gradient(#949494, #B4B4B4, #808080)
+  background-color:#D8D8D8;
 }
 
 .players-stat>:nth-child(n+1) {

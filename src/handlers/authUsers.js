@@ -14,8 +14,8 @@ const signupHandler = (users, persistUser) => (req, res) => {
       .cookie('signuperror', 'User already exist.')
       .redirect('/signup');
   }
-
-  req.session.username = username;
+  const user = users.findUser(username);
+  req.session.username = user.username;
   const pathToRedirect = req.session.redirectTo || '/';
   persistUser(username, password, () => {
     res.redirect(pathToRedirect);
@@ -26,7 +26,8 @@ const signupHandler = (users, persistUser) => (req, res) => {
 const loginHandler = (users) => (req, res) => {
   const { username, password } = req.body;
   if (users.authUser(username, password)) {
-    req.session.username = username;
+    const user = users.findUser(username);
+    req.session.username = user.username;
     const pathToRedirect = req.session.redirectTo || '/';
     res.redirect(pathToRedirect);
     return;

@@ -136,7 +136,7 @@ i {
 }
 
 .orange {
-  background: linear-gradient(to bottom, hsl(5deg 100% 40% / 80%), hsl(40deg 100% 60% / 80%), hsl(5deg 100% 40% / 80%));
+  background: linear-gradient(to bottom, hsl(25deg 100% 40% / 80%), hsl(40deg 100% 60% / 80%), hsl(25deg 100% 40% / 80%));
 }
 
 .green {

@@ -36,7 +36,7 @@ const main = () => {
   const gameState = new GameState();
 
   const initGame = (data) => gameState.initialize(data);
-  const poller = new Poller(API.getGameStat, initGame);
+  const poller = new Poller(API.getGameStat, initGame, 2000);
 
   gameState.addHandler(updateRobberLog);
   gameState.addHandler(updatePlayersStats);
