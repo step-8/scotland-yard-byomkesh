@@ -1,9 +1,7 @@
 const { scenarios } = require("../utils/preLoadedScenarios.js");
 
 const changeScenario = (game, scenario) => {
-  const gameData = {
-    ...game.getState(), ...game.getStatus()
-  };
+  const gameData = { ...game.getState() };
 
   const generateData = scenarios[scenario];
   const newData = generateData(gameData);

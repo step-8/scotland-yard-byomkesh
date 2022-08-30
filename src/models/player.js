@@ -24,14 +24,14 @@ class Player {
   #username;
   #role;
   #currentPosition;
-  #isHost;
+  // #isHost;
   #color;
   #tickets;
   #log;
 
   constructor(username) {
     this.#username = username;
-    this.#isHost = false;
+    // this.#isHost = false;
     this.#log = [];
   }
 
@@ -64,9 +64,9 @@ class Player {
     return this.#username === username;
   }
 
-  setHost() {
-    this.#isHost = true;
-  }
+  // setHost() {
+  //   this.#isHost = true;
+  // }
 
   reduceTicket(ticket) {
     this.#tickets[ticket]--;
@@ -107,7 +107,7 @@ class Player {
       username: this.#username,
       role: this.#role,
       currentPosition: this.#currentPosition,
-      isHost: this.#isHost,
+      // isHost: this.#isHost,
       color: this.#color,
       tickets: this.#tickets,
       log: this.#log

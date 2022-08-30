@@ -50,8 +50,6 @@ const isStranded = validStops => {
 
 class Game {
   #gameId;
-  #host;
-  #isGameStarted;
   #players;
   #stops;
   #limit;
@@ -64,8 +62,6 @@ class Game {
 
   constructor(gameId, stops = {}, players = []) {
     this.#gameId = gameId;
-    this.#host = null;
-    this.#isGameStarted = false;
     this.#players = players;
     this.#stops = stops;
     this.#limit = { min: 3, max: 6 };
@@ -76,8 +72,7 @@ class Game {
     this.#leftPlayers = [];
   }
 
-  init({ isGameStarted, players, currentPlayerIndex, round, gameOver, winningStatus, twoXTakenAt, leftPlayers }) {
-    this.#isGameStarted = isGameStarted;
+  init({ players, currentPlayerIndex, round, gameOver, winningStatus, twoXTakenAt, leftPlayers }) {
     this.#currentPlayerIndex = currentPlayerIndex;
     this.#round = round;
     this.#gameOver = gameOver;
@@ -86,14 +81,8 @@ class Game {
     this.#players = [];
     this.#leftPlayers = leftPlayers;
 
-    players.forEach(({ username, isHost, ...playerData }) => {
-
+    players.forEach(({ username, ...playerData }) => {
       const player = new Player(username);
-      if (isHost) {
-        player.setHost();
-        this.#host = player;
-      }
-
       player.init(playerData);
       this.#players.push(player);
     });
@@ -101,14 +90,6 @@ class Game {
 
   addPlayer(player) {
     this.#players.push(player);
-    if (!this.#host) {
-      this.#host = player;
-    }
-  }
-
-  isHost(username) {
-    const hostInfo = this.#host.info;
-    return username === hostInfo.username;
   }
 
   isMrX(username) {
@@ -126,26 +107,6 @@ class Game {
     return currentPlayer.isSamePlayer(username);
   }
 
-  #assignHostToNext() {
-    if (!this.#players[1]) {
-      return;
-    }
-    this.#players[1].setHost();
-    this.#host = this.#players[1];
-  }
-
-  removePlayer(username) {
-    if (this.isHost(username)) {
-      this.#assignHostToNext();
-    }
-    this.#players = this.#players.filter(player =>
-      !player.isSamePlayer(username));
-  }
-
-  canGameSustain() {
-    return this.#players.length > 0;
-  }
-
   getPlayers() {
     return this.#players.map(player => player.info);
   }
@@ -155,7 +116,6 @@ class Game {
   }
 
   changeGameStatus() {
-    this.#isGameStarted = true;
     this.#currentPlayerIndex = 0;
   }
 
@@ -175,14 +135,14 @@ class Game {
   }
 
   canGameStart() {
-    return this.#players.length >= this.#limit.min && !this.#isGameStarted;
+    return this.#players.length >= this.#limit.min;
   }
 
   isGameFull() {
     return this.#players.length >= this.#limit.max;
   }
 
-  updateRound() {
+  #updateRound() {
     const currentPlayer = this.#players[this.#currentPlayerIndex];
     if (currentPlayer.info.role === mrX) {
       this.#round += 1;
@@ -195,19 +155,11 @@ class Game {
     currentPlayer.updateLog(ticket);
     currentPlayer.reduceTicket(ticket);
 
-    this.updateRound();
+    this.#updateRound();
 
     if (!this.isTwoXInAction()) {
       this.changeCurrentPlayer();
     }
-  }
-
-  getLocations() {
-    return this.#players.map(({ color, currentPosition }) => ({ color, currentPosition }));
-  }
-
-  stopInfo(stop) {
-    return JSON.parse(JSON.stringify(this.#stops[stop]));
   }
 
   assignRoles(roles, shuffler = (x) => x) {
@@ -222,12 +174,6 @@ class Game {
     this.#players.forEach((player, index) => {
       player.updatePosition(initialPositions[index]);
     });
-  }
-
-  getStatus() {
-    const players = this.#players.map(player => player.info);
-    const isGameStarted = this.#isGameStarted;
-    return { players, isGameStarted };
   }
 
   #stopsOccupiedByDetectives() {
@@ -374,24 +320,12 @@ class Game {
     this.#setLastRoundWinStatus();
   }
 
-  isInLobby() {
-    return !this.#isGameStarted;
-  }
-
   get gameId() {
     return this.#gameId;
   }
 
-  get isStarted() {
-    return this.#isGameStarted;
-  }
-
   get currentPlayer() {
     return this.#players[this.#currentPlayerIndex].info;
-  }
-
-  get round() {
-    return this.#round;
   }
 
   get playerCount() {
@@ -427,7 +361,7 @@ class Game {
       return false;
     }
 
-    const roundsAfterTwoX = this.round - this.#twoXTakenAt;
+    const roundsAfterTwoX = this.#round - this.#twoXTakenAt;
     return roundsAfterTwoX > 2;
   }
 
@@ -441,7 +375,7 @@ class Game {
     if (this.#twoXTakenAt === null) {
       return false;
     }
-    const roundsAfterTwoX = this.round - this.#twoXTakenAt;
+    const roundsAfterTwoX = this.#round - this.#twoXTakenAt;
     return roundsAfterTwoX === 1;
   }
 
@@ -484,7 +418,8 @@ class Game {
   }
 
   getState() {
-    const gameData = this.getStatus();
+    const gameData = {};
+    gameData.players = this.getPlayers();
     gameData.gameId = this.#gameId;
     gameData.currentPlayerIndex = this.#currentPlayerIndex;
     gameData.round = this.#round;

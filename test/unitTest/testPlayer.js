@@ -10,51 +10,56 @@ describe('Player entity', () => {
 
   it('Should provide player info', () => {
     const username = 'raju';
-    let role, currentPosition, color, tickets, log = [];
+    let role, currentPosition, color, tickets;
+    const log = [];
 
     const actual = player.info;
-    const expected = { username, role, currentPosition, isHost: false, color, tickets, log };
+    const expected = { username, role, currentPosition, color, tickets, log };
     assert.deepStrictEqual(actual, expected);
   });
 
   it('Should assign role to player', () => {
+    let currentPosition;
     const username = 'raju';
-    let role = mrX, currentPosition, color = 'black', log = [];
+    const role = mrX, color = 'black', log = [];
 
     player.assignRole(role);
     const actual = player.info;
-    const expected = { username, role, currentPosition, isHost: false, color, tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 }, log };
+    const expected = { username, role, currentPosition, color, tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 }, log };
     assert.deepStrictEqual(actual, expected);
   });
 
   it('Shouldn\'t assign role if player already have a role', () => {
     const username = 'raju';
-    let role = mrX, currentPosition, color = 'black', log = [];
+    let currentPosition;
+    const role = mrX, color = 'black', log = [];
 
     player.assignRole(role);
     player.assignRole('xyz');
     const actual = player.info;
-    const expected = { username, role, currentPosition, isHost: false, color, tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 }, log };
+    const expected = { username, role, currentPosition, color, tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 }, log };
     assert.deepStrictEqual(actual, expected);
   });
 
   it('Should update player position', () => {
     const username = 'raju';
-    let role, color, currentPosition = 20, tickets, log = [];
+    const currentPosition = 20, log = [];
+    let role, color, tickets;
 
     player.updatePosition(20);
     const actual = player.info;
-    const expected = { username, role, currentPosition, isHost: false, color, tickets, log };
+    const expected = { username, role, currentPosition, color, tickets, log };
     assert.deepStrictEqual(actual, expected);
   });
 
   it('Should add taxi to the player\'s log', () => {
     const username = 'raju';
-    let role, color, currentPosition, tickets, log = ['taxi'];
+    let role, color, currentPosition, tickets;
+    const log = ['taxi'];
 
     player.updateLog('taxi');
     const actual = player.info;
-    const expected = { username, role, currentPosition, isHost: false, color, tickets, log };
+    const expected = { username, role, currentPosition, color, tickets, log };
     assert.deepStrictEqual(actual, expected);
   });
 
@@ -75,7 +80,6 @@ describe('Player entity', () => {
       color: 'black',
       currentPosition: 1,
       tickets: {},
-      isHost: false,
       username: 'user',
       log: []
     };

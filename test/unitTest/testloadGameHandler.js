@@ -98,7 +98,7 @@ describe('loadGame', () => {
     gameLoader(req, res);
 
     assert.deepStrictEqual(
-      game.getStatus().players[1].tickets,
+      game.getPlayers()[1].tickets,
       { taxi: 1, bus: 0, subway: 0, black: 0, twoX: 0 }
     );
   });

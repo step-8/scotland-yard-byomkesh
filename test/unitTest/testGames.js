@@ -7,7 +7,6 @@ describe('games', () => {
       role: 'Mr. X',
       username: 'user',
       tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 },
-      isHost: true,
       color: 'black',
       currentPosition: 2,
       log: []
@@ -16,7 +15,6 @@ describe('games', () => {
       games: [
         {
           gameId: 1,
-          isGameStarted: true,
           players: [playerData],
           currentPlayerIndex: 1,
           twoXTakenAt: null
@@ -30,23 +28,16 @@ describe('games', () => {
     games.init(gameData);
 
     const game = games.findGame(1);
-    const expected = {
-      isGameStarted: true,
-      players: [playerData]
-    };
+    const expected = [playerData];
 
-    assert.deepStrictEqual(game.getStatus(), expected);
+    assert.deepStrictEqual(game.getPlayers(), expected);
   });
 
   it('Should create game', () => {
     const games = new Games({});
     const game = games.createGame();
-    const expected = {
-      isGameStarted: false,
-      players: []
-    };
 
-    assert.deepStrictEqual(game.getStatus(), expected);
+    assert.deepStrictEqual(game.getPlayers(), []);
     assert.deepStrictEqual(game.gameId, 1);
   });
 
@@ -54,12 +45,8 @@ describe('games', () => {
     const games = new Games({});
     games.createGame();
     const game = games.findGame(1);
-    const expected = {
-      isGameStarted: false,
-      players: []
-    };
 
-    assert.deepStrictEqual(game.getStatus(), expected);
+    assert.deepStrictEqual(game.getPlayers(), []);
     assert.deepStrictEqual(game.gameId, 1);
   });
 
@@ -95,7 +82,6 @@ describe('games', () => {
     const expected = {
       newGameId: 2, games: [
         {
-          isGameStarted: false,
           players: [],
           gameId: 1,
           currentPlayerIndex: undefined,

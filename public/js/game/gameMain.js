@@ -6,7 +6,7 @@ const leaveGame = () => {
 
 const handleLeaveGame = () => {
   const message = 'Are you sure you want to leave the Game?';
-  createConfirmationPopup(message, leaveGame, removePopUp)
+  createConfirmationPopup(message, leaveGame, removePopUp);
 };
 
 const API = {

@@ -34,37 +34,11 @@ describe('Game', () => {
     let currentPosition, role, color;
     const player = new Player('host');
     game.addPlayer(player);
-    const expected = {
-      players: [
-        { currentPosition, isHost: false, log: [], role, username: 'host', color, tickets: undefined }
-      ],
-      isGameStarted: false
-    };
+    const expected = [
+      { currentPosition, log: [], role, username: 'host', color, tickets: undefined }
+    ];
 
-    assert.deepStrictEqual(game.getStatus(), expected);
-  });
-
-  it('Should remove player ', () => {
-    let currentPosition, role, color;
-    const player = new Player('host');
-    const player1 = new Player('joinee');
-    game.addPlayer(player);
-    game.addPlayer(player1);
-    game.removePlayer('joinee');
-    const expected = {
-      players: [
-        { currentPosition, isHost: false, log: [], role, username: 'host', color, tickets: undefined }
-      ],
-      isGameStarted: false
-    };
-    assert.deepStrictEqual(game.getStatus(), expected);
-  });
-
-  it('Should return true if the player is host', () => {
-    const player = new Player('host');
-    game.addPlayer(player);
-
-    assert.ok(game.isHost('host'));
+    assert.deepStrictEqual(game.getPlayers(), expected);
   });
 
   it('Should return false if game cannot started', () => {
@@ -111,9 +85,9 @@ describe('Game', () => {
     const roles = ['Mr. X', 'b', 'c', 'd'];
     let currentPosition, color;
     const expected = [
-      { username: 'host', role: 'Mr. X', currentPosition, isHost: false, log: [], color: 'black', tickets: MR_X_TICKETS },
-      { username: 'player1', role: 'b', currentPosition, isHost: false, log: [], color, tickets: DETECTIVE_TICKETS },
-      { username: 'player2', role: 'c', currentPosition, isHost: false, log: [], color, tickets: DETECTIVE_TICKETS }
+      { username: 'host', role: 'Mr. X', currentPosition, log: [], color: 'black', tickets: MR_X_TICKETS },
+      { username: 'player1', role: 'b', currentPosition, log: [], color, tickets: DETECTIVE_TICKETS },
+      { username: 'player2', role: 'c', currentPosition, log: [], color, tickets: DETECTIVE_TICKETS }
     ];
     game.assignRoles(roles);
     assert.deepStrictEqual(game.getPlayers(), expected);
@@ -127,9 +101,9 @@ describe('Game', () => {
     const positions = [1, 2, 3];
     let role, color, tickets;
     const expected = [
-      { username: 'host', role, currentPosition: 1, isHost: false, log: [], color, tickets },
-      { username: 'player1', role, currentPosition: 2, isHost: false, log: [], color, tickets },
-      { username: 'player2', role, currentPosition: 3, isHost: false, log: [], color, tickets }
+      { username: 'host', role, currentPosition: 1, log: [], color, tickets },
+      { username: 'player1', role, currentPosition: 2, log: [], color, tickets },
+      { username: 'player2', role, currentPosition: 3, log: [], color, tickets }
     ];
     game.assignInitialPositions(positions);
     assert.deepStrictEqual(game.getPlayers(), expected);
@@ -143,9 +117,9 @@ describe('Game', () => {
 
     const tickets = { taxi: 10, bus: 8, subway: 4, black: 0, twoX: 0 };
     const expected = [
-      { username: 'host', role: 'Mr. X', currentPosition: 1, isHost: false, log: [], color: 'black', tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 } },
-      { username: 'player1', role: 'Detective Red', currentPosition: 2, isHost: false, log: [], color: 'red', tickets },
-      { username: 'player2', role: 'Detective Green', currentPosition: 3, isHost: false, log: [], color: 'green', tickets }
+      { username: 'host', role: 'Mr. X', currentPosition: 1, log: [], color: 'black', tickets: { taxi: 24, bus: 24, subway: 24, black: 5, twoX: 2 } },
+      { username: 'player1', role: 'Detective Red', currentPosition: 2, log: [], color: 'red', tickets },
+      { username: 'player2', role: 'Detective Green', currentPosition: 3, log: [], color: 'green', tickets }
     ];
 
     const positions = [1, 2, 3];
@@ -159,7 +133,7 @@ describe('Game', () => {
   it('Should initialize the game', () => {
 
     const gameData = {
-      isGameStarted: true, players: [], currentPlayerIndex: 0, round: 0, gameOver: false,
+      players: [], currentPlayerIndex: 0, round: 0, gameOver: false,
       winningStatus: null, leftPlayers: [],
       twoXTakenAt: null
     };
@@ -167,7 +141,6 @@ describe('Game', () => {
     game.init(gameData);
     const expected = {
       gameId: 1,
-      isGameStarted: true,
       players: [],
       currentPlayerIndex: 0,
       round: 0,

@@ -34,7 +34,6 @@ describe('gameStats handler', () => {
           username: 'player0',
           role: mrX,
           currentPosition: 19,
-          isHost: false,
           log: [],
           color: 'black',
           tickets: MR_X_TICKETS,
@@ -43,7 +42,6 @@ describe('gameStats handler', () => {
           username: 'player1',
           role: 'Detective Red',
           currentPosition: 43,
-          isHost: false,
           log: [],
           color: 'red',
           tickets: DETECTIVE_TICKETS
@@ -52,7 +50,6 @@ describe('gameStats handler', () => {
           username: 'player2',
           role: 'Detective Green',
           currentPosition: 32,
-          isHost: false,
           log: [],
           color: 'green',
           tickets: DETECTIVE_TICKETS
@@ -63,7 +60,6 @@ describe('gameStats handler', () => {
         username: 'player0',
         role: mrX,
         currentPosition: 19,
-        isHost: false,
         log: [],
         color: 'black',
         tickets: MR_X_TICKETS
@@ -98,7 +94,6 @@ describe('gameStats handler', () => {
           username: 'player0',
           role: 'Mr. X',
           currentPosition: null,
-          isHost: false,
           log: [],
           color: 'black',
           tickets: MR_X_TICKETS
@@ -107,7 +102,6 @@ describe('gameStats handler', () => {
           username: 'player1',
           role: 'Detective Red',
           currentPosition: 43,
-          isHost: false,
           log: [],
           color: 'red',
           tickets: DETECTIVE_TICKETS
@@ -116,7 +110,6 @@ describe('gameStats handler', () => {
           username: 'player2',
           role: 'Detective Green',
           currentPosition: 32,
-          isHost: false,
           log: [],
           color: 'green',
           tickets: DETECTIVE_TICKETS
@@ -127,7 +120,6 @@ describe('gameStats handler', () => {
         username: 'player0',
         role: mrX,
         currentPosition: null,
-        isHost: false,
         log: [],
         color: 'black',
         tickets: MR_X_TICKETS
