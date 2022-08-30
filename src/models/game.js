@@ -160,6 +160,11 @@ class Game {
   }
 
   changeCurrentPlayer() {
+    if (this.#gameOver) {
+      this.#setGameOverStatus();
+      return;
+    }
+
     this.#currentPlayerIndex =
       (this.#currentPlayerIndex + 1) % this.#players.length;
     if (!this.isPlayerActive(this.currentPlayer.username)) {
@@ -399,7 +404,8 @@ class Game {
   }
 
   haveAllDetectivesLeft() {
-    return this.#getDetectives().length === this.#leftPlayers.length;
+    const status = this.#getDetectives().length === this.#leftPlayers.length;
+    return this.#gameOver ? false : status;
   }
 
   isRevelationRound() {

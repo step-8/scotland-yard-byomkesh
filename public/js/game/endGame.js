@@ -1,30 +1,30 @@
 const exitGame = () => {
+  const exitBtn = query('.game-end');
+  exitBtn.addEventListener('click', () => { });
   const form = document.querySelector('form');
   form.submit();
 };
 
 const winningMessagesLookup = (winningStatus) => {
-  const lookup = {
-    1: 'Detectives blocked Mr. X',
-    2: 'Detective Red caught Mr. X',
-    3: 'Detective Green caught Mr. X',
-    4: 'Detective Purple caught Mr. X',
-    5: 'Detective Blue caught Mr. X',
-    6: 'Detective Orange caught Mr. X',
-    7: 'Mr. X left the game',
-    8: 'All Detectives are stranded',
-    9: 'All Detectives ran out of tickets',
-    10: 'Mr. X escaped',
-    11: 'All Detectives left the game',
+  const lookup = [
+    'Detectives blocked Mr. X',
+    'Detective Red caught Mr. X',
+    'Detective Green caught Mr. X',
+    'Detective Purple caught Mr. X',
+    'Detective Blue caught Mr. X',
+    'Detective Orange caught Mr. X',
+    'Mr. X left the game',
+    'All Detectives are stranded',
+    'All Detectives ran out of tickets',
+    'Mr. X escaped',
+    'All Detectives left the game'
+  ];
 
-  };
-
-  return lookup[winningStatus];
+  return lookup[winningStatus - 1];
 };
 
 const createHomeLink = () => {
-  const link = new Element('a')
-    .add('href', '#')
+  const link = new Element('div')
     .addEvent('click', exitGame)
     .addClass('game-end')
     .addClass('center-flex')
