@@ -9,7 +9,7 @@ const createRedisClient = () => {
       REDIS_PORT: port
     } = process.env;
 
-    const url = `redis://${username}:${password}@${host}:${port}`;
+    const url = `rediss://${username}:${password}@${host}:${port}`;
 
     return redis.createClient({ url });
   }
